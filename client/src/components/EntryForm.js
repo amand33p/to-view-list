@@ -96,7 +96,7 @@ const EntryForm = () => {
         value={type}
         onChange={({ target }) => setType(target.value)}
         defaultValue="article"
-        className={classes.radioGroup}
+        row
       >
         <FormControlLabel
           label="Article"
@@ -109,7 +109,9 @@ const EntryForm = () => {
           value="video"
         />
       </RadioGroup>
-      <Button type="submit">Add Entry</Button>
+      <Button type="submit" variant="contained" color="primary">
+        Add Entry
+      </Button>
     </FormControl>
   );
 };

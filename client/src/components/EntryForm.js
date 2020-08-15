@@ -8,12 +8,12 @@ import {
   RadioGroup,
   Radio,
   Button,
-  InputAdornment,
 } from '@material-ui/core/';
 
 import TitleIcon from '@material-ui/icons/Title';
 import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,8 +35,23 @@ const EntryForm = () => {
       justifyContent: 'center',
       padding: 20,
     },
+    input: {
+      display: 'flex',
+      alignItems: 'flex-end',
+    },
+    inputIcon: {
+      marginRight: 8,
+    },
     radioLabel: {
-      fontSize: '12px',
+      marginLeft: 9,
+    },
+    radioGroup: {
+      marginLeft: 20,
+    },
+    radioInput: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: 10,
     },
   }));
 
@@ -49,66 +64,66 @@ const EntryForm = () => {
       margin="normal"
       className={classes.root}
     >
-      <TextField
-        required
-        label="Title"
-        value={title}
-        onChange={({ target }) => setTitle(target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <TitleIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        required
-        label="Link"
-        value={link}
-        onChange={({ target }) => setLink(target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LinkIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        required
-        label="Description"
-        value={description}
-        onChange={({ target }) => setDescription(target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <DescriptionIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <FormLabel component="legend" className={classes.radioLabel}>
-        Link Type
-      </FormLabel>
-      <RadioGroup
-        label="Type"
-        value={type}
-        onChange={({ target }) => setType(target.value)}
-        defaultValue="article"
-        row
-      >
-        <FormControlLabel
-          label="Article"
-          control={<Radio color="primary" />}
-          value="article"
+      <div className={classes.input}>
+        <TitleIcon color="primary" className={classes.inputIcon} />
+        <TextField
+          required
+          label="Title"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+          fullWidth
         />
-        <FormControlLabel
-          label="Video"
-          control={<Radio color="primary" />}
-          value="video"
+      </div>
+      <div className={classes.input}>
+        <LinkIcon color="primary" className={classes.inputIcon} />
+        <TextField
+          required
+          label="Link"
+          value={link}
+          onChange={({ target }) => setLink(target.value)}
+          fullWidth
         />
-      </RadioGroup>
+      </div>
+      <div className={classes.input}>
+        <DescriptionIcon color="primary" className={classes.inputIcon} />
+        <TextField
+          required
+          label="Description"
+          value={description}
+          onChange={({ target }) => setDescription(target.value)}
+          fullWidth
+        />
+      </div>
+      <div className={classes.radioInput}>
+        <CheckCircleOutlineIcon color="primary" />
+        <FormLabel component="legend" className={classes.radioLabel}>
+          Link Type:
+        </FormLabel>
+        <RadioGroup
+          label="Type"
+          value={type}
+          onChange={({ target }) => setType(target.value)}
+          defaultValue="article"
+          row
+          className={classes.radioGroup}
+        >
+          <FormControlLabel
+            label="Article"
+            control={<Radio color="primary" />}
+            value="article"
+          />
+          <FormControlLabel
+            label="Video"
+            control={<Radio color="primary" />}
+            value="video"
+          />
+          <FormControlLabel
+            label="Other"
+            control={<Radio color="primary" />}
+            value="other"
+          />
+        </RadioGroup>
+      </div>
       <Button type="submit" variant="contained" color="primary">
         Add Entry
       </Button>

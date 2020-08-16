@@ -33,7 +33,7 @@ const NavBar = () => {
       flexGrow: 1,
     },
     navIcon: {
-      marginRight: 10,
+      marginRight: 6,
     },
     user: {
       marginRight: 10,
@@ -48,10 +48,7 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <FormatListBulletedIcon
-            className={classes.navIcon}
-            fontsize="large"
-          />
+          <FormatListBulletedIcon className={classes.navIcon} />
           <Typography variant="h6" className={classes.title}>
             ToViewList
           </Typography>

@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-import EntryForm from './components/EntryForm';
+import Routes from './components/Routes';
 
 import Container from '@material-ui/core/Container';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -8,12 +8,12 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const customTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#5a4d7a',
-      dark: '#7f6fa4',
+      main: '#4d577a',
+      dark: '#6f7ba4',
     },
     secondary: {
-      main: '#714d7a',
-      dark: '#9a6fa4',
+      main: '#9a8fb8',
+      dark: '#c4bed6',
     },
   },
 });
@@ -23,7 +23,7 @@ const App = () => {
     <ThemeProvider theme={customTheme}>
       <Container disableGutters>
         <NavBar />
-        <EntryForm />
+        <Routes />
       </Container>
     </ThemeProvider>
   );

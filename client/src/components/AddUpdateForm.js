@@ -19,7 +19,49 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const EntryForm = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  input: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  radioLabel: {
+    marginLeft: 9,
+  },
+  radioGroup: {
+    marginLeft: 20,
+  },
+  radioInput: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  tags: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  tagButton: {
+    marginLeft: 10,
+  },
+  tag: {
+    marginLeft: 14,
+  },
+  tagGroup: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+    },
+  },
+}));
+
+const AddUpdateForm = () => {
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
   const [description, setDescription] = useState('');
@@ -43,48 +85,6 @@ const EntryForm = () => {
     setTagsArray(tagsArray.filter((t) => t !== targetTag));
   };
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      padding: 20,
-    },
-    input: {
-      display: 'flex',
-      alignItems: 'flex-end',
-    },
-    inputIcon: {
-      marginRight: 8,
-    },
-    radioLabel: {
-      marginLeft: 9,
-    },
-    radioGroup: {
-      marginLeft: 20,
-    },
-    radioInput: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: 10,
-    },
-    tags: {
-      display: 'flex',
-      alignItems: 'flex-end',
-    },
-    tagButton: {
-      marginLeft: 10,
-    },
-    tag: {
-      marginLeft: 14,
-    },
-    tagGroup: {
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
-    },
-  }));
-
   const classes = useStyles();
 
   return (
@@ -97,6 +97,7 @@ const EntryForm = () => {
       <div className={classes.input}>
         <TitleIcon color="secondary" className={classes.inputIcon} />
         <TextField
+          color="secondary"
           required
           label="Title"
           value={title}
@@ -107,6 +108,7 @@ const EntryForm = () => {
       <div className={classes.input}>
         <LinkIcon color="secondary" className={classes.inputIcon} />
         <TextField
+          color="secondary"
           required
           label="Link"
           value={link}
@@ -117,6 +119,7 @@ const EntryForm = () => {
       <div className={classes.input}>
         <DescriptionIcon color="secondary" className={classes.inputIcon} />
         <TextField
+          color="secondary"
           required
           multiline
           label="Description"
@@ -128,12 +131,13 @@ const EntryForm = () => {
       <div className={classes.input}>
         <LocalOfferIcon color="secondary" className={classes.inputIcon} />
         <TextField
+          color="secondary"
           label="Add Tags"
           value={tag}
           onChange={({ target }) => setTag(target.value)}
         />
         <Button
-          color="primary"
+          color="secondary"
           size="small"
           variant="outlined"
           onClick={handleTagButton}
@@ -148,7 +152,7 @@ const EntryForm = () => {
               label={tag}
               onDelete={() => handleTagDelete(tag)}
               variant="outlined"
-              color="primary"
+              color="secondary"
               className={classes.tag}
             />
           ))}
@@ -169,17 +173,17 @@ const EntryForm = () => {
         >
           <FormControlLabel
             label="Article"
-            control={<Radio color="primary" />}
+            control={<Radio color="secondary" />}
             value="article"
           />
           <FormControlLabel
             label="Video"
-            control={<Radio color="primary" />}
+            control={<Radio color="secondary" />}
             value="video"
           />
           <FormControlLabel
             label="Other"
-            control={<Radio color="primary" />}
+            control={<Radio color="secondary" />}
             value="other"
           />
         </RadioGroup>
@@ -191,4 +195,4 @@ const EntryForm = () => {
   );
 };
 
-export default EntryForm;
+export default AddUpdateForm;

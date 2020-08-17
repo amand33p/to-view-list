@@ -1,17 +1,36 @@
 import React, { useState } from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+} from '@material-ui/core';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  navIcon: {
+    marginRight: 6,
+  },
+  user: {
+    marginRight: 10,
+  },
+}));
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,21 +43,6 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    title: {
-      flexGrow: 1,
-    },
-    navIcon: {
-      marginRight: 6,
-    },
-    user: {
-      marginRight: 10,
-    },
-  }));
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));

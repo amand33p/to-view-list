@@ -4,7 +4,7 @@ import Card from './Card';
 const EntriesDisplay = () => {
   const entries = {
     title: 'Great Javascript tutorial',
-    link: 'https://javascript.info',
+    link: 'javascript.info',
     description: `I'm in love with this awesome site. All the importants quirks of JS are explained nicely.`,
     tags: ['programming', 'javascript'],
     type: 'article',

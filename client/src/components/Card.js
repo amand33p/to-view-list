@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   Link,
   Chip,
+  Button,
 } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -17,6 +18,10 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import LinkIcon from '@material-ui/icons/Link';
+import WebIcon from '@material-ui/icons/Web';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,12 +36,17 @@ const useStyles = makeStyles((theme) => ({
       flexWrap: 'wrap',
     },
   },
-  checkboxes: {
+  endButtons: {
+    display: 'flex',
+    alignItems: 'center',
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
     },
   },
   linkTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
     [theme.breakpoints.down('xs')]: {
       fontSize: 20,
     },
@@ -79,13 +89,44 @@ const Card = ({ entries }) => {
     console.log('filtered by tag', tag);
   };
 
+  const handleEdit = () => {
+    console.log('edited');
+  };
+
+  const handleDelete = () => {
+    console.log('deleted');
+  };
+
+  const formattedLink = link.startsWith('http') ? link : `https://${link}`;
+
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={2}>
       <div className={classes.cardTitle}>
         <Typography variant="h5" className={classes.linkTitle}>
+          {type === 'article' ? (
+            <WebIcon style={{ marginRight: 8 }} />
+          ) : type === 'video' ? (
+            <YouTubeIcon style={{ marginRight: 8 }} />
+          ) : null}
           {title}
         </Typography>
-        <div className={classes.checkboxes}>
+
+        <div className={classes.endButtons}>
+          <Button
+            onClick={handleEdit}
+            startIcon={<EditIcon />}
+            color="secondary"
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={handleDelete}
+            startIcon={<DeleteIcon />}
+            color="secondary"
+          >
+            Delete
+          </Button>
+
           <FormControlLabel
             control={
               <Checkbox
@@ -111,14 +152,16 @@ const Card = ({ entries }) => {
       </div>
       <div>
         <Link
-          href={link.startsWith('http') ? link : `https://${link}`}
+          href={formattedLink}
           target="_blank"
           rel="noreferrer"
           variant="h6"
           className={classes.link}
         >
           <LinkIcon style={{ marginRight: 8 }} />
-          {link.length > 40 ? link.slice(0, 40) + '...' : link}
+          {formattedLink.length > 40
+            ? formattedLink.slice(0, 40) + '...'
+            : formattedLink}
         </Link>
         <Typography varaint="body1">{description}</Typography>
         <div className={classes.tagsGroup}>

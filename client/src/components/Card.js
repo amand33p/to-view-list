@@ -9,6 +9,7 @@ import {
   Link,
   Chip,
   Button,
+  IconButton,
 } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -64,6 +65,20 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 16,
     },
   },
+  delete: {
+    color: '#ff6347',
+    '&:hover': {
+      backgroundColor: '#ffe8e4',
+    },
+    marginRight: 5,
+  },
+  edit: {
+    color: '#536dfe',
+    '&:hover': {
+      backgroundColor: '#eff1ff',
+    },
+    marginRight: 5,
+  },
 }));
 
 const Card = ({ entries }) => {
@@ -112,20 +127,33 @@ const Card = ({ entries }) => {
         </Typography>
 
         <div className={classes.endButtons}>
-          <Button
-            onClick={handleEdit}
-            startIcon={<EditIcon />}
-            color="secondary"
-          >
-            Edit
-          </Button>
-          <Button
-            onClick={handleDelete}
-            startIcon={<DeleteIcon />}
-            color="secondary"
-          >
-            Delete
-          </Button>
+          {!isMobile ? (
+            <>
+              <Button
+                onClick={handleEdit}
+                startIcon={<EditIcon />}
+                className={classes.edit}
+              >
+                Edit
+              </Button>
+              <Button
+                onClick={handleDelete}
+                startIcon={<DeleteIcon />}
+                className={classes.delete}
+              >
+                Delete
+              </Button>
+            </>
+          ) : (
+            <>
+              <IconButton onClick={handleEdit} className={classes.edit}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={handleDelete} className={classes.delete}>
+                <DeleteIcon />
+              </IconButton>
+            </>
+          )}
 
           <FormControlLabel
             control={

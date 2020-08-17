@@ -41,11 +41,12 @@ const Filter = () => {
     articles: false,
     others: false,
     viewed: false,
+    starred: false,
   });
 
   const classes = useStyles();
 
-  const { links, articles, others, viewed } = filter;
+  const { links, articles, others, viewed, starred } = filter;
 
   const handleCheckboxChange = (event) => {
     setFilter({ ...filter, [event.target.name]: event.target.checked });
@@ -62,6 +63,7 @@ const Filter = () => {
       articles: false,
       others: false,
       viewed: false,
+      starred: false,
     });
   };
 
@@ -111,6 +113,16 @@ const Filter = () => {
             />
           }
           label="Viewed"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={starred}
+              onChange={handleCheckboxChange}
+              name="starred"
+            />
+          }
+          label="Starred"
         />
         <IconButton
           onClick={handleUncheck}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Search from './Search';
 import Filter from './Filter';
+import EntriesDisplay from './EntriesDisplay';
 import AddUpdateForm from './AddUpdateForm';
 
 import { Paper } from '@material-ui/core';
@@ -14,6 +15,7 @@ const Routes = () => {
           <Search />
           <Filter />
         </Paper>
+        <EntriesDisplay />
       </Route>
       <Route exact path="/add_update">
         <AddUpdateForm />

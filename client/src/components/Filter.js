@@ -137,7 +137,7 @@ const Filter = () => {
       <Button
         type="submit"
         variant="contained"
-        color="secondary"
+        color="primary"
         startIcon={<FilterListIcon />}
         className={classes.filterButton}
       >

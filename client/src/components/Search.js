@@ -60,7 +60,7 @@ const Search = () => {
       />
       <Button
         onClick={handleSearch}
-        color="secondary"
+        color="primary"
         variant="contained"
         startIcon={<PageviewIcon />}
         className={classes.searchButton}

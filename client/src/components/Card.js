@@ -10,6 +10,7 @@ import {
   Chip,
   Button,
   IconButton,
+  Divider,
 } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -41,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     [theme.breakpoints.down('xs')]: {
-      display: 'flex',
+      width: '100%',
+      justifyContent: 'space-between',
     },
   },
   linkTitle: {
@@ -79,6 +81,31 @@ const useStyles = makeStyles((theme) => ({
     },
     marginRight: 5,
   },
+  star: {
+    '&:hover': {
+      backgroundColor: '#ffefd8',
+    },
+  },
+  starButton: {
+    borderRadius: 4,
+    marginLeft: 1,
+    paddingRight: 8,
+    '&:hover': {
+      backgroundColor: '#ffefd8',
+    },
+  },
+  view: {
+    '&:hover': {
+      backgroundColor: '#e6f5f3',
+    },
+  },
+  viewButton: {
+    paddingRight: 8,
+    borderRadius: 4,
+    '&:hover': {
+      backgroundColor: '#e6f5f3',
+    },
+  },
 }));
 
 const Card = ({ entries }) => {
@@ -115,7 +142,7 @@ const Card = ({ entries }) => {
   const formattedLink = link.startsWith('http') ? link : `https://${link}`;
 
   return (
-    <Paper className={classes.root} elevation={2}>
+    <Paper className={classes.root} variant="outlined">
       <div className={classes.cardTitle}>
         <Typography variant="h5" className={classes.linkTitle}>
           {type === 'article' ? (
@@ -158,26 +185,32 @@ const Card = ({ entries }) => {
           <FormControlLabel
             control={
               <Checkbox
-                icon={<StarBorderIcon />}
-                checkedIcon={<StarIcon />}
-                name="star"
+                icon={<StarBorderIcon style={{ color: '#ff9800' }} />}
+                checkedIcon={<StarIcon style={{ color: '#ff9800' }} />}
+                className={classes.star}
               />
             }
             label={isMobile ? '' : isStarred ? 'Starred!' : 'Star it'}
             onChange={handleStarred}
+            style={{ color: '#ff9800' }}
+            className={classes.starButton}
           />
           <FormControlLabel
             control={
               <Checkbox
-                icon={<VisibilityOutlinedIcon />}
-                checkedIcon={<VisibilityIcon />}
+                icon={<VisibilityOutlinedIcon style={{ color: '#4db6ac' }} />}
+                checkedIcon={<VisibilityIcon style={{ color: '#4db6ac' }} />}
+                className={classes.view}
               />
             }
             label={isMobile ? '' : isViewed ? 'Viewed!' : 'Mark as viewed'}
             onChange={handleViewed}
+            style={{ color: '#4db6ac' }}
+            className={classes.viewButton}
           />
         </div>
       </div>
+      <Divider />
       <div>
         <Link
           href={formattedLink}

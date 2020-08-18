@@ -56,8 +56,15 @@ const useStyles = makeStyles((theme) => ({
   },
   tagGroup: {
     [theme.breakpoints.down('xs')]: {
-      display: 'flex',
+      width: '100%',
+      marginTop: 8,
+      marginLeft: 12,
     },
+  },
+  tagArea: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
   },
 }));
 
@@ -128,23 +135,25 @@ const AddUpdateForm = () => {
           fullWidth
         />
       </div>
-      <div className={classes.input}>
-        <LocalOfferIcon color="secondary" className={classes.inputIcon} />
-        <TextField
-          color="secondary"
-          label="Add Tags"
-          value={tag}
-          onChange={({ target }) => setTag(target.value)}
-        />
-        <Button
-          color="secondary"
-          size="small"
-          variant="outlined"
-          onClick={handleTagButton}
-          className={classes.tagButton}
-        >
-          Add
-        </Button>
+      <div className={classes.tagArea}>
+        <div className={classes.input}>
+          <LocalOfferIcon color="secondary" className={classes.inputIcon} />
+          <TextField
+            color="secondary"
+            label="Add Tags"
+            value={tag}
+            onChange={({ target }) => setTag(target.value)}
+          />
+          <Button
+            color="secondary"
+            size="small"
+            variant="outlined"
+            onClick={handleTagButton}
+            className={classes.tagButton}
+          >
+            Add
+          </Button>
+        </div>
         <div className={classes.tagGroup}>
           {tagsArray.map((tag) => (
             <Chip

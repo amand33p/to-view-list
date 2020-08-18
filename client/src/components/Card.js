@@ -27,7 +27,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 40,
+    marginTop: 20,
     padding: 20,
   },
   cardTitle: {
@@ -69,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
   },
   delete: {
     color: '#ff6347',
+    textTransform: 'capitalize',
+    fontSize: 16,
     '&:hover': {
       backgroundColor: '#ffe8e4',
     },
@@ -76,6 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
   edit: {
     color: '#536dfe',
+    fontSize: 16,
+    textTransform: 'capitalize',
     '&:hover': {
       backgroundColor: '#eff1ff',
     },

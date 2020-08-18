@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
   AppBar,
@@ -24,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  navIcon: {
-    marginRight: 6,
-  },
   user: {
     marginRight: 10,
+  },
+  titleButton: {
+    textTransform: 'capitalize',
+    fontSize: 20,
   },
 }));
 
@@ -52,10 +54,18 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <FormatListBulletedIcon className={classes.navIcon} />
-          <Typography variant="h6" className={classes.title}>
-            ToViewList
-          </Typography>
+          <div className={classes.title}>
+            <Button
+              component={RouterLink}
+              to="/"
+              startIcon={<FormatListBulletedIcon fontSize="large" />}
+              color="inherit"
+              className={classes.titleButton}
+              size="large"
+            >
+              ToViewList
+            </Button>
+          </div>
 
           {isMobile ? (
             <>

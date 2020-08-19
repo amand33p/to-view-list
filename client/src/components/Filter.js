@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useStateValue } from '../context/entry/entryState';
+import { setFilterValues, resetFilter } from '../context/entry/entryReducer';
 
 import {
   FormControl,
   Button,
-  IconButton,
   FormGroup,
   FormControlLabel,
   Checkbox,
@@ -11,7 +12,7 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Filter = () => {
+  const [, dispatch] = useStateValue();
   const [filter, setFilter] = useState({
-    links: false,
+    videos: false,
     articles: false,
     others: false,
     viewed: false,
@@ -46,7 +48,7 @@ const Filter = () => {
 
   const classes = useStyles();
 
-  const { links, articles, others, viewed, starred } = filter;
+  const { videos, articles, others, viewed, starred } = filter;
 
   const handleCheckboxChange = (event) => {
     setFilter({ ...filter, [event.target.name]: event.target.checked });
@@ -54,17 +56,18 @@ const Filter = () => {
 
   const handleApplyFilter = (e) => {
     e.preventDefault();
-    console.log('filter applied', filter);
+    dispatch(setFilterValues(filter));
   };
 
   const handleUncheck = () => {
     setFilter({
-      links: false,
+      videos: false,
       articles: false,
       others: false,
       viewed: false,
       starred: false,
     });
+    dispatch(resetFilter());
   };
 
   return (
@@ -77,12 +80,12 @@ const Filter = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={links}
+              checked={videos}
               onChange={handleCheckboxChange}
-              name="links"
+              name="videos"
             />
           }
-          label="Links"
+          label="Videos"
         />
         <FormControlLabel
           control={
@@ -124,14 +127,9 @@ const Filter = () => {
           }
           label="Starred"
         />
-        <IconButton
-          onClick={handleUncheck}
-          variant="outlined"
-          color="secondary"
-          size="small"
-        >
-          <HighlightOffIcon />
-        </IconButton>
+        <Button onClick={handleUncheck} startIcon={<RotateLeftIcon />}>
+          Reset
+        </Button>
       </FormGroup>
 
       <Button

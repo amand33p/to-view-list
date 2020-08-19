@@ -25,7 +25,7 @@ const Routes = () => {
           color="primary"
           startIcon={<PostAddIcon />}
         >
-          New Entry
+          Add Entry
         </Button>
         <EntriesDisplay />
       </Route>

@@ -24,9 +24,10 @@ import WebIcon from '@material-ui/icons/Web';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LineStyleIcon from '@material-ui/icons/LineStyle';
 
-const Card = ({ entries }) => {
-  const { title, link, description, tags, type, viewed, starred } = entries;
+const Card = ({ entry }) => {
+  const { title, link, description, tags, type, viewed, starred } = entry;
 
   const [isStarred, setIsStarred] = useState(starred === 'true');
   const [isViewed, setIsViewed] = useState(viewed === 'true');
@@ -94,22 +95,12 @@ const Card = ({ entries }) => {
       },
       marginRight: 5,
     },
-    star: {
-      '&:hover': {
-        backgroundColor: '#ffefd8',
-      },
-    },
     starButton: {
       borderRadius: 4,
       marginLeft: 1,
       paddingRight: 8,
       '&:hover': {
         backgroundColor: '#ffefd8',
-      },
-    },
-    view: {
-      '&:hover': {
-        backgroundColor: '#d8efed',
       },
     },
     viewButton: {
@@ -153,10 +144,12 @@ const Card = ({ entries }) => {
       <div className={classes.cardTitle}>
         <Typography variant="h5" className={classes.linkTitle}>
           {type === 'article' ? (
-            <WebIcon style={{ marginRight: 8 }} />
+            <WebIcon style={{ marginRight: 8 }} fontSize="large" />
           ) : type === 'video' ? (
-            <YouTubeIcon style={{ marginRight: 8 }} />
-          ) : null}
+            <YouTubeIcon style={{ marginRight: 8 }} fontSize="large" />
+          ) : (
+            <LineStyleIcon style={{ marginRight: 8 }} fontSize="large" />
+          )}
           {title}
         </Typography>
 
@@ -192,6 +185,7 @@ const Card = ({ entries }) => {
           <FormControlLabel
             control={
               <Checkbox
+                checked={isStarred}
                 icon={<StarBorderIcon style={{ color: '#ff9800' }} />}
                 checkedIcon={<StarIcon style={{ color: '#ff9800' }} />}
                 className={classes.star}
@@ -205,6 +199,7 @@ const Card = ({ entries }) => {
           <FormControlLabel
             control={
               <Checkbox
+                checked={isViewed}
                 icon={<VisibilityOutlinedIcon style={{ color: '#46aaa0' }} />}
                 checkedIcon={<VisibilityIcon style={{ color: '#46aaa0' }} />}
                 className={classes.view}

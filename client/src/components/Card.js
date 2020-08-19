@@ -35,8 +35,9 @@ const Card = ({ entries }) => {
     root: {
       marginTop: 20,
       padding: 20,
-      borderColor: isViewed ? '#4db6ac' : '',
-      backgroundColor: isViewed ? '#e6f5f3' : '',
+      borderColor: isViewed ? '#9a8fb8' : '',
+      backgroundColor: isViewed ? '#f1eff5' : '',
+      color: isViewed ? '#8f83b0' : '',
     },
     cardTitle: {
       display: 'flex',
@@ -89,7 +90,7 @@ const Card = ({ entries }) => {
       fontSize: 16,
       textTransform: 'capitalize',
       '&:hover': {
-        backgroundColor: '#eff1ff',
+        backgroundColor: '#dce1ff',
       },
       marginRight: 5,
     },
@@ -108,14 +109,14 @@ const Card = ({ entries }) => {
     },
     view: {
       '&:hover': {
-        backgroundColor: '#e6f5f3',
+        backgroundColor: '#d8efed',
       },
     },
     viewButton: {
       paddingRight: 8,
       borderRadius: 4,
       '&:hover': {
-        backgroundColor: '#e6f5f3',
+        backgroundColor: '#d8efed',
       },
     },
   }));
@@ -204,8 +205,8 @@ const Card = ({ entries }) => {
           <FormControlLabel
             control={
               <Checkbox
-                icon={<VisibilityOutlinedIcon style={{ color: '#4db6ac' }} />}
-                checkedIcon={<VisibilityIcon style={{ color: '#4db6ac' }} />}
+                icon={<VisibilityOutlinedIcon style={{ color: '#46aaa0' }} />}
+                checkedIcon={<VisibilityIcon style={{ color: '#46aaa0' }} />}
                 className={classes.view}
               />
             }

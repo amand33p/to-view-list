@@ -20,6 +20,11 @@ const entryReducer = (state, action) => {
         ...state,
         search: null,
       };
+    case 'TAG_FILTER':
+      return {
+        ...state,
+        tag: action.payload,
+      };
     default:
       return state;
   }
@@ -48,6 +53,13 @@ export const setSearchInput = (input) => {
 export const clearSearch = () => {
   return {
     type: 'CLEAR_SEARCH',
+  };
+};
+
+export const setTagFilter = (tag) => {
+  return {
+    type: 'TAG_FILTER',
+    payload: tag,
   };
 };
 

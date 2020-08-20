@@ -2,10 +2,17 @@ import React, { useRef } from 'react';
 import { setSearchInput, clearSearch } from '../context/entry/entryReducer';
 import { useStateValue } from '../context/entry/entryState';
 
-import { TextField, InputAdornment, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  TextField,
+  InputAdornment,
+  Button,
+  IconButton,
+  useMediaQuery,
+} from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 import SearchIcon from '@material-ui/icons/Search';
-import PageviewIcon from '@material-ui/icons/Pageview';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,15 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   field: {
-    paddingRight: 20,
     [theme.breakpoints.down('xs')]: {
       paddingRight: 0,
-    },
-  },
-  searchButton: {
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 10,
-      width: '100%',
     },
   },
 }));
@@ -39,17 +39,32 @@ const Search = () => {
   const classes = useStyles();
   const [, dispatch] = useStateValue();
 
-  const handleSearch = () => {
-    dispatch(setSearchInput(query.current.value));
+  const handleSearchChange = () => {
+    if (query.current.value !== '') {
+      dispatch(setSearchInput(query.current.value));
+    } else {
+      dispatch(clearSearch());
+    }
   };
+
+  const handleClear = () => {
+    query.current.value = '';
+    dispatch(clearSearch());
+  };
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <div className={classes.root}>
       <TextField
         className={classes.field}
         fullWidth
-        placeholder="Search entries by title or description.."
+        label="Search"
+        variant="outlined"
+        placeholder="By title, tag or description"
         inputRef={query}
+        onChange={handleSearchChange}
         color="secondary"
         InputProps={{
           startAdornment: (
@@ -57,17 +72,25 @@ const Search = () => {
               <SearchIcon color="secondary" />
             </InputAdornment>
           ),
+          endAdornment: (
+            <InputAdornment position="end">
+              {isMobile ? (
+                <IconButton color="secondary" onClick={handleClear}>
+                  <HighlightOffIcon />
+                </IconButton>
+              ) : (
+                <Button
+                  color="primary"
+                  onClick={handleClear}
+                  startIcon={<HighlightOffIcon />}
+                >
+                  Clear
+                </Button>
+              )}
+            </InputAdornment>
+          ),
         }}
       />
-      <Button
-        onClick={handleSearch}
-        color="primary"
-        variant="contained"
-        startIcon={<PageviewIcon />}
-        className={classes.searchButton}
-      >
-        Search
-      </Button>
     </div>
   );
 };

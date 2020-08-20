@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tag: {
     marginLeft: 14,
+    textTransform: 'uppercase',
   },
   tagGroup: {
     [theme.breakpoints.down('xs')]: {

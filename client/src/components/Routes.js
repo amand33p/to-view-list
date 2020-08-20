@@ -15,18 +15,19 @@ const Routes = () => {
         <Paper style={{ marginTop: 15, padding: 10 }}>
           <Search />
           <Filter />
+          <Button
+            style={{ margin: '8px 0px 5px 19px' }}
+            component={RouterLink}
+            to="/add_update"
+            size="large"
+            variant="contained"
+            color="primary"
+            startIcon={<PostAddIcon />}
+          >
+            Add Entry
+          </Button>
         </Paper>
-        <Button
-          component={RouterLink}
-          to="/add_update"
-          style={{ margin: 10, marginTop: 20 }}
-          size="large"
-          variant="contained"
-          color="primary"
-          startIcon={<PostAddIcon />}
-        >
-          Add Entry
-        </Button>
+
         <EntriesDisplay />
       </Route>
       <Route exact path="/add_update">

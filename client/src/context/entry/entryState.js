@@ -36,6 +36,7 @@ const initialState = {
   ],
   filter: null,
   search: null,
+  tag: null,
 };
 
 const EntryContext = createContext();
@@ -43,7 +44,7 @@ const EntryContext = createContext();
 export const EntryStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(entryReducer, initialState);
 
-  console.log(state.search);
+  console.log(state.tag);
 
   return (
     <EntryContext.Provider value={[state, dispatch]}>

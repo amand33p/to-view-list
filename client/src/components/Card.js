@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { setTagFilter } from '../context/entry/entryReducer';
+import { useStateValue } from '../context/entry/entryState';
 
 import {
   Paper,
@@ -31,6 +33,8 @@ const Card = ({ entry }) => {
 
   const [isStarred, setIsStarred] = useState(starred === 'true');
   const [isViewed, setIsViewed] = useState(viewed === 'true');
+
+  const [, dispatch] = useStateValue();
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,6 +70,7 @@ const Card = ({ entry }) => {
     },
     tag: {
       marginRight: 5,
+      textTransform: 'uppercase',
     },
     tagsGroup: {
       marginTop: 8,
@@ -126,7 +131,7 @@ const Card = ({ entry }) => {
   };
 
   const handleTagFilter = (tag) => {
-    console.log('filtered by tag', tag);
+    dispatch(setTagFilter(tag));
   };
 
   const handleEdit = () => {
@@ -139,16 +144,18 @@ const Card = ({ entry }) => {
 
   const formattedLink = link.startsWith('http') ? link : `https://${link}`;
 
+  const iconSize = isMobile ? 'small' : 'large';
+
   return (
     <Paper className={classes.root} variant="outlined">
       <div className={classes.cardTitle}>
         <Typography variant="h5" className={classes.linkTitle}>
           {type === 'article' ? (
-            <WebIcon style={{ marginRight: 8 }} fontSize="large" />
+            <WebIcon style={{ marginRight: 8 }} fontSize={iconSize} />
           ) : type === 'video' ? (
-            <YouTubeIcon style={{ marginRight: 8 }} fontSize="large" />
+            <YouTubeIcon style={{ marginRight: 8 }} fontSize={iconSize} />
           ) : (
-            <LineStyleIcon style={{ marginRight: 8 }} fontSize="large" />
+            <LineStyleIcon style={{ marginRight: 8 }} fontSize={iconSize} />
           )}
           {title}
         </Typography>

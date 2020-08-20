@@ -71,6 +71,9 @@ const Card = ({ entry }) => {
     tag: {
       marginRight: 5,
       textTransform: 'uppercase',
+      '&:hover': {
+        backgroundColor: '#b0a7c7',
+      },
     },
     tagsGroup: {
       marginTop: 8,

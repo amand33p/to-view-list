@@ -12,11 +12,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  actionPanel: {
     padding: 15,
     paddingBottom: 0,
   },
-  actionBar: {
+  actionText: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -118,8 +118,8 @@ const EntriesDisplay = () => {
 
   return (
     <div>
-      <div className={classes.root}>
-        <div className={classes.actionBar}>
+      <div className={classes.actionPanel}>
+        <div className={classes.actionText}>
           <Typography variant="h6">{visibleEntries}</Typography>
           {tag || filter || search ? (
             <Button

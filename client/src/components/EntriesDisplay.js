@@ -1,20 +1,32 @@
 import React from 'react';
 import { useStateValue } from '../context/entry/entryState';
 import Card from './Card';
+import {
+  resetTagFilter,
+  resetFilter,
+  clearSearch,
+} from '../context/entry/entryReducer';
 
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 15,
     paddingBottom: 0,
   },
+  actionBar: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  goBackButton: {
+    marginLeft: 20,
+  },
 }));
 
 const EntriesDisplay = () => {
-  const [{ entries, filter, search, tag }] = useStateValue();
-
+  const [{ entries, filter, search, tag }, dispatch] = useStateValue();
   const classes = useStyles();
 
   let entriesArray = search
@@ -73,12 +85,61 @@ const EntriesDisplay = () => {
     return filteredArray;
   };
 
-  const visibleEntries = 'All';
+  let currentFilterArray = [];
+
+  const currentFilter = () => {
+    for (const key in filter) {
+      if (filter[key] === true) {
+        currentFilterArray.push(key);
+      }
+    }
+    return currentFilterArray;
+  };
+
+  const visibleEntries = filter
+    ? `Filtered to show - "${currentFilter().join(', ')}"`
+    : search
+    ? `Showing results for - searched "${search}"`
+    : tag
+    ? `Filtered by tag - "${tag.toLowerCase()}"`
+    : null;
+
+  const handleTagReset = () => {
+    dispatch(resetTagFilter());
+  };
+
+  const handleFilterReset = () => {
+    dispatch(resetFilter());
+  };
+
+  const handleSearchReset = () => {
+    dispatch(clearSearch());
+  };
 
   return (
     <div>
       <div className={classes.root}>
-        <Typography variant="h5">{visibleEntries}</Typography>
+        <div className={classes.actionBar}>
+          <Typography variant="h6">{visibleEntries}</Typography>
+          {tag || filter || search ? (
+            <Button
+              onClick={
+                tag
+                  ? handleTagReset
+                  : filter
+                  ? handleFilterReset
+                  : handleSearchReset
+              }
+              startIcon={<ArrowBackIcon />}
+              className={classes.goBackButton}
+              variant="contained"
+              size="small"
+              color="primary"
+            >
+              Go Back
+            </Button>
+          ) : null}
+        </div>
       </div>
       {filterEntries().map((entry) => (
         <Card key={entry.id} entry={entry} />

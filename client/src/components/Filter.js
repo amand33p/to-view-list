@@ -127,11 +127,7 @@ const Filter = () => {
           }
           label="Starred"
         />
-        <Button
-          onClick={handleUncheck}
-          startIcon={<RotateLeftIcon />}
-          color="primary"
-        >
+        <Button onClick={handleUncheck} startIcon={<RotateLeftIcon />}>
           Reset
         </Button>
       </FormGroup>

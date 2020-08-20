@@ -25,6 +25,11 @@ const entryReducer = (state, action) => {
         ...state,
         tag: action.payload,
       };
+    case 'RESET_TAG_FILTER':
+      return {
+        ...state,
+        tag: null,
+      };
     default:
       return state;
   }
@@ -60,6 +65,12 @@ export const setTagFilter = (tag) => {
   return {
     type: 'TAG_FILTER',
     payload: tag,
+  };
+};
+
+export const resetTagFilter = () => {
+  return {
+    type: 'RESET_TAG_FILTER',
   };
 };
 

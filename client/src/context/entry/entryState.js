@@ -34,13 +34,16 @@ const initialState = {
       id: '3',
     },
   ],
-  filter: {},
+  filter: null,
+  search: null,
 };
 
 const EntryContext = createContext();
 
 export const EntryStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(entryReducer, initialState);
+
+  console.log(state.search);
 
   return (
     <EntryContext.Provider value={[state, dispatch]}>

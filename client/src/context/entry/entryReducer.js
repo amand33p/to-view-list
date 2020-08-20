@@ -8,7 +8,17 @@ const entryReducer = (state, action) => {
     case 'RESET_FILTER':
       return {
         ...state,
-        filter: {},
+        filter: null,
+      };
+    case 'SEARCH_ENTRIES':
+      return {
+        ...state,
+        search: action.payload,
+      };
+    case 'CLEAR_SEARCH':
+      return {
+        ...state,
+        search: null,
       };
     default:
       return state;
@@ -25,6 +35,19 @@ export const setFilterValues = (itemsToFilter) => {
 export const resetFilter = () => {
   return {
     type: 'RESET_FILTER',
+  };
+};
+
+export const setSearchInput = (input) => {
+  return {
+    type: 'SEARCH_ENTRIES',
+    payload: input,
+  };
+};
+
+export const clearSearch = () => {
+  return {
+    type: 'CLEAR_SEARCH',
   };
 };
 

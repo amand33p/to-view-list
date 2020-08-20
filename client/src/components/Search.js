@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import { setSearchInput, clearSearch } from '../context/entry/entryReducer';
+import { useStateValue } from '../context/entry/entryState';
 
 import { TextField, InputAdornment, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = () => {
-  const [query, setQuery] = useState('');
-
+  const query = useRef();
   const classes = useStyles();
+  const [, dispatch] = useStateValue();
 
   const handleSearch = () => {
-    console.log('searched', query);
+    dispatch(setSearchInput(query.current.value));
   };
 
   return (
@@ -47,8 +49,7 @@ const Search = () => {
         className={classes.field}
         fullWidth
         placeholder="Search entries by title or description.."
-        value={query}
-        onChange={({ target }) => setQuery(target.value)}
+        inputRef={query}
         color="secondary"
         InputProps={{
           startAdornment: (

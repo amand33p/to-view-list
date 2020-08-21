@@ -89,7 +89,7 @@ const EntriesDisplay = () => {
     <div>
       <div className={classes.root}>
         <div className={classes.textAndButton}>
-          <Typography variant="h6" className={classes.infoText}>
+          <Typography variant="h6" className={classes.infoText} color="primary">
             {infoText}
           </Typography>
           {tag || filter || search ? (

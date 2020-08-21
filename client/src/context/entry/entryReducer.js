@@ -1,4 +1,5 @@
 const entryReducer = (state, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case 'SET_FILTER':
       return {
@@ -29,6 +30,27 @@ const entryReducer = (state, action) => {
       return {
         ...state,
         tag: null,
+      };
+    case 'SORT_ENTRIES':
+      return {
+        ...state,
+        entries: state.entries.sort((a, b) => {
+          if (action.payload === 'oldestfirst') {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          }
+
+          if (action.payload === 'newestfirst') {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          }
+
+          if (action.payload === 'a-z') {
+            return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+          }
+
+          if (action.payload === 'z-a') {
+            return a.title < b.title ? 1 : a.title > b.title ? -1 : 0;
+          }
+        }),
       };
     default:
       return state;
@@ -71,6 +93,13 @@ export const setTagFilter = (tag) => {
 export const resetTagFilter = () => {
   return {
     type: 'RESET_TAG_FILTER',
+  };
+};
+
+export const sortEntries = (sortBy) => {
+  return {
+    type: 'SORT_ENTRIES',
+    payload: sortBy,
   };
 };
 

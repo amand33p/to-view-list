@@ -74,6 +74,9 @@ const Card = ({ entry }) => {
       '&:hover': {
         backgroundColor: '#b0a7c7',
       },
+      [theme.breakpoints.down('xs')]: {
+        marginBottom: 5,
+      },
     },
     tagsGroup: {
       marginTop: 8,

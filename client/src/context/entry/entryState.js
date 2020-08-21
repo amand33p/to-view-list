@@ -11,7 +11,22 @@ const initialState = {
       type: 'article',
       viewed: 'false',
       starred: 'false',
+      createdAt: 'Fri Aug 21 2020 14:26:27 GMT+0530 (India Standard Time)',
+      updatedAt: 'Fri Aug 21 2020 14:26:27 GMT+0530 (India Standard Time)',
       id: '1',
+    },
+
+    {
+      title: `Brad Traversy's tuts are well explained`,
+      link: 'https://youtu.be/hdI2bqOjy3c',
+      description: `Great guy who teaches stuff with passion.`,
+      tags: ['programming', 'javascript'],
+      type: 'video',
+      viewed: 'false',
+      starred: 'true',
+      createdAt: 'Fri Aug 21 2020 15:30:27 GMT+0530 (India Standard Time)',
+      updatedAt: 'Fri Aug 21 2020 15:30:27 GMT+0530 (India Standard Time)',
+      id: '3',
     },
     {
       title: 'MDN is love! <3',
@@ -21,17 +36,9 @@ const initialState = {
       type: 'other',
       viewed: 'true',
       starred: 'true',
+      createdAt: 'Fri Aug 21 2020 14:30:30 GMT+0530 (India Standard Time)',
+      updatedAt: 'Fri Aug 21 2020 14:30:30 GMT+0530 (India Standard Time)',
       id: '2',
-    },
-    {
-      title: `Brad Traversy's tuts are well explained`,
-      link: 'https://youtu.be/hdI2bqOjy3c',
-      description: `Great guy who teaches stuff with passion.`,
-      tags: ['programming', 'javascript'],
-      type: 'video',
-      viewed: 'false',
-      starred: 'true',
-      id: '3',
     },
   ],
   filter: null,
@@ -43,8 +50,6 @@ const EntryContext = createContext();
 
 export const EntryStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(entryReducer, initialState);
-
-  console.log(state.tag);
 
   return (
     <EntryContext.Provider value={[state, dispatch]}>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { setTagFilter } from '../context/entry/entryReducer';
 import { useStateValue } from '../context/entry/entryState';
+import TimeAgo from 'timeago-react';
 
 import {
   Paper,
@@ -13,6 +14,7 @@ import {
   Button,
   IconButton,
   Divider,
+  Tooltip,
 } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -29,7 +31,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LineStyleIcon from '@material-ui/icons/LineStyle';
 
 const Card = ({ entry }) => {
-  const { title, link, description, tags, type, viewed, starred } = entry;
+  const {
+    title,
+    link,
+    description,
+    tags,
+    type,
+    viewed,
+    starred,
+    createdAt,
+    updatedAt,
+  } = entry;
 
   const [isStarred, setIsStarred] = useState(starred === 'true');
   const [isViewed, setIsViewed] = useState(viewed === 'true');
@@ -120,6 +132,13 @@ const Card = ({ entry }) => {
       '&:hover': {
         backgroundColor: '#d8efed',
       },
+    },
+    addedTime: {
+      marginTop: 8,
+    },
+    timestamp: {
+      fontStyle: 'italic',
+      fontWeight: 'bold',
     },
   }));
 
@@ -252,6 +271,31 @@ const Card = ({ entry }) => {
             />
           ))}
         </div>
+        <Typography variant="body2" className={classes.addedTime}>
+          <Tooltip title={createdAt.split(' ').slice(0, 5).join(' ')}>
+            <span>
+              Added:{' '}
+              <TimeAgo
+                datetime={createdAt}
+                locale="en"
+                className={classes.timestamp}
+              />
+            </span>
+          </Tooltip>
+          {createdAt !== updatedAt ? (
+            <Tooltip title={updatedAt.split(' ').slice(0, 5).join(' ')}>
+              <span>
+                {' '}
+                | Last modified:{' '}
+                <TimeAgo
+                  datetime={updatedAt}
+                  locale="en"
+                  className={classes.timestamp}
+                />{' '}
+              </span>
+            </Tooltip>
+          ) : null}
+        </Typography>
       </div>
     </Paper>
   );

@@ -37,7 +37,7 @@ const initialState = {
       viewed: 'true',
       starred: 'true',
       createdAt: 'Fri Aug 21 2020 14:30:30 GMT+0530 (India Standard Time)',
-      updatedAt: 'Fri Aug 21 2020 14:30:30 GMT+0530 (India Standard Time)',
+      updatedAt: 'Fri Aug 21 2020 14:40:30 GMT+0530 (India Standard Time)',
       id: '2',
     },
   ],

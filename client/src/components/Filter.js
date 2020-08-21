@@ -56,7 +56,9 @@ const Filter = () => {
 
   const handleApplyFilter = (e) => {
     e.preventDefault();
-    dispatch(setFilterValues(filter));
+    if (!Object.values(filter).every((v) => v === false)) {
+      dispatch(setFilterValues(filter));
+    }
   };
 
   const handleUncheck = () => {

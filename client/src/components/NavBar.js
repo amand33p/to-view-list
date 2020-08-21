@@ -14,7 +14,7 @@ import {
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -58,7 +58,7 @@ const NavBar = () => {
             <Button
               component={RouterLink}
               to="/"
-              startIcon={<FormatListBulletedIcon fontSize="large" />}
+              startIcon={<ListAltRoundedIcon />}
               color="inherit"
               className={classes.titleButton}
               size="large"

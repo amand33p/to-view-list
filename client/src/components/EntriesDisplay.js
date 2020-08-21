@@ -1,33 +1,56 @@
 import React from 'react';
 import { useStateValue } from '../context/entry/entryState';
 import Card from './Card';
+import SortMenu from './SortMenu';
 import {
   resetTagFilter,
   resetFilter,
   clearSearch,
 } from '../context/entry/entryReducer';
 
-import { Typography, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import filterEntries from '../utils/filterEntries';
+import currentFilter from '../utils/currentFilter';
+
+import { Typography, Button, useMediaQuery } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
-  actionPanel: {
+  root: {
     padding: 15,
     paddingBottom: 0,
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
-  actionText: {
+  textAndButton: {
     display: 'flex',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      justifyContent: 'space-between',
+    },
+  },
+  infoText: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 14,
+    },
   },
   goBackButton: {
     marginLeft: 20,
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
   },
 }));
 
 const EntriesDisplay = () => {
   const [{ entries, filter, search, tag }, dispatch] = useStateValue();
   const classes = useStyles();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   let entriesArray = search
     ? entries.filter(
@@ -40,69 +63,15 @@ const EntriesDisplay = () => {
     ? entries.filter((e) => e.tags.includes(tag.toLowerCase()))
     : entries;
 
-  let filteredArray = [];
+  const entriesToDisplay = filterEntries(filter, entriesArray);
 
-  const filterEntries = () => {
-    if (!filter || Object.values(filter).every((v) => v === false)) {
-      return entriesArray;
-    }
-
-    if (filter.videos) {
-      const filtered = entriesArray.filter((e) => e.type === 'video');
-      filtered.forEach((f) =>
-        !filteredArray.includes(f) ? filteredArray.push(f) : null
-      );
-    }
-
-    if (filter.articles) {
-      const filtered = entriesArray.filter((e) => e.type === 'article');
-      filtered.forEach((f) =>
-        !filteredArray.includes(f) ? filteredArray.push(f) : null
-      );
-    }
-
-    if (filter.others) {
-      const filtered = entriesArray.filter((e) => e.type === 'other');
-      filtered.forEach((f) =>
-        !filteredArray.includes(f) ? filteredArray.push(f) : null
-      );
-    }
-
-    if (filter.viewed) {
-      const filtered = entriesArray.filter((e) => e.viewed === 'true');
-      filtered.forEach((f) =>
-        !filteredArray.includes(f) ? filteredArray.push(f) : null
-      );
-    }
-
-    if (filter.starred) {
-      const filtered = entriesArray.filter((e) => e.starred === 'true');
-      filtered.forEach((f) =>
-        !filteredArray.includes(f) ? filteredArray.push(f) : null
-      );
-    }
-
-    return filteredArray;
-  };
-
-  let currentFilterArray = [];
-
-  const currentFilter = () => {
-    for (const key in filter) {
-      if (filter[key] === true) {
-        currentFilterArray.push(key);
-      }
-    }
-    return currentFilterArray;
-  };
-
-  const visibleEntries = filter
-    ? `Filtered to show - "${currentFilter().join(', ')}"`
+  const infoText = filter
+    ? `Filtered to show - "${currentFilter(filter).join(', ')}"`
     : search
-    ? `Showing results for - searched "${search}"`
+    ? `Showing results for - search "${search}"`
     : tag
     ? `Filtered by tag - "${tag.toLowerCase()}"`
-    : null;
+    : 'Showing - All';
 
   const handleTagReset = () => {
     dispatch(resetTagFilter());
@@ -118,9 +87,11 @@ const EntriesDisplay = () => {
 
   return (
     <div>
-      <div className={classes.actionPanel}>
-        <div className={classes.actionText}>
-          <Typography variant="h6">{visibleEntries}</Typography>
+      <div className={classes.root}>
+        <div className={classes.textAndButton}>
+          <Typography variant="h6" className={classes.infoText}>
+            {infoText}
+          </Typography>
           {tag || filter || search ? (
             <Button
               onClick={
@@ -132,16 +103,17 @@ const EntriesDisplay = () => {
               }
               startIcon={<ArrowBackIcon />}
               className={classes.goBackButton}
-              variant="contained"
+              variant={!isMobile ? 'contained' : ''}
               size="small"
               color="primary"
             >
-              Go Back
+              {!isMobile ? 'Go Back' : ''}
             </Button>
           ) : null}
         </div>
+        <SortMenu />
       </div>
-      {filterEntries().map((entry) => (
+      {entriesToDisplay.map((entry) => (
         <Card key={entry.id} entry={entry} />
       ))}
     </div>

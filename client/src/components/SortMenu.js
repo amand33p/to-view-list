@@ -1,27 +1,62 @@
 import React, { useState } from 'react';
 
-import { FormControl, InputLabel, Select, Input } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import SortIcon from '@material-ui/icons/Sort';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  label: {
+    marginRight: 10,
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 14,
+    },
+  },
+  sortIcon: {
+    marginRight: 5,
+  },
+  select: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 14,
+    },
+  },
+}));
 
 const SortMenu = () => {
-  const [sortBy, setSortBy] = useState('oldest');
+  const [sortBy, setSortBy] = useState('oldestfirst');
+  const classes = useStyles();
+
+  const handleSelectChange = (e) => {
+    setSortBy(e.target.value);
+  };
 
   return (
-    <form>
-      <FormControl>
-        <InputLabel>Sort by:</InputLabel>
-        <Select
-          native
-          value={sortBy}
-          onChange={}
-          input={<Input id="demo-dialog-native" />}
-        >
-          <option aria-label="None" value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
-        </Select>
-      </FormControl>
-    </form>
+    <div className={classes.root}>
+      <Typography variant="subtitle1" className={classes.label}>
+        <SortIcon className={classes.sortIcon} />
+        Sort by:
+      </Typography>
+      <form>
+        <FormControl>
+          <Select
+            value={sortBy}
+            onChange={handleSelectChange}
+            displayEmpty
+            className={classes.select}
+          >
+            <MenuItem value="oldestfirst">Oldest first</MenuItem>
+            <MenuItem value="newestfirst">Newest first</MenuItem>
+            <MenuItem value="A-Z">Title: A - Z</MenuItem>
+            <MenuItem value="Z-A">Title: Z - A</MenuItem>
+          </Select>
+        </FormControl>
+      </form>
+    </div>
   );
 };
 

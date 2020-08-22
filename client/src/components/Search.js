@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { setSearchInput, clearSearch } from '../context/entry/entryReducer';
-import { useStateValue } from '../context/entry/entryState';
+import { useEntryContext } from '../context/entry/entryState';
 
 import {
   TextField,
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const Search = () => {
   const query = useRef();
   const classes = useStyles();
-  const [, dispatch] = useStateValue();
+  const [, dispatch] = useEntryContext();
 
   const handleSearchChange = () => {
     if (query.current.value !== '') {

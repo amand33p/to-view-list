@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStateValue } from '../context/entry/entryState';
+import { useEntryContext } from '../context/entry/entryState';
 import Card from './Card';
 import SortMenu from './SortMenu';
 import {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EntriesDisplay = () => {
-  const [{ entries, filter, search, tag }, dispatch] = useStateValue();
+  const [{ entries, filter, search, tag }, dispatch] = useEntryContext();
   const classes = useStyles();
 
   const theme = useTheme();
@@ -70,7 +70,7 @@ const EntriesDisplay = () => {
     ? `Showing results for - search "${search}"`
     : tag
     ? `Filtered by tag - "${tag.toLowerCase()}"`
-    : 'Showing - All';
+    : 'Showing - ALL';
 
   const handleTagReset = () => {
     dispatch(resetTagFilter());

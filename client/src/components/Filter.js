@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStateValue } from '../context/entry/entryState';
+import { useEntryContext } from '../context/entry/entryState';
 import { setFilterValues, resetFilter } from '../context/entry/entryReducer';
 
 import {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Filter = () => {
-  const [, dispatch] = useStateValue();
+  const [, dispatch] = useEntryContext();
   const [filter, setFilter] = useState({
     videos: false,
     articles: false,

@@ -1,6 +1,11 @@
 const entryReducer = (state, action) => {
   console.log(action.payload);
   switch (action.type) {
+    case 'ADD_ENTRY':
+      return {
+        ...state,
+        entries: [...state.entries, action.payload],
+      };
     case 'SET_FILTER':
       return {
         ...state,
@@ -50,11 +55,25 @@ const entryReducer = (state, action) => {
           if (action.payload === 'z-a') {
             return a.title < b.title ? 1 : a.title > b.title ? -1 : 0;
           }
+
+          return null;
         }),
       };
     default:
       return state;
   }
+};
+
+export const addEntry = (guest) => {
+  guest.id = Date.now();
+  guest.viewed = false;
+  guest.starred = false;
+  guest.createdAt = String(new Date());
+  guest.updatedAt = String(new Date());
+  return {
+    type: 'ADD_ENTRY',
+    payload: guest,
+  };
 };
 
 export const setFilterValues = (itemsToFilter) => {

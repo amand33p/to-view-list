@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useEntryContext } from '../context/entry/entryState';
+import { addEntry } from '../context/entry/entryReducer';
 
 import {
   FormControl,
@@ -70,27 +73,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddUpdateForm = () => {
-  const [title, setTitle] = useState('');
-  const [link, setLink] = useState('');
-  const [description, setDescription] = useState('');
-  const [type, setType] = useState('article');
-  const [tag, setTag] = useState('');
-  const [tagsArray, setTagsArray] = useState([]);
+  const [entry, setEntry] = useState({
+    title: '',
+    link: '',
+    description: '',
+    type: 'article',
+    tags: [],
+  });
+  const [tagInput, setTagInput] = useState('');
+
+  const [, dispatch] = useEntryContext();
+
+  const history = useHistory();
+
+  const { title, link, description, type, tags } = entry;
+
+  const handleOnChange = (e) => {
+    setEntry({
+      ...entry,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted');
+
+    dispatch(addEntry(entry));
+
+    history.push('/');
+    setEntry({
+      title: '',
+      link: '',
+      description: '',
+      type: 'article',
+      tagsArray: [],
+    });
+    setTagInput('');
   };
 
   const handleTagButton = () => {
-    if (tag === '') return;
-    if (tagsArray.includes(tag)) return;
-    setTagsArray(tagsArray.concat(tag));
-    setTag('');
+    if (tagInput === '') return;
+    if (tags.includes(tagInput)) return;
+    setEntry({ ...entry, tags: tags.concat(tagInput) });
+    setTagInput('');
   };
 
   const handleTagDelete = (targetTag) => {
-    setTagsArray(tagsArray.filter((t) => t !== targetTag));
+    setEntry({ ...entry, tags: tags.filter((t) => t !== targetTag) });
   };
 
   const classes = useStyles();
@@ -109,7 +138,8 @@ const AddUpdateForm = () => {
           required
           label="Title"
           value={title}
-          onChange={({ target }) => setTitle(target.value)}
+          name="title"
+          onChange={handleOnChange}
           fullWidth
         />
       </div>
@@ -120,7 +150,8 @@ const AddUpdateForm = () => {
           required
           label="Link"
           value={link}
-          onChange={({ target }) => setLink(target.value)}
+          name="link"
+          onChange={handleOnChange}
           fullWidth
         />
       </div>
@@ -132,7 +163,8 @@ const AddUpdateForm = () => {
           multiline
           label="Description"
           value={description}
-          onChange={({ target }) => setDescription(target.value)}
+          name="description"
+          onChange={handleOnChange}
           fullWidth
         />
       </div>
@@ -142,11 +174,11 @@ const AddUpdateForm = () => {
           <TextField
             color="secondary"
             label="Add Tags"
-            value={tag}
-            onChange={({ target }) => setTag(target.value)}
+            value={tagInput}
+            onChange={({ target }) => setTagInput(target.value)}
           />
           <Button
-            color="secondary"
+            color="primary"
             size="small"
             variant="outlined"
             onClick={handleTagButton}
@@ -156,7 +188,7 @@ const AddUpdateForm = () => {
           </Button>
         </div>
         <div className={classes.tagGroup}>
-          {tagsArray.map((tag) => (
+          {tags.map((tag) => (
             <Chip
               key={tag}
               label={tag}
@@ -174,27 +206,30 @@ const AddUpdateForm = () => {
           Link Type:
         </FormLabel>
         <RadioGroup
+          row
           label="Type"
           value={type}
-          onChange={({ target }) => setType(target.value)}
-          defaultValue="article"
-          row
+          name="type"
+          onChange={handleOnChange}
           className={classes.radioGroup}
         >
           <FormControlLabel
             label="Article"
             control={<Radio color="secondary" />}
             value="article"
+            checked={type === 'article'}
           />
           <FormControlLabel
             label="Video"
             control={<Radio color="secondary" />}
             value="video"
+            checked={type === 'video'}
           />
           <FormControlLabel
             label="Other"
             control={<Radio color="secondary" />}
             value="other"
+            checked={type === 'other'}
           />
         </RadioGroup>
       </div>

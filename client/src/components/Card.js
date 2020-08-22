@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { setTagFilter } from '../context/entry/entryReducer';
-import { useStateValue } from '../context/entry/entryState';
+import { useEntryContext } from '../context/entry/entryState';
 import TimeAgo from 'timeago-react';
 
 import {
@@ -43,10 +43,10 @@ const Card = ({ entry }) => {
     updatedAt,
   } = entry;
 
-  const [isStarred, setIsStarred] = useState(starred === 'true');
-  const [isViewed, setIsViewed] = useState(viewed === 'true');
+  const [isStarred, setIsStarred] = useState(starred);
+  const [isViewed, setIsViewed] = useState(viewed);
 
-  const [, dispatch] = useStateValue();
+  const [, dispatch] = useEntryContext();
 
   const useStyles = makeStyles((theme) => ({
     root: {

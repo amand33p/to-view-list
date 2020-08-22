@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useStateValue } from '../context/entry/entryState';
+import React, { useState } from 'react';
+import { useEntryContext } from '../context/entry/entryState';
 import { sortEntries } from '../context/entry/entryReducer';
 
 import { FormControl, Select, MenuItem, Typography } from '@material-ui/core';
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SortMenu = () => {
   const [sortBy, setSortBy] = useState('oldestfirst');
-  const [, dispatch] = useStateValue();
+  const [, dispatch] = useEntryContext();
 
   const classes = useStyles();
 
@@ -64,43 +64,5 @@ const SortMenu = () => {
     </div>
   );
 };
-
-/*
-const SortMenu = () => {
-  const sortBy = useRef();
-  const [, dispatch] = useStateValue();
-
-  const classes = useStyles();
-
-  const handleSelectChange = () => {
-    dispatch(sortEntries(sortBy.current.value));
-  };
-
-  return (
-    <div className={classes.root}>
-      <Typography variant="subtitle1" className={classes.label}>
-        <SortIcon className={classes.sortIcon} />
-        Sort by:
-      </Typography>
-      <form>
-        <FormControl>
-          <Select
-            native
-            inputRef={sortBy}
-            defaultValue="oldestfirst"
-            onChange={handleSelectChange}
-            className={classes.select}
-          >
-            <option value="oldestfirst">Oldest first</option>
-            <option value="newestfirst">Newest first</option>
-            <option value="a-z">Title: A - Z</option>
-            <option value="z-a">Title: Z - A</option>
-          </Select>
-        </FormControl>
-      </form>
-    </div>
-  );
-};
-*/
 
 export default SortMenu;

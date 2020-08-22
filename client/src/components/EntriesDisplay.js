@@ -28,19 +28,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexWrap: 'wrap',
     [theme.breakpoints.down('xs')]: {
-      width: '100%',
       justifyContent: 'space-between',
     },
   },
   infoText: {
+    marginRight: 20,
     [theme.breakpoints.down('xs')]: {
       fontSize: 14,
     },
   },
   goBackButton: {
-    marginLeft: 20,
     [theme.breakpoints.down('xs')]: {
-      marginLeft: 0,
+      fontSize: 12,
     },
   },
 }));
@@ -103,11 +102,11 @@ const EntriesDisplay = () => {
               }
               startIcon={<ArrowBackIcon />}
               className={classes.goBackButton}
-              variant={!isMobile ? 'contained' : ''}
+              variant={!isMobile ? 'contained' : 'outlined'}
               size="small"
               color="primary"
             >
-              {!isMobile ? 'Go Back' : ''}
+              {!isMobile ? 'Go Back' : 'Back'}
             </Button>
           ) : null}
         </div>

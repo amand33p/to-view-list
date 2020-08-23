@@ -256,3 +256,11 @@ export const useNavStyles = makeStyles({
     fontSize: 20,
   },
 });
+
+export const useFabStyles = makeStyles((theme) => ({
+  root: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));

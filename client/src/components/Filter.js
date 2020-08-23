@@ -10,31 +10,9 @@ import {
   Checkbox,
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useFilterStyles } from '../styles/muiStyles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('xs')]: {
-      flexWrap: 'wrap',
-      paddingLeft: 10,
-      paddingRight: 10,
-    },
-  },
-  filterButton: {
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 10,
-      width: '100%',
-    },
-  },
-}));
 
 const Filter = () => {
   const [, dispatch] = useEntryContext();
@@ -46,7 +24,7 @@ const Filter = () => {
     starred: false,
   });
 
-  const classes = useStyles();
+  const classes = useFilterStyles();
 
   const { videos, articles, others, viewed, starred } = filter;
 

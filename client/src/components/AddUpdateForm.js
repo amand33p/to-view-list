@@ -14,63 +14,12 @@ import {
   Chip,
 } from '@material-ui/core/';
 
+import { useFormStyles } from '../styles/muiStyles';
 import TitleIcon from '@material-ui/icons/Title';
 import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  input: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-  inputIcon: {
-    marginRight: 8,
-  },
-  radioLabel: {
-    marginLeft: 9,
-  },
-  radioGroup: {
-    marginLeft: 20,
-  },
-  radioInput: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  tags: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-  tagButton: {
-    marginLeft: 10,
-  },
-  tag: {
-    marginLeft: 14,
-    textTransform: 'uppercase',
-  },
-  tagGroup: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      marginTop: 8,
-      marginLeft: 12,
-    },
-  },
-  tagArea: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    flexWrap: 'wrap',
-  },
-}));
 
 const AddUpdateForm = () => {
   const [entry, setEntry] = useState({
@@ -85,6 +34,7 @@ const AddUpdateForm = () => {
   const [, dispatch] = useEntryContext();
 
   const history = useHistory();
+  const classes = useFormStyles();
 
   const { title, link, description, type, tags } = entry;
 
@@ -121,8 +71,6 @@ const AddUpdateForm = () => {
   const handleTagDelete = (targetTag) => {
     setEntry({ ...entry, tags: tags.filter((t) => t !== targetTag) });
   };
-
-  const classes = useStyles();
 
   return (
     <FormControl

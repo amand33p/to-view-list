@@ -9,34 +9,15 @@ import {
   IconButton,
   useMediaQuery,
 } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+import { useSearchStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 10,
-    display: 'flex',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down('xs')]: {
-      flexWrap: 'wrap',
-      paddingLeft: 10,
-      paddingRight: 10,
-    },
-  },
-  field: {
-    [theme.breakpoints.down('xs')]: {
-      paddingRight: 0,
-    },
-  },
-}));
-
 const Search = () => {
   const query = useRef();
-  const classes = useStyles();
+  const classes = useSearchStyles();
   const [, dispatch] = useEntryContext();
 
   const handleSearchChange = () => {

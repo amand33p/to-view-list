@@ -3,37 +3,14 @@ import { useEntryContext } from '../context/entry/entryState';
 import { sortEntries } from '../context/entry/entryReducer';
 
 import { FormControl, Select, MenuItem, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { useSortStyles } from '../styles/muiStyles';
 import SortIcon from '@material-ui/icons/Sort';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  label: {
-    marginRight: 10,
-    display: 'flex',
-    alignItems: 'center',
-    [theme.breakpoints.down('xs')]: {
-      fontSize: 14,
-    },
-  },
-  sortIcon: {
-    marginRight: 5,
-  },
-  select: {
-    [theme.breakpoints.down('xs')]: {
-      fontSize: 14,
-    },
-  },
-}));
 
 const SortMenu = () => {
   const [sortBy, setSortBy] = useState('oldestfirst');
   const [, dispatch] = useEntryContext();
 
-  const classes = useStyles();
+  const classes = useSortStyles();
 
   const handleSelectChange = (e) => {
     setSortBy(e.target.value);

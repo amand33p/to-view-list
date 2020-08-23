@@ -17,7 +17,8 @@ import {
   Tooltip,
 } from '@material-ui/core';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useCardStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
 
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -48,104 +49,9 @@ const Card = ({ entry }) => {
 
   const [, dispatch] = useEntryContext();
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      marginTop: 20,
-      padding: 20,
-      borderColor: isViewed ? '#9a8fb8' : '',
-      backgroundColor: isViewed ? '#f1eff5' : '',
-      color: isViewed ? '#8f83b0' : '',
-    },
-    cardTitle: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      [theme.breakpoints.down('xs')]: {
-        alignItems: 'center',
-        flexWrap: 'wrap',
-      },
-    },
-    endButtons: {
-      display: 'flex',
-      alignItems: 'center',
-      [theme.breakpoints.down('xs')]: {
-        width: '100%',
-        justifyContent: 'space-between',
-      },
-    },
-    linkTitle: {
-      display: 'flex',
-      alignItems: 'center',
-      flexWrap: 'nowrap',
-      [theme.breakpoints.down('xs')]: {
-        fontSize: 20,
-      },
-    },
-    tag: {
-      marginRight: 5,
-      textTransform: 'uppercase',
-      '&:hover': {
-        backgroundColor: '#b0a7c7',
-      },
-      [theme.breakpoints.down('xs')]: {
-        marginBottom: 5,
-      },
-    },
-    tagsGroup: {
-      marginTop: 8,
-    },
-    link: {
-      display: 'flex',
-      alignItems: 'center',
-      [theme.breakpoints.down('xs')]: {
-        fontSize: 16,
-      },
-    },
-    delete: {
-      color: '#ff6347',
-      textTransform: 'capitalize',
-      fontSize: 16,
-      '&:hover': {
-        backgroundColor: '#ffe8e4',
-      },
-      marginRight: 5,
-    },
-    edit: {
-      color: '#536dfe',
-      fontSize: 16,
-      textTransform: 'capitalize',
-      '&:hover': {
-        backgroundColor: '#dce1ff',
-      },
-      marginRight: 5,
-    },
-    starButton: {
-      borderRadius: 4,
-      marginLeft: 1,
-      paddingRight: 8,
-      '&:hover': {
-        backgroundColor: '#ffefd8',
-      },
-    },
-    viewButton: {
-      paddingRight: 8,
-      borderRadius: 4,
-      '&:hover': {
-        backgroundColor: '#d8efed',
-      },
-    },
-    addedTime: {
-      marginTop: 8,
-    },
-    timestamp: {
-      fontStyle: 'italic',
-      fontWeight: 'bold',
-    },
-  }));
-
-  const classes = useStyles();
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const classes = useCardStyles(isViewed)();
 
   const handleStarred = (e) => {
     setIsStarred(e.target.checked);

@@ -12,27 +12,11 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-
+import { useNavStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  user: {
-    marginRight: 10,
-  },
-  titleButton: {
-    textTransform: 'capitalize',
-    fontSize: 20,
-  },
-}));
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -48,10 +32,10 @@ const NavBar = () => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useStyles();
+  const classes = useNavStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.main}>
       <AppBar position="static">
         <Toolbar>
           <div className={classes.title}>

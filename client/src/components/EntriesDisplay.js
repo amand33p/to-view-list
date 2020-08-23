@@ -8,69 +8,28 @@ import {
   clearSearch,
 } from '../context/entry/entryReducer';
 
+import getEntriesArray from '../utils/getEntriesArray';
 import filterEntries from '../utils/filterEntries';
 import currentFilter from '../utils/currentFilter';
+import showInfoText from '../utils/showInfoText';
 
 import { Typography, Button, useMediaQuery } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useEntriesDisplayStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: 15,
-    paddingBottom: 0,
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-  },
-  textAndButton: {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    [theme.breakpoints.down('xs')]: {
-      justifyContent: 'space-between',
-    },
-  },
-  infoText: {
-    marginRight: 20,
-    [theme.breakpoints.down('xs')]: {
-      fontSize: 14,
-    },
-  },
-  goBackButton: {
-    [theme.breakpoints.down('xs')]: {
-      fontSize: 12,
-    },
-  },
-}));
 
 const EntriesDisplay = () => {
   const [{ entries, filter, search, tag }, dispatch] = useEntryContext();
-  const classes = useStyles();
+  const classes = useEntriesDisplayStyles();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
-  let entriesArray = search
-    ? entries.filter(
-        (e) =>
-          e.title.toLowerCase().includes(search.toLowerCase()) ||
-          e.description.toLowerCase().includes(search.toLowerCase()) ||
-          e.tags.includes(search.toLowerCase())
-      )
-    : tag
-    ? entries.filter((e) => e.tags.includes(tag.toLowerCase()))
-    : entries;
+  let entriesArray = getEntriesArray(entries, search, tag);
 
   const entriesToDisplay = filterEntries(filter, entriesArray);
 
-  const infoText = filter
-    ? `Filtered to show - "${currentFilter(filter).join(', ')}"`
-    : search
-    ? `Showing results for - search "${search}"`
-    : tag
-    ? `Filtered by tag - "${tag.toLowerCase()}"`
-    : 'Showing - ALL';
+  const infoText = showInfoText(filter, search, tag, currentFilter);
 
   const handleTagReset = () => {
     dispatch(resetTagFilter());

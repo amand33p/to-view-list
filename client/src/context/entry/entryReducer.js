@@ -56,7 +56,7 @@ const entryReducer = (state, action) => {
             return a.title < b.title ? 1 : a.title > b.title ? -1 : 0;
           }
 
-          return null;
+          return state.entries;
         }),
       };
     default:

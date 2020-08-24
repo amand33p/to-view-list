@@ -6,6 +6,14 @@ export const useFormStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     padding: 20,
+    [theme.breakpoints.up('sm')]: {
+      padding: 150,
+      paddingTop: 10,
+    },
+    paddingTop: 10,
+  },
+  formTitle: {
+    textAlign: 'center',
   },
   input: {
     display: 'flex',
@@ -19,11 +27,15 @@ export const useFormStyles = makeStyles((theme) => ({
   },
   radioGroup: {
     marginLeft: 20,
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 30,
+    },
   },
   radioInput: {
     display: 'flex',
     alignItems: 'center',
     marginTop: 10,
+    flexWrap: 'wrap',
   },
   tags: {
     display: 'flex',
@@ -47,6 +59,11 @@ export const useFormStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'flex-end',
     flexWrap: 'wrap',
+  },
+  buttonGroup: {
+    marginTop: 8,
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 

@@ -11,6 +11,23 @@ const entryReducer = (state, action) => {
         ...state,
         entries: state.entries.filter((e) => e.id !== action.payload),
       };
+    case 'UPDATE_ENTRY':
+      return {
+        ...state,
+        entries: state.entries.map((e) =>
+          e.id !== action.payload.id ? e : action.payload
+        ),
+      };
+    case 'SET_EDIT_VALUES':
+      return {
+        ...state,
+        editValues: action.payload,
+      };
+    case 'RESET_EDIT_VALUES':
+      return {
+        ...state,
+        editValues: null,
+      };
     case 'SET_FILTER':
       return {
         ...state,
@@ -85,6 +102,26 @@ export const removeEntry = (id) => {
   return {
     type: 'REMOVE_ENTRY',
     payload: id,
+  };
+};
+
+export const updateEntry = (entry) => {
+  return {
+    type: 'UPDATE_ENTRY',
+    payload: entry,
+  };
+};
+
+export const setEditValues = (entry) => {
+  return {
+    type: 'SET_EDIT_VALUES',
+    payload: entry,
+  };
+};
+
+export const resetEditValues = () => {
+  return {
+    type: 'RESET_EDIT_VALUES',
   };
 };
 

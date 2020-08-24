@@ -44,6 +44,7 @@ const initialState = {
   filter: null,
   search: null,
   tag: null,
+  editValues: null,
 };
 
 const EntryContext = createContext();

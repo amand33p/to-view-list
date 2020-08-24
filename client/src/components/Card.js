@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useEntryContext } from '../context/entry/entryState';
-import { setTagFilter } from '../context/entry/entryReducer';
-import { removeEntry } from '../context/entry/entryReducer';
+import {
+  setTagFilter,
+  removeEntry,
+  setEditValues,
+} from '../context/entry/entryReducer';
 import TimeAgo from 'timeago-react';
 import DeleteDialog from './DeleteDialog';
 
@@ -48,9 +52,9 @@ const Card = ({ entry }) => {
 
   const [isStarred, setIsStarred] = useState(starred);
   const [isViewed, setIsViewed] = useState(viewed);
-
   const [, dispatch] = useEntryContext();
 
+  const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useCardStyles(isViewed)();
@@ -68,7 +72,8 @@ const Card = ({ entry }) => {
   };
 
   const handleEdit = () => {
-    console.log('edited');
+    dispatch(setEditValues(entry));
+    history.push('/add_update');
   };
 
   const handleDelete = () => {
@@ -76,19 +81,19 @@ const Card = ({ entry }) => {
   };
 
   const formattedLink = link.startsWith('http') ? link : `https://${link}`;
-
   const iconSize = isMobile ? 'small' : 'large';
+  const iconStyle = { marginRight: 8 };
 
   return (
     <Paper className={classes.root} variant="outlined">
       <div className={classes.cardTitle}>
         <Typography variant="h5" className={classes.linkTitle}>
           {type === 'article' ? (
-            <WebIcon style={{ marginRight: 8 }} fontSize={iconSize} />
+            <WebIcon style={iconStyle} fontSize={iconSize} />
           ) : type === 'video' ? (
-            <YouTubeIcon style={{ marginRight: 8 }} fontSize={iconSize} />
+            <YouTubeIcon style={iconStyle} fontSize={iconSize} />
           ) : (
-            <LineStyleIcon style={{ marginRight: 8 }} fontSize={iconSize} />
+            <LineStyleIcon style={iconStyle} fontSize={iconSize} />
           )}
           {title}
         </Typography>

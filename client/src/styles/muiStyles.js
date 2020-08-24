@@ -104,15 +104,6 @@ export const useCardStyles = (isViewed) => {
         fontSize: 16,
       },
     },
-    delete: {
-      color: '#ff6347',
-      textTransform: 'capitalize',
-      fontSize: 16,
-      '&:hover': {
-        backgroundColor: '#ffe8e4',
-      },
-      marginRight: 5,
-    },
     edit: {
       color: '#536dfe',
       fontSize: 16,
@@ -269,5 +260,17 @@ export const useFabStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+  },
+}));
+
+export const useDeleteBtnStyles = makeStyles((theme) => ({
+  deleteButton: {
+    color: '#ff6347',
+    textTransform: 'capitalize',
+    fontSize: 16,
+    '&:hover': {
+      backgroundColor: '#ffe8e4',
+    },
+    marginRight: 5,
   },
 }));

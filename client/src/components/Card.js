@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { setTagFilter } from '../context/entry/entryReducer';
 import { useEntryContext } from '../context/entry/entryState';
+import { setTagFilter } from '../context/entry/entryReducer';
+import { removeEntry } from '../context/entry/entryReducer';
 import TimeAgo from 'timeago-react';
+import DeleteDialog from './DeleteDialog';
 
 import {
   Paper,
@@ -28,11 +30,11 @@ import LinkIcon from '@material-ui/icons/Link';
 import WebIcon from '@material-ui/icons/Web';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import LineStyleIcon from '@material-ui/icons/LineStyle';
 
 const Card = ({ entry }) => {
   const {
+    id,
     title,
     link,
     description,
@@ -70,7 +72,7 @@ const Card = ({ entry }) => {
   };
 
   const handleDelete = () => {
-    console.log('deleted');
+    dispatch(removeEntry(id));
   };
 
   const formattedLink = link.startsWith('http') ? link : `https://${link}`;
@@ -101,22 +103,22 @@ const Card = ({ entry }) => {
               >
                 Edit
               </Button>
-              <Button
-                onClick={handleDelete}
-                startIcon={<DeleteIcon />}
-                className={classes.delete}
-              >
-                Delete
-              </Button>
+              <DeleteDialog
+                handleDelete={handleDelete}
+                title={title}
+                isMobile={isMobile}
+              />
             </>
           ) : (
             <>
               <IconButton onClick={handleEdit} className={classes.edit}>
                 <EditIcon />
               </IconButton>
-              <IconButton onClick={handleDelete} className={classes.delete}>
-                <DeleteIcon />
-              </IconButton>
+              <DeleteDialog
+                handleDelete={handleDelete}
+                title={title}
+                isMobile={isMobile}
+              />
             </>
           )}
 

@@ -6,6 +6,11 @@ const entryReducer = (state, action) => {
         ...state,
         entries: [...state.entries, action.payload],
       };
+    case 'REMOVE_ENTRY':
+      return {
+        ...state,
+        entries: state.entries.filter((e) => e.id !== action.payload),
+      };
     case 'SET_FILTER':
       return {
         ...state,
@@ -73,6 +78,13 @@ export const addEntry = (guest) => {
   return {
     type: 'ADD_ENTRY',
     payload: guest,
+  };
+};
+
+export const removeEntry = (id) => {
+  return {
+    type: 'REMOVE_ENTRY',
+    payload: id,
   };
 };
 

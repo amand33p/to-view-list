@@ -47,6 +47,7 @@ const Search = () => {
         inputRef={query}
         onChange={handleSearchChange}
         color="secondary"
+        size={isMobile ? 'small' : 'medium'}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

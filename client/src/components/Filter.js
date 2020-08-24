@@ -56,7 +56,7 @@ const Filter = () => {
       className={classes.root}
       onSubmit={handleApplyFilter}
     >
-      <FormGroup row>
+      <FormGroup row className={classes.checkboxGroup}>
         <FormControlLabel
           control={
             <Checkbox

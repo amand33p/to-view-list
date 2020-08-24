@@ -190,6 +190,13 @@ export const useFilterStyles = makeStyles((theme) => ({
       paddingRight: 10,
     },
   },
+  checkboxGroup: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    },
+  },
   filterButton: {
     [theme.breakpoints.down('xs')]: {
       marginTop: 10,

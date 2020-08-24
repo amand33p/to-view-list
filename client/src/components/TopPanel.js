@@ -6,6 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Paper, Button, Fab, useMediaQuery } from '@material-ui/core';
 import { useFabStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
+import HideOnScroll from './HideOnScroll';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const TopPanel = () => {
@@ -30,14 +31,16 @@ const TopPanel = () => {
           Add Entry
         </Button>
       ) : (
-        <Fab
-          className={classes.root}
-          color="primary"
-          component={RouterLink}
-          to="/add_update"
-        >
-          <PostAddIcon />
-        </Fab>
+        <HideOnScroll>
+          <Fab
+            className={classes.root}
+            color="primary"
+            component={RouterLink}
+            to="/add_update"
+          >
+            <PostAddIcon />
+          </Fab>
+        </HideOnScroll>
       )}
     </Paper>
   );

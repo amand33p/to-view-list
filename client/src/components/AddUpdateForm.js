@@ -20,6 +20,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const AddUpdateForm = () => {
   const [entry, setEntry] = useState({
@@ -181,7 +182,13 @@ const AddUpdateForm = () => {
           />
         </RadioGroup>
       </div>
-      <Button type="submit" variant="contained" color="primary">
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        size="large"
+        startIcon={<PostAddIcon />}
+      >
         Add Entry
       </Button>
     </FormControl>

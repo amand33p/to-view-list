@@ -9,6 +9,7 @@ export const useFormStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       padding: 150,
       paddingTop: 10,
+      paddingBottom: 60,
     },
     paddingTop: 10,
   },

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useEntryContext } from '../context/entry/entryState';
 import {
   setTagFilter,
   removeEntry,
   setEditValues,
+  toggleStarEntry,
+  toggleViewEntry,
 } from '../context/entry/entryReducer';
 import TimeAgo from 'timeago-react';
 import DeleteDialog from './DeleteDialog';
@@ -50,21 +52,19 @@ const Card = ({ entry }) => {
     updatedAt,
   } = entry;
 
-  const [isStarred, setIsStarred] = useState(starred);
-  const [isViewed, setIsViewed] = useState(viewed);
   const [, dispatch] = useEntryContext();
 
   const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useCardStyles(isViewed)();
+  const classes = useCardStyles(viewed)();
 
-  const handleStarred = (e) => {
-    setIsStarred(e.target.checked);
+  const handleStarToggle = () => {
+    dispatch(toggleStarEntry(id));
   };
 
-  const handleViewed = (e) => {
-    setIsViewed(e.target.checked);
+  const handleViewToggle = () => {
+    dispatch(toggleViewEntry(id));
   };
 
   const handleTagFilter = (tag) => {
@@ -130,28 +130,28 @@ const Card = ({ entry }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={isStarred}
+                checked={starred}
                 icon={<StarBorderIcon style={{ color: '#ff9800' }} />}
                 checkedIcon={<StarIcon style={{ color: '#ff9800' }} />}
                 className={classes.star}
               />
             }
-            label={isMobile ? '' : isStarred ? 'Starred!' : 'Star it'}
-            onChange={handleStarred}
+            label={isMobile ? '' : starred ? 'Starred!' : 'Star it'}
+            onChange={handleStarToggle}
             style={{ color: '#ff9800' }}
             className={classes.starButton}
           />
           <FormControlLabel
             control={
               <Checkbox
-                checked={isViewed}
+                checked={viewed}
                 icon={<VisibilityOutlinedIcon style={{ color: '#46aaa0' }} />}
                 checkedIcon={<VisibilityIcon style={{ color: '#46aaa0' }} />}
                 className={classes.view}
               />
             }
-            label={isMobile ? '' : isViewed ? 'Viewed!' : 'Mark as viewed'}
-            onChange={handleViewed}
+            label={isMobile ? '' : viewed ? 'Viewed!' : 'Mark as viewed'}
+            onChange={handleViewToggle}
             style={{ color: '#4db6ac' }}
             className={classes.viewButton}
           />

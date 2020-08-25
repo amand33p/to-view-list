@@ -28,6 +28,20 @@ const entryReducer = (state, action) => {
         ...state,
         editValues: null,
       };
+    case 'TOGGLE_STAR_ENTRY':
+      return {
+        ...state,
+        entries: state.entries.map((e) =>
+          e.id !== action.payload ? e : { ...e, starred: !e.starred }
+        ),
+      };
+    case 'TOGGLE_VIEW_ENTRY':
+      return {
+        ...state,
+        entries: state.entries.map((e) =>
+          e.id !== action.payload ? e : { ...e, viewed: !e.viewed }
+        ),
+      };
     case 'SET_FILTER':
       return {
         ...state,
@@ -122,6 +136,20 @@ export const setEditValues = (entry) => {
 export const resetEditValues = () => {
   return {
     type: 'RESET_EDIT_VALUES',
+  };
+};
+
+export const toggleStarEntry = (id) => {
+  return {
+    type: 'TOGGLE_STAR_ENTRY',
+    payload: id,
+  };
+};
+
+export const toggleViewEntry = (id) => {
+  return {
+    type: 'TOGGLE_VIEW_ENTRY',
+    payload: id,
   };
 };
 

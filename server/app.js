@@ -27,6 +27,7 @@ mongoose
 app.use(express.static('build'));
 app.use(cors());
 app.use(express.json());
+app.use(middleware.tokenExtractor);
 
 app.use('/api/entries', entryRouter);
 app.use('/api/signup', signupRouter);

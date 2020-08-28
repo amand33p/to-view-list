@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
 const User = require('../models/user');
-const validator = require('email-validator');
+const validator = require('validator');
 const { SECRET } = require('../utils/config');
 
 router.post('/', async (req, res) => {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
       .send({ error: 'password must have minimum length of 6' });
   }
 
-  if (!validator.validate(email)) {
+  if (!email || !validator.isEmail(email)) {
     return res.status(400).send({ error: 'valid email address is required' });
   }
 
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 
   const userForToken = {
     username: savedUser.username,
-    id: savedUser.id,
+    id: savedUser._id,
   };
 
   const token = jwt.sign(userForToken, SECRET);

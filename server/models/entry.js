@@ -14,6 +14,7 @@ const entrySchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -21,14 +22,22 @@ const entrySchema = new mongoose.Schema(
       maxlength: 250,
       trim: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
     tags: [{ type: String }],
-    starred: {
+    isStarred: {
       type: Boolean,
       default: 'false',
     },
-    viewed: {
+    isViewed: {
       type: Boolean,
       default: 'false',
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
   },
   {

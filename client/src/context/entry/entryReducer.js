@@ -32,14 +32,14 @@ const entryReducer = (state, action) => {
       return {
         ...state,
         entries: state.entries.map((e) =>
-          e.id !== action.payload ? e : { ...e, starred: !e.starred }
+          e.id !== action.payload ? e : { ...e, isStarred: !e.isStarred }
         ),
       };
     case 'TOGGLE_VIEW_ENTRY':
       return {
         ...state,
         entries: state.entries.map((e) =>
-          e.id !== action.payload ? e : { ...e, viewed: !e.viewed }
+          e.id !== action.payload ? e : { ...e, isViewed: !e.isViewed }
         ),
       };
     case 'SET_FILTER':
@@ -102,8 +102,8 @@ const entryReducer = (state, action) => {
 
 export const addEntry = (guest) => {
   guest.id = Date.now();
-  guest.viewed = false;
-  guest.starred = false;
+  guest.isViewed = false;
+  guest.isStarred = false;
   guest.createdAt = String(new Date());
   guest.updatedAt = String(new Date());
   return {

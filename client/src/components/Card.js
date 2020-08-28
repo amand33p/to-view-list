@@ -46,8 +46,8 @@ const Card = ({ entry }) => {
     description,
     tags,
     type,
-    viewed,
-    starred,
+    isViewed,
+    isStarred,
     createdAt,
     updatedAt,
   } = entry;
@@ -57,7 +57,7 @@ const Card = ({ entry }) => {
   const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useCardStyles(viewed)();
+  const classes = useCardStyles(isViewed)();
 
   const handleStarToggle = () => {
     dispatch(toggleStarEntry(id));
@@ -130,13 +130,13 @@ const Card = ({ entry }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={starred}
+                checked={isStarred}
                 icon={<StarBorderIcon style={{ color: '#ff9800' }} />}
                 checkedIcon={<StarIcon style={{ color: '#ff9800' }} />}
                 className={classes.star}
               />
             }
-            label={isMobile ? '' : starred ? 'Starred!' : 'Star it'}
+            label={isMobile ? '' : isStarred ? 'Starred!' : 'Star it'}
             onChange={handleStarToggle}
             style={{ color: '#ff9800' }}
             className={classes.starButton}
@@ -144,13 +144,13 @@ const Card = ({ entry }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={viewed}
+                checked={isViewed}
                 icon={<VisibilityOutlinedIcon style={{ color: '#46aaa0' }} />}
                 checkedIcon={<VisibilityIcon style={{ color: '#46aaa0' }} />}
                 className={classes.view}
               />
             }
-            label={isMobile ? '' : viewed ? 'Viewed!' : 'Mark as viewed'}
+            label={isMobile ? '' : isViewed ? 'Viewed!' : 'Mark as viewed'}
             onChange={handleViewToggle}
             style={{ color: '#4db6ac' }}
             className={classes.viewButton}

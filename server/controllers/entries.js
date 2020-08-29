@@ -64,6 +64,17 @@ router.delete('/:id', auth, async (req, res) => {
 
 router.put('/:id', auth, async (req, res) => {
   const { id: entryId } = req.params;
+  const { title, link, description, type, tags } = req.body;
+
+  if (!title || !link || !description || !type || !tags) {
+    return res.status(400).send({ error: 'Not all fields have been entered.' });
+  }
+
+  if (!link || !validator.isURL(link)) {
+    return res
+      .status(401)
+      .send({ error: 'Valid URL is required for link field.' });
+  }
 
   const user = await User.findById(req.user);
   const entry = await Entry.findById(entryId);
@@ -80,18 +91,6 @@ router.put('/:id', auth, async (req, res) => {
 
   if (entry.user.toString() !== user._id.toString()) {
     return res.status(401).send({ error: 'Access is denied.' });
-  }
-
-  const { title, link, description, type, tags } = req.body;
-
-  if (!title || !link || !description || !type || !tags) {
-    return res.status(400).send({ error: 'Not all fields have been entered.' });
-  }
-
-  if (!link || !validator.isURL(link)) {
-    return res
-      .status(401)
-      .send({ error: 'Valid URL is required for link field.' });
   }
 
   const updatedEntryObj = {

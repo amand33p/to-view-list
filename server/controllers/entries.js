@@ -88,6 +88,12 @@ router.put('/:id', auth, async (req, res) => {
     return res.status(400).send({ error: 'Not all fields have been entered.' });
   }
 
+  if (!link || !validator.isURL(link)) {
+    return res
+      .status(401)
+      .send({ error: 'Valid URL is required for link field.' });
+  }
+
   const updatedEntryObj = {
     title,
     link,
@@ -96,10 +102,6 @@ router.put('/:id', auth, async (req, res) => {
     tags,
     user: user._id,
   };
-
-  if (!link || !validator.isURL(link)) {
-    return res.status(401).send({ error: 'valid url required for link field' });
-  }
 
   const updatedEntry = await Entry.findByIdAndUpdate(entryId, updatedEntryObj, {
     new: true,
@@ -112,7 +114,33 @@ router.patch('/:id/star', async (req, res) => {
 
   const entry = await Entry.findById(entryId);
 
-  const starredEntry = { ...entry, isStarred: !entry.isStarred };
+  if (!entry) {
+    return res
+      .status(404)
+      .send({ error: `Entry with ID: ${entryId} does not exist in database.` });
+  }
+
+  entry.isStarred = !entry.isStarred;
+
+  await entry.save();
+  res.status(202).end();
+});
+
+router.patch('/:id/view', async (req, res) => {
+  const { id: entryId } = req.params;
+
+  const entry = await Entry.findById(entryId);
+
+  if (!entry) {
+    return res
+      .status(404)
+      .send({ error: `Entry with ID: ${entryId} does not exist in database.` });
+  }
+
+  entry.isViewed = !entry.isViewed;
+
+  await entry.save();
+  res.status(202).end();
 });
 
 module.exports = router;

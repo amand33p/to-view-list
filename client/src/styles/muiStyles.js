@@ -292,3 +292,38 @@ export const useDeleteBtnStyles = makeStyles((theme) => ({
     marginRight: 5,
   },
 }));
+
+export const useRegisterLoginForm = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 20,
+    [theme.breakpoints.up('sm')]: {
+      padding: 240,
+      paddingTop: 10,
+      paddingBottom: 60,
+    },
+    paddingTop: 10,
+  },
+  formTitle: {
+    textAlign: 'center',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.6rem',
+    },
+  },
+  submitButton: {
+    marginTop: 25,
+  },
+  input: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  bottomText: {
+    textAlign: 'center',
+    marginTop: 8,
+  },
+}));

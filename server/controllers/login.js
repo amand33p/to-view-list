@@ -4,42 +4,32 @@ const router = require('express').Router();
 const User = require('../models/user');
 const { SECRET } = require('../utils/config');
 
-/*router.get('/', async (req, res) => {
-  const decodedToken = jwt.verify(req.token, SECRET);
+router.post('/', async (req, res) => {
+  const { email, password } = req.body;
 
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).send({ error: 'token missing or invalid' });
-  }
-
-  const user = await User.findById(decodedToken.id);
+  const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(401).send({ error: `user doesn't exist in database` });
+    return res
+      .status(400)
+      .send({ error: 'No account with this email has been registered.' });
   }
 
-  res.json(user);
-});*/
-
-router.post('/', async (req, res) => {
-  const { username, password } = req.body;
-
-  const user = await User.findOne({ username });
-
-  const credentialsValid =
-    user === null ? false : await bcrypt.compare(password, user.passwordHash);
+  const credentialsValid = await bcrypt.compare(password, user.passwordHash);
 
   if (!credentialsValid) {
-    return res.status(401).send({ error: 'invalid username or password' });
+    return res.status(401).send({ error: 'Invalid credentials.' });
   }
 
-  const userForToken = {
-    username: user.username,
+  const payloadForToken = {
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, SECRET);
+  const token = jwt.sign(payloadForToken, SECRET);
 
-  res.status(200).send({ token, username: user.username, email: user.email });
+  res
+    .status(200)
+    .send({ token, displayName: user.displayName, email: user.email });
 });
 
 module.exports = router;

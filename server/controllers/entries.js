@@ -2,37 +2,27 @@ const router = require('express').Router();
 const Entry = require('../models/entry');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const { SECRET } = require('../utils/config');
 const validator = require('validator');
+const { auth } = require('../utils/middleware');
 
-router.get('/', async (req, res) => {
-  const decodedToken = jwt.verify(req.token, SECRET);
-
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).send({ error: 'token missing or invalid' });
-  }
-
-  const entries = await Entry.find({ user: decodedToken.id });
+router.get('/', auth, async (req, res) => {
+  const entries = await Entry.find({ user: req.user });
   res.json(entries);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { title, link, description, type, tags } = req.body;
 
-  const decodedToken = jwt.verify(req.token, SECRET);
-
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).send({ error: 'token missing or invalid' });
-  }
-
   if (!link || !validator.isURL(link)) {
-    return res.status(401).send({ error: 'valid url required for link field' });
+    return res
+      .status(401)
+      .send({ error: 'Valid URL is required for link field.' });
   }
 
-  const user = await User.findById(decodedToken.id);
+  const user = await User.findById(req.user);
 
   if (!user) {
-    return res.status(404).send({ error: 'user does not exist in db' });
+    return res.status(404).send({ error: 'User does not exist in database.' });
   }
 
   const entry = new Entry({
@@ -48,61 +38,55 @@ router.post('/', async (req, res) => {
   res.status(201).json(savedEntry);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   const { id: entryId } = req.params;
-  const decodedToken = jwt.verify(req.token, SECRET);
 
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).send({ error: 'token missing or invalid' });
-  }
-
-  const user = await User.findById(decodedToken.id);
+  const user = await User.findById(req.user);
   const entry = await Entry.findById(entryId);
 
   if (!user) {
-    return res.status(404).send({ error: 'user does not exist in db' });
+    return res.status(404).send({ error: 'User does not exist in database.' });
   }
 
   if (!entry) {
     return res
       .status(404)
-      .send({ error: `entry with 'id: ${entryId}' does not exist in db` });
+      .send({ error: `Entry with ID: ${entryId} does not exist in database.` });
   }
 
   if (entry.user.toString() !== user._id.toString()) {
-    return res.status(401).send({ error: 'access is denied' });
+    return res.status(401).send({ error: 'Access is denied.' });
   }
 
   await Entry.findByIdAndDelete(entryId);
   res.status(204).end();
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   const { id: entryId } = req.params;
-  const decodedToken = jwt.verify(req.token, SECRET);
 
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).send({ error: 'token missing or invalid' });
-  }
-
-  const user = await User.findById(decodedToken.id);
+  const user = await User.findById(req.user);
   const entry = await Entry.findById(entryId);
 
   if (!user) {
-    return res.status(404).send({ error: 'user does not exist in db' });
+    return res.status(404).send({ error: 'User does not exist in database.' });
   }
 
   if (!entry) {
     return res
       .status(404)
-      .send({ error: `entry with 'id: ${entryId}' does not exist in db` });
+      .send({ error: `Entry with ID: ${entryId} does not exist in database.` });
   }
 
   if (entry.user.toString() !== user._id.toString()) {
-    return res.status(401).send({ error: 'access is denied' });
+    return res.status(401).send({ error: 'Access is denied.' });
   }
 
   const { title, link, description, type, tags } = req.body;
+
+  if (!title || !link || !description || !type || !tags) {
+    return res.status(400).send({ error: 'Not all fields have been entered.' });
+  }
 
   const updatedEntryObj = {
     title,

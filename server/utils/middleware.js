@@ -1,9 +1,28 @@
-const tokenExtractor = (req, _res, next) => {
-  const authorization = req.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    req.token = authorization.substring(7);
+const jwt = require('jsonwebtoken');
+const { SECRET } = require('../utils/config');
+
+const auth = (req, res, next) => {
+  try {
+    const token = req.header('x-auth-token');
+    if (!token) {
+      return res
+        .status(401)
+        .send({ error: 'No auth token found. Authorization denied.' });
+    }
+
+    const decodedToken = jwt.verify(token, SECRET);
+
+    if (!decodedToken.id) {
+      return res
+        .status(401)
+        .send({ error: 'Token verification failed. Authorization denied.' });
+    }
+
+    req.user = decodedToken.id;
+    next();
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
-  next();
 };
 
 const unknownEndpointHandler = (_req, res) => {
@@ -25,7 +44,7 @@ const errorHandler = (error, _req, res, next) => {
 };
 
 module.exports = {
-  tokenExtractor,
+  auth,
   unknownEndpointHandler,
   errorHandler,
 };

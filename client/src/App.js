@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from './components/NavBar';
 import Routes from './components/Routes';
+import storageService from './utils/localStorageHelpers';
+import { useAuthContext } from './context/auth/authState';
+import { loginUser } from './context/auth/authReducer';
 
 import Container from '@material-ui/core/Container';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -19,6 +22,16 @@ const customTheme = createMuiTheme({
 });
 
 const App = () => {
+  const [, dispatch] = useAuthContext();
+
+  useEffect(() => {
+    const loggedUser = storageService.loadUser();
+
+    if (loggedUser) {
+      dispatch(loginUser(loggedUser));
+    }
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={customTheme}>
       <Container disableGutters>

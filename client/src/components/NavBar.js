@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useAuthContext } from '../context/auth/authState';
+import { logoutUser } from '../context/auth/authReducer';
+import storageService from '../utils/localStorageHelpers';
 
 import {
   AppBar,
@@ -20,6 +23,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [{ user }, dispatch] = useAuthContext();
+
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
@@ -33,6 +38,14 @@ const NavBar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useNavStyles();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    storageService.logoutUser();
+    if (isMobile) {
+      handleClose();
+    }
+  };
 
   return (
     <div className={classes.main}>
@@ -70,18 +83,32 @@ const NavBar = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Aman logged in</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                {user ? (
+                  <>
+                    <MenuItem>
+                      Current user: {user && user.displayName}
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>{' '}
+                  </>
+                ) : null}
               </Menu>
             </>
           ) : (
             <>
-              <Typography variant="body1" className={classes.user}>
-                Hi, Aman
-              </Typography>
-              <Button color="inherit" endIcon={<ExitToAppIcon />}>
-                Logout
-              </Button>
+              {user ? (
+                <>
+                  <Typography variant="body1" className={classes.user}>
+                    Hi, {user && user.displayName}
+                  </Typography>
+                  <Button
+                    color="inherit"
+                    endIcon={<ExitToAppIcon />}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>{' '}
+                </>
+              ) : null}
             </>
           )}
         </Toolbar>

@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import AlertBox from './AlertBox';
+import authService from '../services/auth';
+import entryService from '../services/entries';
+import { useAuthContext } from '../context/auth/authState';
+import { registerUser } from '../context/auth/authReducer';
+import storageService from '../utils/localStorageHelpers';
 
 import {
   FormControl,
@@ -18,25 +24,35 @@ import LockIcon from '@material-ui/icons/Lock';
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
 
 const RegisterForm = () => {
-  const [user, setUser] = useState({
+  const [userDetails, setUserDetails] = useState({
     displayName: '',
     email: '',
     password: '',
   });
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const { displayName, email, password } = user;
-
+  const [, dispatch] = useAuthContext();
   const classes = useRegisterLoginForm();
 
+  const { displayName, email, password } = userDetails;
+
   const handleOnChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
     if (password !== confirmPassword)
-      return console.log('confirm password fail');
-    console.log(JSON.stringify(null, 2, user), confirmPassword);
+      return console.log('Confirm password failed!');
+    try {
+      const user = await authService.register(userDetails);
+      entryService.setToken(user.token);
+      dispatch(registerUser(user));
+      storageService.saveUser(user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -122,6 +138,13 @@ const RegisterForm = () => {
           </Link>
         </Typography>
       </FormControl>
+      {error && (
+        <AlertBox
+          message={error}
+          severity="error"
+          clearError={() => setError(null)}
+        />
+      )}
     </Paper>
   );
 };

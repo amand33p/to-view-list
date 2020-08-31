@@ -1,5 +1,4 @@
 const entryReducer = (state, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case 'ADD_ENTRY':
       return {

@@ -6,7 +6,7 @@ export const useFormStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     padding: 20,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       padding: 150,
       paddingTop: 10,
       paddingBottom: 60,
@@ -299,7 +299,7 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     padding: 20,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       padding: 240,
       paddingTop: 10,
       paddingBottom: 60,
@@ -325,5 +325,14 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
   bottomText: {
     textAlign: 'center',
     marginTop: 8,
+  },
+}));
+
+export const useAlertStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
 }));

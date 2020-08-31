@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import AlertBox from './AlertBox';
+import authService from '../services/auth';
+import entryService from '../services/entries';
+import { useAuthContext } from '../context/auth/authState';
+import { loginUser } from '../context/auth/authReducer';
+import storageService from '../utils/localStorageHelpers';
 
 import {
   FormControl,
@@ -16,21 +22,31 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import LockIcon from '@material-ui/icons/Lock';
 
 const LoginForm = () => {
-  const [user, setUser] = useState({
+  const [credentials, setCredentials] = useState({
     email: '',
     password: '',
   });
+  const [error, setError] = useState(null);
 
-  const { email, password } = user;
-
+  const [, dispatch] = useAuthContext();
   const classes = useRegisterLoginForm();
 
+  const { email, password } = credentials;
+
   const handleOnChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = () => {
-    console.log(JSON.stringify(null, 2, user));
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await authService.login(credentials);
+      entryService.setToken(user.token);
+      dispatch(loginUser(user));
+      storageService.saveUser(user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -88,6 +104,13 @@ const LoginForm = () => {
           </Link>
         </Typography>
       </FormControl>
+      {error && (
+        <AlertBox
+          message={error}
+          severity="error"
+          clearError={() => setError(null)}
+        />
+      )}
     </Paper>
   );
 };

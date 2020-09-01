@@ -104,6 +104,16 @@ const entryReducer = (state, action) => {
         ...state,
         darkMode: !state.darkMode,
       };
+    case 'SET_NOTIFICATION':
+      return {
+        ...state,
+        notification: action.payload,
+      };
+    case 'CLEAR_NOTIFICATION':
+      return {
+        ...state,
+        notification: null,
+      };
     default:
       return state;
   }
@@ -213,6 +223,19 @@ export const sortEntries = (sortBy) => {
 export const toggleDarkMode = () => {
   return {
     type: 'TOGGLE_DARK_MODE',
+  };
+};
+
+export const setNotification = (notifObj) => {
+  return {
+    type: 'SET_NOTIFICATION',
+    payload: notifObj,
+  };
+};
+
+export const clearNotification = () => {
+  return {
+    type: 'CLEAR_NOTIFICATION',
   };
 };
 

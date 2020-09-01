@@ -53,6 +53,14 @@ const NavBar = () => {
     }
   };
 
+  const handleDarkMode = () => {
+    entryDispatch(toggleDarkMode());
+    storageService.saveDarkMode(!darkMode);
+    if (isMobile) {
+      handleClose();
+    }
+  };
+
   const mobileMenu = () => {
     return user ? (
       <div>
@@ -118,11 +126,6 @@ const NavBar = () => {
     );
   };
 
-  const handleDarkMode = () => {
-    entryDispatch(toggleDarkMode());
-    storageService.saveDarkMode(!darkMode);
-  };
-
   return (
     <div className={classes.main}>
       <AppBar position="static">
@@ -160,6 +163,17 @@ const NavBar = () => {
                 onClose={handleClose}
               >
                 {mobileMenu()}
+                <MenuItem>
+                  Dark mode:
+                  <Switch
+                    checked={darkMode}
+                    onChange={handleDarkMode}
+                    icon={<Brightness7Icon style={{ color: '#fbec5d' }} />}
+                    checkedIcon={
+                      <Brightness4Icon style={{ color: '#b7bbc9' }} />
+                    }
+                  />
+                </MenuItem>
               </Menu>
             </>
           ) : (

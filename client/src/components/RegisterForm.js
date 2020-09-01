@@ -69,7 +69,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <Paper>
+    <Paper style={{ height: '100vH' }}>
       <FormControl
         component="form"
         onSubmit={handleRegister}

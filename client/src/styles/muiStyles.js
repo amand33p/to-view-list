@@ -346,3 +346,13 @@ export const useAlertStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export const useMainPaperStyles = makeStyles(() => ({
+  root: {
+    width: '100vW',
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    minHeight: '100vH',
+  },
+}));

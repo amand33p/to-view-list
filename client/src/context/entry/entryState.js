@@ -8,6 +8,7 @@ const initialState = {
   tag: null,
   editValues: null,
   darkMode: false,
+  notification: null,
 };
 
 const EntryContext = createContext();

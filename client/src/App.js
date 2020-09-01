@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ToastNotify from './components/ToastNotify';
 import NavBar from './components/NavBar';
 import Routes from './components/Routes';
 import entryService from './services/entries';
@@ -12,11 +13,14 @@ import {
 } from './context/entry/entryReducer';
 
 import { Container, Paper } from '@material-ui/core/';
+import { useMainPaperStyles } from './styles/muiStyles';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const App = () => {
   const [{ user }, authDispatch] = useAuthContext();
-  const [{ darkMode }, entryDispatch] = useEntryContext();
+  const [{ darkMode, notification }, entryDispatch] = useEntryContext();
+
+  const classes = useMainPaperStyles();
 
   useEffect(() => {
     const loggedUser = storageService.loadUser();
@@ -44,7 +48,7 @@ const App = () => {
 
   useEffect(() => {
     const isDarkMode = storageService.loadDarkMode();
-    if (isDarkMode) {
+    if (isDarkMode === 'true') {
       entryDispatch(toggleDarkMode());
     }
   }, [entryDispatch]);
@@ -63,8 +67,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Paper style={{ height: '100vH' }}>
+      <Paper className={classes.root} elevation={0}>
         <Container disableGutters>
+          {notification && <ToastNotify />}
           <NavBar />
           <Routes />
         </Container>

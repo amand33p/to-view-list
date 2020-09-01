@@ -316,7 +316,7 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
     paddingTop: 10,
   },
   rootPaper: {
-    minHeight: '100vH',
+    minHeight: '100%',
   },
   formTitle: {
     textAlign: 'center',

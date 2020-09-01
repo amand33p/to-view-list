@@ -315,6 +315,9 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
     },
     paddingTop: 10,
   },
+  rootPaper: {
+    minHeight: '100vH',
+  },
   formTitle: {
     textAlign: 'center',
     [theme.breakpoints.down('xs')]: {

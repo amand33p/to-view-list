@@ -1,5 +1,10 @@
 const entryReducer = (state, action) => {
   switch (action.type) {
+    case 'INIT_ENTRIES':
+      return {
+        ...state,
+        entries: action.payload,
+      };
     case 'ADD_ENTRY':
       return {
         ...state,
@@ -94,20 +99,27 @@ const entryReducer = (state, action) => {
           return state.entries;
         }),
       };
+    case 'TOGGLE_DARK_MODE':
+      return {
+        ...state,
+        darkMode: !state.darkMode,
+      };
     default:
       return state;
   }
 };
 
-export const addEntry = (guest) => {
-  guest.id = Date.now();
-  guest.isViewed = false;
-  guest.isStarred = false;
-  guest.createdAt = String(new Date());
-  guest.updatedAt = String(new Date());
+export const initializeEntries = (entries) => {
+  return {
+    type: 'INIT_ENTRIES',
+    payload: entries,
+  };
+};
+
+export const addEntry = (entry) => {
   return {
     type: 'ADD_ENTRY',
-    payload: guest,
+    payload: entry,
   };
 };
 
@@ -195,6 +207,12 @@ export const sortEntries = (sortBy) => {
   return {
     type: 'SORT_ENTRIES',
     payload: sortBy,
+  };
+};
+
+export const toggleDarkMode = () => {
+  return {
+    type: 'TOGGLE_DARK_MODE',
   };
 };
 

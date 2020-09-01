@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import AlertBox from './AlertBox';
 import authService from '../services/auth';
 import entryService from '../services/entries';
@@ -30,6 +30,7 @@ const LoginForm = () => {
 
   const [, dispatch] = useAuthContext();
   const classes = useRegisterLoginForm();
+  const history = useHistory();
 
   const { email, password } = credentials;
 
@@ -44,8 +45,17 @@ const LoginForm = () => {
       entryService.setToken(user.token);
       dispatch(loginUser(user));
       storageService.saveUser(user);
-    } catch (error) {
-      console.log(error);
+
+      history.push('/');
+
+      setCredentials({
+        email: '',
+        password: '',
+      });
+      setError(null);
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.error);
     }
   };
 
@@ -103,14 +113,14 @@ const LoginForm = () => {
             Register.
           </Link>
         </Typography>
+        {error && (
+          <AlertBox
+            message={error}
+            severity="error"
+            clearError={() => setError(null)}
+          />
+        )}
       </FormControl>
-      {error && (
-        <AlertBox
-          message={error}
-          severity="error"
-          clearError={() => setError(null)}
-        />
-      )}
     </Paper>
   );
 };

@@ -10,6 +10,7 @@ import {
 } from '../context/entry/entryReducer';
 import TimeAgo from 'timeago-react';
 import DeleteDialog from './DeleteDialog';
+import entryService from '../services/entries';
 
 import {
   Paper,
@@ -52,19 +53,29 @@ const Card = ({ entry }) => {
     updatedAt,
   } = entry;
 
-  const [, dispatch] = useEntryContext();
+  const [{ darkMode }, dispatch] = useEntryContext();
 
   const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useCardStyles(isViewed)();
+  const classes = useCardStyles(isViewed, darkMode)();
 
-  const handleStarToggle = () => {
-    dispatch(toggleStarEntry(id));
+  const handleStarToggle = async () => {
+    try {
+      await entryService.star(id);
+      dispatch(toggleStarEntry(id));
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
   };
 
-  const handleViewToggle = () => {
-    dispatch(toggleViewEntry(id));
+  const handleViewToggle = async () => {
+    try {
+      await entryService.view(id);
+      dispatch(toggleViewEntry(id));
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
   };
 
   const handleTagFilter = (tag) => {
@@ -76,8 +87,13 @@ const Card = ({ entry }) => {
     history.push('/add_update');
   };
 
-  const handleDelete = () => {
-    dispatch(removeEntry(id));
+  const handleDelete = async () => {
+    try {
+      await entryService.remove(id);
+      dispatch(removeEntry(id));
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
   };
 
   const formattedLink = link.startsWith('http') ? link : `https://${link}`;

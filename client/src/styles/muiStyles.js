@@ -68,15 +68,15 @@ export const useFormStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useCardStyles = (isViewed) => {
+export const useCardStyles = (isViewed, darkMode) => {
   return makeStyles((theme) => ({
     root: {
       marginTop: 20,
       marginBottom: 5,
       padding: 20,
       borderColor: isViewed ? '#9a8fb8' : '',
-      backgroundColor: isViewed ? '#f1eff5' : '',
-      color: isViewed ? '#8f83b0' : '',
+      backgroundColor: isViewed ? (darkMode ? '#504c65' : '#f1eff5') : '',
+      color: isViewed ? (darkMode ? '#ffffff' : '#8f83b0') : '',
     },
     cardTitle: {
       display: 'flex',
@@ -270,6 +270,14 @@ export const useNavStyles = makeStyles({
   titleButton: {
     textTransform: 'capitalize',
     fontSize: 20,
+    '&:hover': {
+      backgroundColor: '#707ca5',
+    },
+  },
+  navButtons: {
+    '&:hover': {
+      backgroundColor: '#707ca5',
+    },
   },
 });
 
@@ -278,6 +286,7 @@ export const useFabStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    zIndex: 1000,
   },
 }));
 
@@ -325,6 +334,7 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
   bottomText: {
     textAlign: 'center',
     marginTop: 8,
+    marginBottom: 16,
   },
 }));
 

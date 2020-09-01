@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import entryService from '../services/entries';
 import { useEntryContext } from '../context/entry/entryState';
 import {
   addEntry,
@@ -64,26 +65,32 @@ const AddUpdateForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (editValues) {
-      dispatch(updateEntry(entry));
-      dispatch(resetEditValues());
-    } else {
-      dispatch(addEntry(entry));
+    try {
+      if (editValues) {
+        const entryRes = await entryService.update(editValues.id, entry);
+        dispatch(updateEntry(entryRes));
+        dispatch(resetEditValues());
+      } else {
+        const entryRes = await entryService.create(entry);
+        dispatch(addEntry(entryRes));
+      }
+
+      history.push('/');
+
+      setEntry({
+        title: '',
+        link: '',
+        description: '',
+        type: 'article',
+        tags: [],
+      });
+      setTagInput('');
+    } catch (err) {
+      console.log(err.response.data.error);
     }
-
-    history.push('/');
-
-    setEntry({
-      title: '',
-      link: '',
-      description: '',
-      type: 'article',
-      tags: [],
-    });
-    setTagInput('');
   };
 
   const handleTagButton = () => {

@@ -16,6 +16,7 @@ import {
   MenuItem,
   useMediaQuery,
   Switch,
+  Link,
 } from '@material-ui/core';
 
 import { useNavStyles } from '../styles/muiStyles';
@@ -25,6 +26,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -137,10 +139,21 @@ const NavBar = () => {
               startIcon={<ListAltRoundedIcon />}
               color="inherit"
               className={classes.titleButton}
-              size="large"
+              size="small"
             >
               ToViewList
             </Button>
+            <Typography variant="caption">
+              Made with <FavoriteIcon style={{ fontSize: 12 }} /> by{' '}
+              <Link
+                href={'https://github.com/amand33p'}
+                color="inherit"
+                target="_blank"
+                rel="noopener"
+              >
+                amand33p
+              </Link>
+            </Typography>
           </div>
 
           {isMobile ? (

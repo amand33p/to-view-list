@@ -122,6 +122,10 @@ export const useCardStyles = (isViewed, darkMode) => {
         fontSize: 16,
       },
     },
+    description: {
+      marginTop: 10,
+      marginBottom: 10,
+    },
     edit: {
       color: '#536dfe',
       fontSize: 16,
@@ -257,12 +261,18 @@ export const useSortStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useNavStyles = makeStyles({
+export const useNavStyles = makeStyles((theme) => ({
   main: {
     flexGrow: 1,
   },
   title: {
     flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
   },
   user: {
     marginRight: 10,
@@ -271,15 +281,16 @@ export const useNavStyles = makeStyles({
     textTransform: 'capitalize',
     fontSize: 20,
     '&:hover': {
-      backgroundColor: '#707ca5',
+      backgroundColor: '#88929c',
     },
+    marginRight: 12,
   },
   navButtons: {
     '&:hover': {
-      backgroundColor: '#707ca5',
+      backgroundColor: '#88929c',
     },
   },
-});
+}));
 
 export const useFabStyles = makeStyles((theme) => ({
   root: {

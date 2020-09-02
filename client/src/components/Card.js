@@ -211,7 +211,9 @@ const Card = ({ entry }) => {
             ? formattedLink.slice(0, 40) + '...'
             : formattedLink}
         </Link>
-        <Typography varaint="body1">{description}</Typography>
+        <Typography varaint="body1" className={classes.description}>
+          {description}
+        </Typography>
         {tags.length !== 0 && (
           <div className={classes.tagsGroup}>
             Tags:{' '}

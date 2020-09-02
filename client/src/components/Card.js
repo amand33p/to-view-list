@@ -11,6 +11,7 @@ import {
 import TimeAgo from 'timeago-react';
 import DeleteDialog from './DeleteDialog';
 import entryService from '../services/entries';
+import notify from '../utils/notifyDispatcher';
 
 import {
   Paper,
@@ -64,8 +65,17 @@ const Card = ({ entry }) => {
     try {
       await entryService.star(id);
       dispatch(toggleStarEntry(id));
+      notify(
+        dispatch,
+        `${isStarred ? 'Un-Starred' : 'Starred'} "${title}"!`,
+        'success'
+      );
     } catch (err) {
-      console.log(err.response.data.error);
+      if (err.response.data) {
+        notify(dispatch, `${err.response.data.error}`, 'error');
+      } else {
+        notify(dispatch, `${err.message}`, 'error');
+      }
     }
   };
 
@@ -73,8 +83,17 @@ const Card = ({ entry }) => {
     try {
       await entryService.view(id);
       dispatch(toggleViewEntry(id));
+      notify(
+        dispatch,
+        `Marked "${title}" as ${isViewed ? 'Not Viewed' : 'Viewed'}!`,
+        'success'
+      );
     } catch (err) {
-      console.log(err.response.data.error);
+      if (err.response.data) {
+        notify(dispatch, `${err.response.data.error}`, 'error');
+      } else {
+        notify(dispatch, `${err.message}`, 'error');
+      }
     }
   };
 
@@ -91,8 +110,13 @@ const Card = ({ entry }) => {
     try {
       await entryService.remove(id);
       dispatch(removeEntry(id));
+      notify(dispatch, `Successfully deleted "${title}"!`, 'success');
     } catch (err) {
-      console.log(err.response.data.error);
+      if (err.response.data) {
+        notify(dispatch, `${err.response.data.error}`, 'error');
+      } else {
+        notify(dispatch, `${err.message}`, 'error');
+      }
     }
   };
 
@@ -188,18 +212,20 @@ const Card = ({ entry }) => {
             : formattedLink}
         </Link>
         <Typography varaint="body1">{description}</Typography>
-        <div className={classes.tagsGroup}>
-          Tags:{' '}
-          {tags.map((tag) => (
-            <Chip
-              key={tag}
-              label={tag}
-              color="secondary"
-              className={classes.tag}
-              onClick={() => handleTagFilter(tag)}
-            />
-          ))}
-        </div>
+        {tags.length !== 0 && (
+          <div className={classes.tagsGroup}>
+            Tags:{' '}
+            {tags.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag}
+                color="secondary"
+                className={classes.tag}
+                onClick={() => handleTagFilter(tag)}
+              />
+            ))}
+          </div>
+        )}
         <Typography variant="body2" className={classes.addedTime}>
           <Tooltip title={createdAt.split(' ').slice(0, 5).join(' ')}>
             <span>

@@ -16,10 +16,14 @@ import showInfoText from '../utils/showInfoText';
 import { Typography, Button, useMediaQuery } from '@material-ui/core';
 import { useEntriesDisplayStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
+import { Skeleton } from '@material-ui/lab/';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const EntriesDisplay = () => {
-  const [{ entries, filter, search, tag }, dispatch] = useEntryContext();
+  const [
+    { entries, filter, search, tag, isLoading },
+    dispatch,
+  ] = useEntryContext();
   const classes = useEntriesDisplayStyles();
 
   const theme = useTheme();
@@ -71,9 +75,20 @@ const EntriesDisplay = () => {
         </div>
         <SortMenu />
       </div>
-      {entriesToDisplay.map((entry) => (
-        <Card key={entry.id} entry={entry} />
-      ))}
+      {isLoading ? (
+        <div style={{ marginTop: 20 }}>
+          {Array.from(new Array(3)).map((a) => (
+            <div key={a} style={{ marginBottom: 20 }}>
+              <Skeleton variant="h1" height="60px" />
+              <Skeleton height="50px" />
+              <Skeleton height="50px" />
+              <Skeleton height="50px" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        entriesToDisplay.map((entry) => <Card key={entry.id} entry={entry} />)
+      )}
     </div>
   );
 };

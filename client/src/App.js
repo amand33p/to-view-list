@@ -10,6 +10,8 @@ import { useEntryContext } from './context/entry/entryState';
 import {
   initializeEntries,
   toggleDarkMode,
+  clearNotification,
+  toggleIsLoading,
 } from './context/entry/entryReducer';
 
 import { Container, Paper } from '@material-ui/core/';
@@ -34,8 +36,12 @@ const App = () => {
   useEffect(() => {
     const getAllEntries = async () => {
       try {
+        entryDispatch(toggleIsLoading());
+
         const entries = await entryService.getAll();
         entryDispatch(initializeEntries(entries));
+
+        entryDispatch(toggleIsLoading());
       } catch (err) {
         console.log(err);
         console.log(err.response.data.error);
@@ -69,7 +75,14 @@ const App = () => {
     <ThemeProvider theme={customTheme}>
       <Paper className={classes.root} elevation={0}>
         <Container disableGutters>
-          {notification && <ToastNotify />}
+          {notification && (
+            <ToastNotify
+              open={Boolean(notification)}
+              handleClose={() => entryDispatch(clearNotification())}
+              severity={notification.severity}
+              message={notification.message}
+            />
+          )}
           <NavBar />
           <Routes />
         </Container>

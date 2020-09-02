@@ -114,6 +114,11 @@ const entryReducer = (state, action) => {
         ...state,
         notification: null,
       };
+    case 'TOGGLE_IS_LOADING':
+      return {
+        ...state,
+        isLoading: !state.isLoading,
+      };
     default:
       return state;
   }
@@ -236,6 +241,12 @@ export const setNotification = (notifObj) => {
 export const clearNotification = () => {
   return {
     type: 'CLEAR_NOTIFICATION',
+  };
+};
+
+export const toggleIsLoading = () => {
+  return {
+    type: 'TOGGLE_IS_LOADING',
   };
 };
 

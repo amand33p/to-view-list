@@ -9,6 +9,7 @@ const initialState = {
   editValues: null,
   darkMode: false,
   notification: null,
+  isLoading: false,
 };
 
 const EntryContext = createContext();

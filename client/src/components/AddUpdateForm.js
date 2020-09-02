@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import AlertBox from './AlertBox';
 import entryService from '../services/entries';
 import { useEntryContext } from '../context/entry/entryState';
 import {
@@ -7,6 +8,7 @@ import {
   updateEntry,
   resetEditValues,
 } from '../context/entry/entryReducer';
+import notify from '../utils/notifyDispatcher';
 
 import {
   FormControl,
@@ -43,6 +45,7 @@ const AddUpdateForm = () => {
     tags: [],
   });
   const [tagInput, setTagInput] = useState('');
+  const [error, setError] = useState('');
 
   const [{ editValues }, dispatch] = useEntryContext();
   const history = useHistory();
@@ -67,19 +70,28 @@ const AddUpdateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (tags.length === 0) return setError('Atleast one tag is required.');
     try {
       if (editValues) {
         const entryRes = await entryService.update(editValues.id, entry);
         dispatch(updateEntry(entryRes));
+        notify(
+          dispatch,
+          `Entry "${editValues.title}" has been successfully updated.`,
+          'success'
+        );
         dispatch(resetEditValues());
       } else {
         const entryRes = await entryService.create(entry);
         dispatch(addEntry(entryRes));
+        notify(
+          dispatch,
+          `New entry "${entryRes.title}" has been successfully added!`,
+          'success'
+        );
       }
 
       history.push('/');
-
       setEntry({
         title: '',
         link: '',
@@ -89,13 +101,27 @@ const AddUpdateForm = () => {
       });
       setTagInput('');
     } catch (err) {
-      console.log(err.response.data.error);
+      const errRes = err.response.data.error;
+
+      if (errRes.includes('title') && errRes.includes('allowed length (40)')) {
+        setError(`Title field's maximum character limit is 40. `);
+      } else if (
+        errRes.includes('description') &&
+        errRes.includes('allowed length (250)')
+      ) {
+        setError(`Description field's maximum character limit is 250. `);
+      } else if (errRes) {
+        setError(errRes);
+      } else {
+        setError(err);
+      }
     }
   };
 
   const handleTagButton = () => {
     if (tagInput === '') return;
-    if (tags.includes(tagInput)) return;
+    if (tags.includes(tagInput))
+      return setError(`Tags need to be unique. Two tags can't be same.`);
     setEntry({ ...entry, tags: tags.concat(tagInput) });
     setTagInput('');
   };
@@ -256,6 +282,13 @@ const AddUpdateForm = () => {
             {editValues ? 'Update Entry' : 'Add Entry'}
           </Button>
         </div>
+        {error && (
+          <AlertBox
+            message={error}
+            severity="error"
+            clearError={() => setError(null)}
+          />
+        )}
       </FormControl>
     </Paper>
   );

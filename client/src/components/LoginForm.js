@@ -4,8 +4,10 @@ import AlertBox from './AlertBox';
 import authService from '../services/auth';
 import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
+import { useEntryContext } from '../context/entry/entryState';
 import { loginUser } from '../context/auth/authReducer';
 import storageService from '../utils/localStorageHelpers';
+import notify from '../utils/notifyDispatcher';
 
 import {
   FormControl,
@@ -26,9 +28,14 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({
+    message: `email: 'test@test.com' & password: 'password'`,
+    severity: 'info',
+    title: 'Demo account credentials',
+  });
 
-  const [, dispatch] = useAuthContext();
+  const [, authDispatch] = useAuthContext();
+  const [, entryDispatch] = useEntryContext();
   const classes = useRegisterLoginForm();
   const history = useHistory();
 
@@ -43,19 +50,26 @@ const LoginForm = () => {
     try {
       const user = await authService.login(credentials);
       entryService.setToken(user.token);
-      dispatch(loginUser(user));
+      authDispatch(loginUser(user));
       storageService.saveUser(user);
 
       history.push('/');
-
       setCredentials({
         email: '',
         password: '',
       });
       setError(null);
+      notify(
+        entryDispatch,
+        `Welcome, ${user.displayName}! You're logged in.`,
+        'success'
+      );
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.error);
+      if (err.response.data) {
+        setError({ message: err.response.data.error, severity: 'error' });
+      } else {
+        setError({ message: err.message, severity: 'error' });
+      }
     }
   };
 
@@ -113,13 +127,13 @@ const LoginForm = () => {
             Register.
           </Link>
         </Typography>
-        {error && (
-          <AlertBox
-            message={error}
-            severity="error"
-            clearError={() => setError(null)}
-          />
-        )}
+
+        <AlertBox
+          message={error.message}
+          severity={error.severity}
+          clearError={() => setError(null)}
+          title={error.title}
+        />
       </FormControl>
     </Paper>
   );

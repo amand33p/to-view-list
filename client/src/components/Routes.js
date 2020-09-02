@@ -24,7 +24,11 @@ const Routes = () => {
         )}
       </Route>
       <Route exact path="/add_update">
-        {user ? <AddUpdateForm /> : <Redirect to="/login" />}
+        {storageService.loadUser() || user ? (
+          <AddUpdateForm />
+        ) : (
+          <Redirect to="/login" />
+        )}
       </Route>
       <Route exact path="/register">
         <RegisterForm />

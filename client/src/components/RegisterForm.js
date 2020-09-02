@@ -5,7 +5,9 @@ import authService from '../services/auth';
 import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
 import { registerUser } from '../context/auth/authReducer';
+import { useEntryContext } from '../context/entry/entryState';
 import storageService from '../utils/localStorageHelpers';
+import notify from '../utils/notifyDispatcher';
 
 import {
   FormControl,
@@ -32,7 +34,8 @@ const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const [, dispatch] = useAuthContext();
+  const [, authDispatch] = useAuthContext();
+  const [, entryDispatch] = useEntryContext();
   const classes = useRegisterLoginForm();
   const history = useHistory();
 
@@ -50,11 +53,10 @@ const RegisterForm = () => {
     try {
       const user = await authService.register(userDetails);
       entryService.setToken(user.token);
-      dispatch(registerUser(user));
+      authDispatch(registerUser(user));
       storageService.saveUser(user);
 
       history.push('/');
-
       setUserDetails({
         displayName: '',
         email: '',
@@ -62,9 +64,17 @@ const RegisterForm = () => {
       });
       setConfirmPassword('');
       setError(null);
+      notify(
+        entryDispatch,
+        `Welcome, ${user.displayName}! Your account has been registered.`,
+        'success'
+      );
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.error);
+      if (err.response.data) {
+        setError(err.response.data.error);
+      } else {
+        setError(err.message);
+      }
     }
   };
 

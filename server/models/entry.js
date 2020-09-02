@@ -7,14 +7,12 @@ const entrySchema = new mongoose.Schema(
       type: String,
       required: true,
       maxlength: 40,
-      unique: true,
       trim: true,
     },
     link: {
       type: String,
       required: true,
       trim: true,
-      unique: true,
     },
     description: {
       type: String,

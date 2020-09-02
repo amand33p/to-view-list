@@ -337,7 +337,6 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
   bottomText: {
     textAlign: 'center',
     marginTop: 8,
-    marginBottom: 16,
   },
 }));
 
@@ -347,6 +346,7 @@ export const useAlertStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginTop: theme.spacing(2),
     },
+    marginTop: 10,
   },
 }));
 

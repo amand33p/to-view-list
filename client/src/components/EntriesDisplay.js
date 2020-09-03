@@ -24,8 +24,8 @@ const EntriesDisplay = () => {
     { entries, filter, search, tag, isLoading },
     dispatch,
   ] = useEntryContext();
-  const classes = useEntriesDisplayStyles();
 
+  const classes = useEntriesDisplayStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -35,15 +35,9 @@ const EntriesDisplay = () => {
 
   const infoText = showInfoText(filter, search, tag, currentFilter);
 
-  const handleTagReset = () => {
-    dispatch(resetTagFilter());
-  };
-
   const handleFilterReset = () => {
     dispatch(resetFilter());
-  };
-
-  const handleSearchReset = () => {
+    dispatch(resetTagFilter());
     dispatch(clearSearch());
   };
 
@@ -56,13 +50,7 @@ const EntriesDisplay = () => {
           </Typography>
           {tag || filter || search ? (
             <Button
-              onClick={
-                tag
-                  ? handleTagReset
-                  : filter
-                  ? handleFilterReset
-                  : handleSearchReset
-              }
+              onClick={handleFilterReset}
               startIcon={<ArrowBackIcon />}
               className={classes.goBackButton}
               variant={!isMobile ? 'contained' : 'outlined'}

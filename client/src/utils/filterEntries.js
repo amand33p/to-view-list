@@ -27,14 +27,14 @@ const filterEntries = (filterObj, entriesArray) => {
   }
 
   if (filterObj.viewed) {
-    const filtered = entriesArray.filter((e) => e.viewed === 'true');
+    const filtered = entriesArray.filter((e) => e.isViewed === true);
     filtered.forEach((f) =>
       !filteredArray.includes(f) ? filteredArray.push(f) : null
     );
   }
 
   if (filterObj.starred) {
-    const filtered = entriesArray.filter((e) => e.starred === 'true');
+    const filtered = entriesArray.filter((e) => e.isStarred === true);
     filtered.forEach((f) =>
       !filteredArray.includes(f) ? filteredArray.push(f) : null
     );

@@ -16,12 +16,16 @@ import {
   Typography,
   Paper,
   Link,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core/';
 
 import { useRegisterLoginForm } from '../styles/muiStyles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import LockIcon from '@material-ui/icons/Lock';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({
@@ -33,6 +37,7 @@ const LoginForm = () => {
     severity: 'info',
     title: 'Demo account credentials',
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const [, authDispatch] = useAuthContext();
   const [, entryDispatch] = useEntryContext();
@@ -102,12 +107,21 @@ const LoginForm = () => {
           <TextField
             color="secondary"
             required
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label="Password"
             value={password}
             name="password"
             onChange={handleOnChange}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </div>
 

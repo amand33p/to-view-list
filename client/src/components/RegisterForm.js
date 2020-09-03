@@ -16,6 +16,8 @@ import {
   Typography,
   Paper,
   Link,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core/';
 
 import { useRegisterLoginForm } from '../styles/muiStyles';
@@ -24,6 +26,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import LockIcon from '@material-ui/icons/Lock';
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const RegisterForm = () => {
   const [userDetails, setUserDetails] = useState({
@@ -33,6 +37,7 @@ const RegisterForm = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [, authDispatch] = useAuthContext();
   const [, entryDispatch] = useEntryContext();
@@ -119,12 +124,21 @@ const RegisterForm = () => {
           <TextField
             color="secondary"
             required
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label="Password"
             value={password}
             name="password"
             onChange={handleOnChange}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </div>
         <div className={classes.input}>
@@ -135,12 +149,21 @@ const RegisterForm = () => {
           <TextField
             color="secondary"
             required
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label="Confirm Password"
             value={confirmPassword}
             name="confirmPassword"
             onChange={({ target }) => setConfirmPassword(target.value)}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </div>
 

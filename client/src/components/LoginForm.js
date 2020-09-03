@@ -142,12 +142,14 @@ const LoginForm = () => {
           </Link>
         </Typography>
 
-        <AlertBox
-          message={error.message}
-          severity={error.severity}
-          clearError={() => setError(null)}
-          title={error.title}
-        />
+        {error && (
+          <AlertBox
+            message={error.message}
+            severity={error.severity}
+            clearError={() => setError(null)}
+            title={error.title}
+          />
+        )}
       </FormControl>
     </Paper>
   );

@@ -13,6 +13,7 @@ import {
   clearNotification,
   toggleIsLoading,
 } from './context/entry/entryReducer';
+import notify from './utils/notifyDispatcher';
 
 import { Container, Paper } from '@material-ui/core/';
 import { useMainPaperStyles } from './styles/muiStyles';
@@ -43,8 +44,11 @@ const App = () => {
 
         entryDispatch(toggleIsLoading());
       } catch (err) {
-        console.log(err);
-        console.log(err.response.data.error);
+        if (err.response.data && err.response.data.error) {
+          notify(entryDispatch, `${err.response.data.error}`, 'error');
+        } else {
+          notify(entryDispatch, `${err.message}`, 'error');
+        }
       }
     };
     if (user) {

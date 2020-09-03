@@ -75,7 +75,7 @@ const RegisterForm = () => {
         'success'
       );
     } catch (err) {
-      if (err.response.data) {
+      if (err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {
         setError(err.message);

@@ -71,7 +71,7 @@ const Card = ({ entry }) => {
         'success'
       );
     } catch (err) {
-      if (err.response.data) {
+      if (err.response.data && err.response.data.error) {
         notify(dispatch, `${err.response.data.error}`, 'error');
       } else {
         notify(dispatch, `${err.message}`, 'error');
@@ -89,7 +89,7 @@ const Card = ({ entry }) => {
         'success'
       );
     } catch (err) {
-      if (err.response.data) {
+      if (err.response.data && err.response.data.error) {
         notify(dispatch, `${err.response.data.error}`, 'error');
       } else {
         notify(dispatch, `${err.message}`, 'error');
@@ -112,7 +112,7 @@ const Card = ({ entry }) => {
       dispatch(removeEntry(id));
       notify(dispatch, `Successfully deleted "${title}"!`, 'success');
     } catch (err) {
-      if (err.response.data) {
+      if (err.response.data && err.response.data.error) {
         notify(dispatch, `${err.response.data.error}`, 'error');
       } else {
         notify(dispatch, `${err.message}`, 'error');

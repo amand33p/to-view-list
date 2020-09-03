@@ -101,28 +101,36 @@ const AddUpdateForm = () => {
       });
       setTagInput('');
     } catch (err) {
-      const errRes = err.response.data.error;
+      const errRes = err.response.data;
 
-      if (errRes.includes('title') && errRes.includes('allowed length (40)')) {
-        setError(`Title field's maximum character limit is 40. `);
-      } else if (
-        errRes.includes('description') &&
-        errRes.includes('allowed length (250)')
+      if (
+        errRes &&
+        errRes.error &&
+        errRes.error.includes('title') &&
+        errRes.error.includes('allowed length (40)')
       ) {
-        setError(`Description field's maximum character limit is 250. `);
-      } else if (errRes) {
-        setError(errRes);
+        return setError(`Title field's maximum character limit is 40. `);
+      } else if (
+        errRes &&
+        errRes.error &&
+        errRes.error.includes('description') &&
+        errRes.error.includes('allowed length (250)')
+      ) {
+        return setError(`Description field's maximum character limit is 250. `);
+      } else if (errRes && errRes.error) {
+        return setError(errRes.error);
       } else {
-        setError(err);
+        return setError(err.message);
       }
     }
   };
 
   const handleTagButton = () => {
     if (tagInput === '') return;
-    if (tags.includes(tagInput))
+    if (tags.includes(tagInput)) {
       return setError(`Tags need to be unique. Two tags can't be same.`);
-    setEntry({ ...entry, tags: tags.concat(tagInput) });
+    }
+    setEntry({ ...entry, tags: tags.concat(tagInput.toLowerCase()) });
     setTagInput('');
   };
 

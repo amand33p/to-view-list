@@ -48,6 +48,9 @@ export const useFormStyles = makeStyles((theme) => ({
   tag: {
     marginLeft: 14,
     textTransform: 'uppercase',
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: 7,
+    },
   },
   tagGroup: {
     [theme.breakpoints.down('xs')]: {

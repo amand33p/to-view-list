@@ -18,7 +18,7 @@ A MERN stack app to keep track of videos/articles which you want to view in futu
 
 #### Backend-end
 - [Node.js](https://nodejs.org/en/) - Runtime environment for JS
-- [Express.js](https://expressjs.com/) - Framework for Node.js
+- [Express.js](https://expressjs.com/) - Node.js framework, makes process of building APIs easier & faster.
 - [Mongoose](https://mongoosejs.com/) - Object document mapper for Node.js
 - [MongoDB](https://www.mongodb.com/) - Database to store document-based data
 - [JSON Web Token](https://jwt.io/) - A standard to secure/authenticate HTTP requests

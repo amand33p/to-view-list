@@ -1,10 +1,31 @@
-# To-View-List App
+# To-View List MERN
 
 A MERN stack app to keep track of videos/articles which you want to view in future.
 
 ## Demo
 
-[To-View-List MERN](https://github.com/amand33p)
+[To-View List app on Heroku](https://github.com/amand33p)
+
+## Built using
+
+## Built With
+
+#### Front-end
+- [React](https://reactjs.org/)
+- [Context API w/ useReducer hooks for state management](https://reactjs.org/docs/context.html)
+- [Material-UI](https://material-ui.com/)
+
+#### Backend-end
+- [Node.js](https://nodejs.org/en/) 
+- [Express.js](https://expressjs.com/)
+- [Mongoose](https://mongoosejs.com/) 
+- [MongoDB](https://www.mongodb.com/)
+- [JSON Web Token](https://jwt.io/)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+
+
+
+
 
 ## Screenshots
 

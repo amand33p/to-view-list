@@ -17,7 +17,7 @@ A MERN stack app to keep track of videos/articles which you want to view in futu
 - [Material-UI w/ lots of CSS customisations](https://material-ui.com/) - UI library
 
 #### Backend-end
-- [Node.js](https://nodejs.org/en/) - Runtime environemnt for JS
+- [Node.js](https://nodejs.org/en/) - Runtime environment for JS
 - [Express.js](https://expressjs.com/) - Framework for Node.js
 - [Mongoose](https://mongoosejs.com/) - Object document mapper for Node.js
 - [MongoDB](https://www.mongodb.com/) - Database to store document-based data

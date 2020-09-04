@@ -11,8 +11,8 @@ A MERN stack app to keep track of videos/articles which you want to view in futu
 ## Built With
 
 #### Front-end
-- [React](https://reactjs.org/)
-- [Context API w/ useReducer hooks for state management](https://reactjs.org/docs/context.html)
+- [ReactJS](https://reactjs.org/)
+- [Context API using useContext & useReducer hooks for state management](https://reactjs.org/docs/context.html)
 - [Material-UI](https://material-ui.com/)
 
 #### Backend-end
@@ -21,7 +21,7 @@ A MERN stack app to keep track of videos/articles which you want to view in futu
 - [Mongoose](https://mongoosejs.com/) 
 - [MongoDB](https://www.mongodb.com/)
 - [JSON Web Token](https://jwt.io/)
-- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [Bcrypt.js](https://www.npmjs.com/package/bcryptjs)
 
 
 

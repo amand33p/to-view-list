@@ -30,7 +30,7 @@ A MERN stack app to keep track of videos/articles which you want to view in futu
 - Authentication (login/register with email)
 - Add/update/delete entries
 - Bookmark important stuff (by 'starring' it)
-- Mark the viewed items as 'viewed'
+- Mark the already done/read/watched items as 'viewed'
 - Search entries by title, description or tags
 - Filter entries by type (article, video or other), or by starred or viewed
 - Click on tags to show all entries containing the tag you clicked on.

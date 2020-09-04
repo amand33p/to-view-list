@@ -8,8 +8,6 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 
 ## Built using
 
-## Built With
-
 #### Front-end
 - [ReactJS](https://reactjs.org/) - Frontend framework
 - [Context API using useContext & useReducer hooks](https://reactjs.org/docs/context.html) - For state management

@@ -38,12 +38,6 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 - Toast notifications for actions such as adding new entry, or 'starring' it etc.
 - Dark mode toggle w/ local storage save
 
-## Built using:
-
-- ReactJS for frontend
-- NodeJS for backend
--
-
 ## Screenshots
 
 #### Desktop/Tablet Home

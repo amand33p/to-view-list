@@ -6,6 +6,7 @@ import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
 import { registerUser } from '../context/auth/authReducer';
 import { useEntryContext } from '../context/entry/entryState';
+import { toggleIsLoading } from '../context/entry/entryReducer';
 import storageService from '../utils/localStorageHelpers';
 import notify from '../utils/notifyDispatcher';
 
@@ -36,10 +37,11 @@ const RegisterForm = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
 
   const [, authDispatch] = useAuthContext();
-  const [, entryDispatch] = useEntryContext();
+  const [{ isLoading }, entryDispatch] = useEntryContext();
   const classes = useRegisterLoginForm();
   const history = useHistory();
 
@@ -55,11 +57,13 @@ const RegisterForm = () => {
       return setError(`Confirm password failed! Both passwords need to match.`);
     }
     try {
+      entryDispatch(toggleIsLoading());
       const user = await authService.register(userDetails);
       entryService.setToken(user.token);
       authDispatch(registerUser(user));
       storageService.saveUser(user);
 
+      entryDispatch(toggleIsLoading());
       history.push('/');
       setUserDetails({
         displayName: '',
@@ -118,7 +122,7 @@ const RegisterForm = () => {
           <TextField
             color="secondary"
             required
-            type={showPassword ? 'text' : 'password'}
+            type={showPass ? 'text' : 'password'}
             label="Password"
             value={password}
             name="password"
@@ -127,8 +131,8 @@ const RegisterForm = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  <IconButton onClick={() => setShowPass(!showPass)}>
+                    {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -143,7 +147,7 @@ const RegisterForm = () => {
           <TextField
             color="secondary"
             required
-            type={showPassword ? 'text' : 'password'}
+            type={showConfirmPass ? 'text' : 'password'}
             label="Confirm Password"
             value={confirmPassword}
             name="confirmPassword"
@@ -152,8 +156,14 @@ const RegisterForm = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  <IconButton
+                    onClick={() => setShowConfirmPass(!showConfirmPass)}
+                  >
+                    {showConfirmPass ? (
+                      <VisibilityOffIcon />
+                    ) : (
+                      <VisibilityIcon />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -168,8 +178,9 @@ const RegisterForm = () => {
           size="large"
           className={classes.submitButton}
           startIcon={<PersonAddIcon />}
+          disabled={isLoading}
         >
-          Register
+          {isLoading ? 'Registering' : 'Register'}
         </Button>
         <Typography variant="body1" className={classes.bottomText}>
           Already have an account?{' '}

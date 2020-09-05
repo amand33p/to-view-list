@@ -7,6 +7,7 @@ import {
   addEntry,
   updateEntry,
   resetEditValues,
+  toggleIsLoading,
 } from '../context/entry/entryReducer';
 import notify from '../utils/notifyDispatcher';
 
@@ -46,7 +47,8 @@ const AddUpdateForm = () => {
   const [tagInput, setTagInput] = useState('');
   const [error, setError] = useState('');
 
-  const [{ editValues }, dispatch] = useEntryContext();
+  const [{ editValues, isLoading }, dispatch] = useEntryContext();
+
   const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -71,6 +73,7 @@ const AddUpdateForm = () => {
     e.preventDefault();
     if (tags.length === 0) return setError('Atleast one tag is required.');
     try {
+      dispatch(toggleIsLoading());
       if (editValues) {
         const entryRes = await entryService.update(editValues.id, entry);
         dispatch(updateEntry(entryRes));
@@ -90,6 +93,7 @@ const AddUpdateForm = () => {
         );
       }
 
+      dispatch(toggleIsLoading());
       history.push('/');
       setEntry({
         title: '',
@@ -280,8 +284,15 @@ const AddUpdateForm = () => {
             color="primary"
             size={isMobile ? 'medium' : 'large'}
             startIcon={editValues ? <EditIcon /> : <PostAddIcon />}
+            disabled={isLoading}
           >
-            {editValues ? 'Update Entry' : 'Add Entry'}
+            {editValues
+              ? isLoading
+                ? 'Updating Entry'
+                : 'Update Entry'
+              : isLoading
+              ? 'Adding Entry'
+              : 'Add Entry'}
           </Button>
         </div>
         {error && (

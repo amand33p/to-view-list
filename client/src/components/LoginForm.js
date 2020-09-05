@@ -6,6 +6,7 @@ import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
 import { useEntryContext } from '../context/entry/entryState';
 import { loginUser } from '../context/auth/authReducer';
+import { toggleIsLoading } from '../context/entry/entryReducer';
 import storageService from '../utils/localStorageHelpers';
 import notify from '../utils/notifyDispatcher';
 
@@ -36,10 +37,11 @@ const LoginForm = () => {
     severity: 'info',
     title: 'Demo account credentials',
   });
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
   const [, authDispatch] = useAuthContext();
-  const [, entryDispatch] = useEntryContext();
+  const [{ isLoading }, entryDispatch] = useEntryContext();
+
   const classes = useRegisterLoginForm();
   const history = useHistory();
 
@@ -52,11 +54,13 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      entryDispatch(toggleIsLoading());
       const user = await authService.login(credentials);
       entryService.setToken(user.token);
       authDispatch(loginUser(user));
       storageService.saveUser(user);
 
+      entryDispatch(toggleIsLoading());
       history.push('/');
       setCredentials({
         email: '',
@@ -101,7 +105,7 @@ const LoginForm = () => {
           <TextField
             color="secondary"
             required
-            type={showPassword ? 'text' : 'password'}
+            type={showPass ? 'text' : 'password'}
             label="Password"
             value={password}
             name="password"
@@ -110,8 +114,8 @@ const LoginForm = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  <IconButton onClick={() => setShowPass(!showPass)}>
+                    {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -126,8 +130,9 @@ const LoginForm = () => {
           size="large"
           className={classes.submitButton}
           startIcon={<ExitToAppIcon />}
+          disabled={isLoading}
         >
-          Login
+          {isLoading ? 'Logging in' : 'Login'}
         </Button>
         <Typography variant="body1" className={classes.bottomText}>
           Don't have an account?{' '}

@@ -10,7 +10,6 @@ import storageService from '../utils/localStorageHelpers';
 import notify from '../utils/notifyDispatcher';
 
 import {
-  FormControl,
   TextField,
   Button,
   Typography,
@@ -79,13 +78,8 @@ const LoginForm = () => {
   };
 
   return (
-    <Paper className={classes.rootPaper}>
-      <FormControl
-        component="form"
-        onSubmit={handleLogin}
-        margin="normal"
-        className={classes.root}
-      >
+    <Paper className={classes.root}>
+      <form onSubmit={handleLogin} className={classes.form}>
         <Typography variant="h4" color="primary" className={classes.formTitle}>
           Login to your account
         </Typography>
@@ -150,7 +144,7 @@ const LoginForm = () => {
             title={error.title}
           />
         )}
-      </FormControl>
+      </form>
     </Paper>
   );
 };

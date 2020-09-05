@@ -10,7 +10,6 @@ import storageService from '../utils/localStorageHelpers';
 import notify from '../utils/notifyDispatcher';
 
 import {
-  FormControl,
   TextField,
   Button,
   Typography,
@@ -84,13 +83,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <Paper className={classes.rootPaper}>
-      <FormControl
-        component="form"
-        onSubmit={handleRegister}
-        margin="normal"
-        className={classes.root}
-      >
+    <Paper className={classes.root}>
+      <form onSubmit={handleRegister} className={classes.form}>
         <Typography variant="h4" color="primary" className={classes.formTitle}>
           Create an account
         </Typography>
@@ -190,7 +184,7 @@ const RegisterForm = () => {
             clearError={() => setError(null)}
           />
         )}
-      </FormControl>
+      </form>
     </Paper>
   );
 };

@@ -11,7 +11,6 @@ import {
 import notify from '../utils/notifyDispatcher';
 
 import {
-  FormControl,
   FormControlLabel,
   FormLabel,
   TextField,
@@ -155,12 +154,7 @@ const AddUpdateForm = () => {
 
   return (
     <Paper>
-      <FormControl
-        component="form"
-        onSubmit={handleSubmit}
-        margin="normal"
-        className={classes.root}
-      >
+      <form onSubmit={handleSubmit} className={classes.root}>
         <Typography
           variant={isMobile ? 'h5' : 'h4'}
           color="primary"
@@ -297,7 +291,7 @@ const AddUpdateForm = () => {
             clearError={() => setError(null)}
           />
         )}
-      </FormControl>
+      </form>
     </Paper>
   );
 };

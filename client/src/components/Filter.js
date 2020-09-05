@@ -3,7 +3,6 @@ import { useEntryContext } from '../context/entry/entryState';
 import { setFilterValues, resetFilter } from '../context/entry/entryReducer';
 
 import {
-  FormControl,
   Button,
   FormGroup,
   FormControlLabel,
@@ -51,77 +50,75 @@ const Filter = () => {
   };
 
   return (
-    <FormControl
-      component="form"
-      className={classes.root}
-      onSubmit={handleApplyFilter}
-    >
-      <FormGroup row className={classes.checkboxGroup}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={videos}
-              onChange={handleCheckboxChange}
-              name="videos"
-            />
-          }
-          label="Videos"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={articles}
-              onChange={handleCheckboxChange}
-              name="articles"
-            />
-          }
-          label="Articles"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={others}
-              onChange={handleCheckboxChange}
-              name="others"
-            />
-          }
-          label="Others"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={viewed}
-              onChange={handleCheckboxChange}
-              name="viewed"
-            />
-          }
-          label="Viewed"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={starred}
-              onChange={handleCheckboxChange}
-              name="starred"
-            />
-          }
-          label="Starred"
-        />
-        <Button onClick={handleUncheck} startIcon={<RotateLeftIcon />}>
-          Reset
-        </Button>
-      </FormGroup>
+    <div>
+      <form className={classes.filterForm} onSubmit={handleApplyFilter}>
+        <FormGroup row className={classes.checkboxGroup}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={videos}
+                onChange={handleCheckboxChange}
+                name="videos"
+              />
+            }
+            label="Videos"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={articles}
+                onChange={handleCheckboxChange}
+                name="articles"
+              />
+            }
+            label="Articles"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={others}
+                onChange={handleCheckboxChange}
+                name="others"
+              />
+            }
+            label="Others"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={viewed}
+                onChange={handleCheckboxChange}
+                name="viewed"
+              />
+            }
+            label="Viewed"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={starred}
+                onChange={handleCheckboxChange}
+                name="starred"
+              />
+            }
+            label="Starred"
+          />
+          <Button onClick={handleUncheck} startIcon={<RotateLeftIcon />}>
+            Reset
+          </Button>
+        </FormGroup>
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        startIcon={<FilterListIcon />}
-        className={classes.filterButton}
-      >
-        Apply Filter
-      </Button>
-    </FormControl>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          startIcon={<FilterListIcon />}
+          className={classes.filterButton}
+        >
+          Apply Filter
+        </Button>
+      </form>
+    </div>
   );
 };
 

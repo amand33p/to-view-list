@@ -193,7 +193,7 @@ export const useEntriesDisplayStyles = makeStyles((theme) => ({
 }));
 
 export const useFilterStyles = makeStyles((theme) => ({
-  root: {
+  filterForm: {
     paddingLeft: 20,
     paddingRight: 20,
     display: 'flex',
@@ -295,8 +295,15 @@ export const useNavStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useFabStyles = makeStyles((theme) => ({
+export const useTopPanelStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 15,
+    padding: 10,
+  },
+  desktopButton: {
+    margin: '8px 0px 5px 19px',
+  },
+  fab: {
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
@@ -318,6 +325,9 @@ export const useDeleteBtnStyles = makeStyles((theme) => ({
 
 export const useRegisterLoginForm = makeStyles((theme) => ({
   root: {
+    minHeight: '100%',
+  },
+  form: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -328,9 +338,6 @@ export const useRegisterLoginForm = makeStyles((theme) => ({
       paddingBottom: 60,
     },
     paddingTop: 10,
-  },
-  rootPaper: {
-    minHeight: '100%',
   },
   formTitle: {
     textAlign: 'center',

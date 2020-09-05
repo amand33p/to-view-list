@@ -6,7 +6,7 @@ import { useEntryContext } from '../context/entry/entryState';
 import { resetEditValues } from '../context/entry/entryReducer';
 
 import { Paper, Button, Fab, useMediaQuery } from '@material-ui/core';
-import { useFabStyles } from '../styles/muiStyles';
+import { useTopPanelStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
 import HideOnScroll from './HideOnScroll';
 import PostAddIcon from '@material-ui/icons/PostAdd';
@@ -16,15 +16,15 @@ const TopPanel = () => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useFabStyles();
+  const classes = useTopPanelStyles();
 
   return (
-    <Paper style={{ marginTop: 15, padding: 10 }}>
+    <Paper className={classes.root}>
       <Search />
       <Filter />
       {!isMobile ? (
         <Button
-          style={{ margin: '8px 0px 5px 19px' }}
+          className={classes.desktopButton}
           component={RouterLink}
           to="/add_update"
           size="large"
@@ -38,7 +38,7 @@ const TopPanel = () => {
       ) : (
         <HideOnScroll>
           <Fab
-            className={classes.root}
+            className={classes.fab}
             color="primary"
             component={RouterLink}
             to="/add_update"

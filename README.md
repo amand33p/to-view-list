@@ -4,24 +4,25 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 
 ## Demo
 
-[To-View List app on Heroku](https://github.com/amand33p)
+[Deployed on Heroku](https://to-view-list.herokuapp.com/)
 
 ## Built using
 
 #### Front-end
+
 - [ReactJS](https://reactjs.org/) - Frontend framework
 - [Context API using useContext & useReducer hooks](https://reactjs.org/docs/context.html) - For state management
 - [React Router](https://reactrouter.com/) - For general routing & navigation
 - [Material-UI w/ lots of CSS customisations](https://material-ui.com/) - UI library
 
 #### Backend-end
+
 - [Node.js](https://nodejs.org/en/) - Runtime environment for JS
 - [Express.js](https://expressjs.com/) - Node.js framework, makes process of building APIs easier & faster.
 - [Mongoose](https://mongoosejs.com/) - Object document mapper for Node.js
 - [MongoDB](https://www.mongodb.com/) - Database to store document-based data
 - [JSON Web Token](https://jwt.io/) - A standard to secure/authenticate HTTP requests
 - [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - For hashing passwords
-
 
 ## Features
 
@@ -56,4 +57,3 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 #### Responsive Mobile UI Home
 
 ![Responsive Mobile UI w/ FAB](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/mobile-ui.png)
-

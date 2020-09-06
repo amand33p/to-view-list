@@ -62,8 +62,8 @@ const RegisterForm = () => {
       entryService.setToken(user.token);
       authDispatch(registerUser(user));
       storageService.saveUser(user);
-
       entryDispatch(toggleIsLoading());
+
       history.push('/');
       setUserDetails({
         displayName: '',
@@ -78,6 +78,7 @@ const RegisterForm = () => {
         'success'
       );
     } catch (err) {
+      entryDispatch(toggleIsLoading());
       if (err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {

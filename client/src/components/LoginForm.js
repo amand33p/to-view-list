@@ -59,8 +59,8 @@ const LoginForm = () => {
       entryService.setToken(user.token);
       authDispatch(loginUser(user));
       storageService.saveUser(user);
-
       entryDispatch(toggleIsLoading());
+
       history.push('/');
       setCredentials({
         email: '',
@@ -73,6 +73,7 @@ const LoginForm = () => {
         'success'
       );
     } catch (err) {
+      entryDispatch(toggleIsLoading());
       if (err.response.data && err.response.data.error) {
         setError({ message: err.response.data.error, severity: 'error' });
       } else {

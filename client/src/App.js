@@ -38,12 +38,11 @@ const App = () => {
     const getAllEntries = async () => {
       try {
         entryDispatch(toggleIsLoading());
-
         const entries = await entryService.getAll();
         entryDispatch(initializeEntries(entries));
-
         entryDispatch(toggleIsLoading());
       } catch (err) {
+        entryDispatch(toggleIsLoading());
         if (err.response.data && err.response.data.error) {
           notify(entryDispatch, `${err.response.data.error}`, 'error');
         } else {

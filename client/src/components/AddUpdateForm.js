@@ -74,6 +74,7 @@ const AddUpdateForm = () => {
     if (tags.length === 0) return setError('Atleast one tag is required.');
     try {
       dispatch(toggleIsLoading());
+
       if (editValues) {
         const entryRes = await entryService.update(editValues.id, entry);
         dispatch(updateEntry(entryRes));
@@ -104,6 +105,7 @@ const AddUpdateForm = () => {
       });
       setTagInput('');
     } catch (err) {
+      dispatch(toggleIsLoading());
       const errRes = err.response.data;
 
       if (

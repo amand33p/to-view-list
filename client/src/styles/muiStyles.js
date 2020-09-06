@@ -193,7 +193,7 @@ export const useEntriesDisplayStyles = makeStyles((theme) => ({
 }));
 
 export const useFilterStyles = makeStyles((theme) => ({
-  filterForm: {
+  root: {
     paddingLeft: 20,
     paddingRight: 20,
     display: 'flex',

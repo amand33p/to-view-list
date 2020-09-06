@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useAuthContext } from '../context/auth/authState';
 import { logoutUser } from '../context/auth/authReducer';
 import { useEntryContext } from '../context/entry/entryState';
@@ -27,11 +27,18 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+
   const [{ user }, authDispatch] = useAuthContext();
   const [{ darkMode }, entryDispatch] = useEntryContext();
+
+  const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const classes = useNavStyles();
 
   const open = Boolean(anchorEl);
 
@@ -42,10 +49,6 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const classes = useNavStyles();
 
   const handleLogout = () => {
     authDispatch(logoutUser());
@@ -132,30 +135,36 @@ const NavBar = () => {
     <div className={classes.main}>
       <AppBar position="static">
         <Toolbar>
-          <div className={classes.title}>
-            <Button
-              component={RouterLink}
-              to="/"
-              startIcon={<ListAltRoundedIcon />}
-              color="inherit"
-              className={classes.titleButton}
-              size="small"
-            >
-              ToViewList
-            </Button>
-            <Typography variant="caption">
-              Made with <FavoriteIcon style={{ fontSize: 12 }} /> by{' '}
-              <Link
-                href={'https://github.com/amand33p'}
+          <div className={classes.topLeftButton}>
+            {location.pathname === '/' ? (
+              <div className={classes.logoWrapper}>
+                <Typography variant="h6" className={classes.logo}>
+                  <ListAltRoundedIcon className={classes.logoIcon} />
+                  ToViewList
+                </Typography>
+                <Typography variant="caption">
+                  Made with <FavoriteIcon style={{ fontSize: 12 }} /> by{' '}
+                  <Link
+                    href={'https://github.com/amand33p'}
+                    color="inherit"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    amand33p
+                  </Link>
+                </Typography>
+              </div>
+            ) : (
+              <Button
+                component={RouterLink}
+                to="/"
                 color="inherit"
-                target="_blank"
-                rel="noopener"
+                startIcon={<ArrowBackIcon />}
               >
-                amand33p
-              </Link>
-            </Typography>
+                Back
+              </Button>
+            )}
           </div>
-
           {isMobile ? (
             <>
               <IconButton onClick={handleMenu} color="inherit">

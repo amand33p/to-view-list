@@ -268,8 +268,10 @@ export const useNavStyles = makeStyles((theme) => ({
   main: {
     flexGrow: 1,
   },
-  title: {
+  topLeftButton: {
     flexGrow: 1,
+  },
+  logoWrapper: {
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
       flexDirection: 'column',
@@ -277,15 +279,19 @@ export const useNavStyles = makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logoIcon: {
+    marginRight: 5,
+  },
   user: {
     marginRight: 10,
   },
   titleButton: {
     textTransform: 'capitalize',
     fontSize: 20,
-    '&:hover': {
-      backgroundColor: '#88929c',
-    },
     marginRight: 12,
   },
   navButtons: {

@@ -136,7 +136,8 @@ const NavBar = () => {
       <AppBar position="static">
         <Toolbar>
           <div className={classes.topLeftButton}>
-            {location.pathname === '/' ? (
+            {location.pathname === '/' &&
+            (storageService.loadUser() || user) ? (
               <div className={classes.logoWrapper}>
                 <Typography variant="h6" className={classes.logo}>
                   <ListAltRoundedIcon className={classes.logoIcon} />

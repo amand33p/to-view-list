@@ -44,7 +44,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 
 ![Home](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/desktop-home.png)
 
-#### Add Entry & Auth forms
+#### Auth & Add Entry Form
 
 ![Add entry & auth forms](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/forms.png)
 

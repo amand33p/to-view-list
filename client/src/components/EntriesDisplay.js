@@ -45,7 +45,11 @@ const EntriesDisplay = () => {
     <div>
       <div className={classes.root}>
         <div className={classes.textAndButton}>
-          <Typography variant="h6" className={classes.infoText} color="primary">
+          <Typography
+            variant="h6"
+            className={classes.infoText}
+            color="secondary"
+          >
             {infoText}
           </Typography>
           {tag || filter || search ? (
@@ -74,8 +78,16 @@ const EntriesDisplay = () => {
             </div>
           ))}
         </div>
-      ) : (
+      ) : entriesToDisplay.length !== 0 ? (
         entriesToDisplay.map((entry) => <Card key={entry.id} entry={entry} />)
+      ) : (
+        <Typography
+          variant="h3"
+          className={classes.middleText}
+          color="secondary"
+        >
+          {search || filter ? 'No matches found.' : 'No entries added yet.'}
+        </Typography>
       )}
     </div>
   );

@@ -21,7 +21,10 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const App = () => {
   const [{ user }, authDispatch] = useAuthContext();
-  const [{ darkMode, notification }, entryDispatch] = useEntryContext();
+  const [
+    { darkMode, notification, isLoading },
+    entryDispatch,
+  ] = useEntryContext();
 
   const classes = useMainPaperStyles();
 
@@ -42,7 +45,10 @@ const App = () => {
         entryDispatch(initializeEntries(entries));
         entryDispatch(toggleIsLoading());
       } catch (err) {
-        entryDispatch(toggleIsLoading());
+        if (isLoading) {
+          entryDispatch(toggleIsLoading());
+        }
+
         if (err.response.data && err.response.data.error) {
           notify(entryDispatch, `${err.response.data.error}`, 'error');
         } else {
@@ -53,7 +59,7 @@ const App = () => {
     if (user) {
       getAllEntries();
     }
-  }, [entryDispatch, user]);
+  }, [entryDispatch, user, isLoading]);
 
   useEffect(() => {
     const isDarkMode = storageService.loadDarkMode();

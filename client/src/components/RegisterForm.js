@@ -78,7 +78,10 @@ const RegisterForm = () => {
         'success'
       );
     } catch (err) {
-      entryDispatch(toggleIsLoading());
+      if (isLoading) {
+        entryDispatch(toggleIsLoading());
+      }
+
       if (err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {

@@ -190,6 +190,10 @@ export const useEntriesDisplayStyles = makeStyles((theme) => ({
       fontSize: 12,
     },
   },
+  middleText: {
+    textAlign: 'center',
+    marginTop: 90,
+  },
 }));
 
 export const useFilterStyles = makeStyles((theme) => ({

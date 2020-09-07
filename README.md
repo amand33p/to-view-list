@@ -37,6 +37,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 - Sort entries by oldest first, newest first, A-Z (alphabetical) or Z-A (reverse alpha.)
 - Toast notifications for actions such as adding new entry, or 'starring' it etc.
 - Dark mode toggle w/ local storage save
+- Responsive UI for all screens
 
 ## Screenshots
 

@@ -15,7 +15,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 - [React Router](https://reactrouter.com/) - For general routing & navigation
 - [Material-UI w/ lots of CSS customisations](https://material-ui.com/) - UI library
 
-#### Backend-end
+#### Back-end
 
 - [Node.js](https://nodejs.org/en/) - Runtime environment for JS
 - [Express.js](https://expressjs.com/) - Node.js framework, makes process of building APIs easier & faster

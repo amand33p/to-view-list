@@ -24,7 +24,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 - [JSON Web Token](https://jwt.io/) - A standard to secure/authenticate HTTP requests
 - [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - For hashing passwords
 - [Validator.js](https://www.npmjs.com/package/validator) - For validation of JSON data
-- [Mongoose Unique Validator](https://www.npmjs.com/package/mongoose-unique-validator) - Plugin for better error handling for unique fields within Mongoose schema
+- [Mongoose Unique Validator](https://www.npmjs.com/package/mongoose-unique-validator) - Plugin for better error handling of unique fields within Mongoose schema
 - [Dotenv](https://www.npmjs.com/package/dotenv) - To load environment variables from a .env file
 
 ## Features

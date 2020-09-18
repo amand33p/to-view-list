@@ -145,12 +145,22 @@ export const useCardStyles = (isViewed, darkMode) => {
       '&:hover': {
         backgroundColor: '#ffefd8',
       },
+      [theme.breakpoints.down('xs')]: {
+        '&:hover': {
+          backgroundColor: 'transparent',
+        },
+      },
     },
     viewButton: {
       paddingRight: 8,
       borderRadius: 4,
       '&:hover': {
         backgroundColor: '#d8efed',
+      },
+      [theme.breakpoints.down('xs')]: {
+        '&:hover': {
+          backgroundColor: 'transparent',
+        },
       },
     },
     addedTime: {

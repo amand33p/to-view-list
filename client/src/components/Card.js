@@ -63,8 +63,8 @@ const Card = ({ entry }) => {
 
   const handleStarToggle = async () => {
     try {
-      await entryService.star(id);
       dispatch(toggleStarEntry(id));
+      await entryService.star(id);
       notify(
         dispatch,
         `${isStarred ? 'Un-Starred' : 'Starred'} "${title}"!`,
@@ -81,8 +81,8 @@ const Card = ({ entry }) => {
 
   const handleViewToggle = async () => {
     try {
-      await entryService.view(id);
       dispatch(toggleViewEntry(id));
+      await entryService.view(id);
       notify(
         dispatch,
         `Marked "${title}" as ${isViewed ? 'Not Viewed' : 'Viewed'}!`,

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import backendUrl from '../backendUrl';
 
-const baseUrl = '/api/entries';
+const baseUrl = `${backendUrl}/api/entries`;
 
 let token = null;
 

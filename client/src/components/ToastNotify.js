@@ -11,7 +11,7 @@ const ToastNotify = ({ open, handleClose, severity, message }) => {
       open={open}
       autoHideDuration={duration * 1000}
       onClose={handleClose}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <Alert onClose={handleClose} severity={severity}>
         {message}

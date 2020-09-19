@@ -4,7 +4,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 
 ## Demo
 
-[Deployed on Heroku](https://to-view-list.herokuapp.com/)
+[Deployed on Netlify (front-end) & Heroku (back-end)](https://toviewlist.netlify.app)
 
 ## Built using
 

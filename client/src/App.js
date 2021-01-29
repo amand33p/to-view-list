@@ -15,7 +15,7 @@ import {
 } from './context/entry/entryReducer';
 import notify from './utils/notifyDispatcher';
 
-import { Container, Paper } from '@material-ui/core/';
+import { Paper } from '@material-ui/core/';
 import { useMainPaperStyles } from './styles/muiStyles';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -44,7 +44,7 @@ const App = () => {
       } catch (err) {
         entryDispatch(toggleIsLoading());
 
-        if (err.response.data && err.response.data.error) {
+        if (err?.response?.data?.error) {
           notify(entryDispatch, `${err.response.data.error}`, 'error');
         } else {
           notify(entryDispatch, `${err.message}`, 'error');
@@ -70,7 +70,7 @@ const App = () => {
         main: darkMode ? '#949aaf' : '#4d577a',
       },
       secondary: {
-        main: darkMode ? '#d6d2e2' : '#9a8fb8',
+        main: darkMode ? '#d6d2e2' : '#6f6098',
       },
     },
   });
@@ -78,18 +78,16 @@ const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
       <Paper className={classes.root} elevation={0}>
-        <Container disableGutters>
-          {notification && (
-            <ToastNotify
-              open={Boolean(notification)}
-              handleClose={() => entryDispatch(clearNotification())}
-              severity={notification.severity}
-              message={notification.message}
-            />
-          )}
-          <NavBar />
-          <Routes />
-        </Container>
+        <NavBar />
+        <Routes />
+        {notification && (
+          <ToastNotify
+            open={Boolean(notification)}
+            handleClose={() => entryDispatch(clearNotification())}
+            severity={notification.severity}
+            message={notification.message}
+          />
+        )}
       </Paper>
     </ThemeProvider>
   );

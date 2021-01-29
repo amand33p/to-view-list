@@ -46,9 +46,7 @@ const AddUpdateForm = () => {
   });
   const [tagInput, setTagInput] = useState('');
   const [error, setError] = useState('');
-
   const [{ editValues, isLoading }, dispatch] = useEntryContext();
-
   const history = useHistory();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -104,27 +102,21 @@ const AddUpdateForm = () => {
       });
       setTagInput('');
     } catch (err) {
-      if (isLoading) {
-        dispatch(toggleIsLoading());
-      }
+      dispatch(toggleIsLoading());
 
-      const errRes = err.response.data;
+      const errRes = err?.response?.data;
 
       if (
-        errRes &&
-        errRes.error &&
-        errRes.error.includes('title') &&
-        errRes.error.includes('allowed length (40)')
+        errRes?.error.includes('title') &&
+        errRes?.error.includes('allowed length (40)')
       ) {
         return setError(`Title field's maximum character limit is 40. `);
       } else if (
-        errRes &&
-        errRes.error &&
-        errRes.error.includes('description') &&
-        errRes.error.includes('allowed length (250)')
+        errRes?.error.includes('description') &&
+        errRes?.error.includes('allowed length (250)')
       ) {
         return setError(`Description field's maximum character limit is 250. `);
-      } else if (errRes && errRes.error) {
+      } else if (errRes?.error) {
         return setError(errRes.error);
       } else {
         return setError(err.message);

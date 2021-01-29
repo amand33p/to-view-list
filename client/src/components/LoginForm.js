@@ -73,11 +73,9 @@ const LoginForm = () => {
         'success'
       );
     } catch (err) {
-      if (isLoading) {
-        entryDispatch(toggleIsLoading());
-      }
+      entryDispatch(toggleIsLoading());
 
-      if (err.response.data && err.response.data.error) {
+      if (err?.response?.data?.error) {
         setError({ message: err.response.data.error, severity: 'error' });
       } else {
         setError({ message: err.message, severity: 'error' });

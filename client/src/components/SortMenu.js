@@ -9,7 +9,6 @@ import SortIcon from '@material-ui/icons/Sort';
 const SortMenu = () => {
   const [sortBy, setSortBy] = useState('oldestfirst');
   const [, dispatch] = useEntryContext();
-
   const classes = useSortStyles();
 
   const handleSelectChange = (e) => {

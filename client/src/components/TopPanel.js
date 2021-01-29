@@ -13,7 +13,6 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const TopPanel = () => {
   const [, dispatch] = useEntryContext();
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useTopPanelStyles();

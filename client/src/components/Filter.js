@@ -22,7 +22,6 @@ const Filter = () => {
     viewed: false,
     starred: false,
   });
-
   const classes = useFilterStyles();
 
   const { videos, articles, others, viewed, starred } = filter;

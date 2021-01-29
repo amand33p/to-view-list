@@ -7,7 +7,6 @@ import {
   resetFilter,
   clearSearch,
 } from '../context/entry/entryReducer';
-
 import getEntriesArray from '../utils/getEntriesArray';
 import filterEntries from '../utils/filterEntries';
 import currentFilter from '../utils/currentFilter';
@@ -24,7 +23,6 @@ const EntriesDisplay = () => {
     { entries, filter, search, tag, isLoading },
     dispatch,
   ] = useEntryContext();
-
   const classes = useEntriesDisplayStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -41,10 +39,40 @@ const EntriesDisplay = () => {
     dispatch(clearSearch());
   };
 
+  const backButton = () => {
+    if (isMobile) {
+      return (
+        <Button
+          onClick={handleFilterReset}
+          size="small"
+          color="primary"
+          className={classes.goBackButtonRound}
+          variant="contained"
+        >
+          <ArrowBackIcon />
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        onClick={handleFilterReset}
+        startIcon={<ArrowBackIcon />}
+        className={classes.goBackButton}
+        variant="contained"
+        size="small"
+        color="primary"
+      >
+        Go Back
+      </Button>
+    );
+  };
+
   return (
     <div>
       <div className={classes.root}>
         <div className={classes.textAndButton}>
+          {(tag || filter || search) && backButton()}
           <Typography
             variant="h6"
             className={classes.infoText}
@@ -52,18 +80,6 @@ const EntriesDisplay = () => {
           >
             {infoText}
           </Typography>
-          {tag || filter || search ? (
-            <Button
-              onClick={handleFilterReset}
-              startIcon={<ArrowBackIcon />}
-              className={classes.goBackButton}
-              variant={!isMobile ? 'contained' : 'outlined'}
-              size="small"
-              color="primary"
-            >
-              {!isMobile ? 'Go Back' : 'Back'}
-            </Button>
-          ) : null}
         </div>
         <SortMenu />
       </div>
@@ -82,7 +98,7 @@ const EntriesDisplay = () => {
         entriesToDisplay.map((entry) => <Card key={entry.id} entry={entry} />)
       ) : (
         <Typography
-          variant="h3"
+          variant={isMobile ? 'h5' : 'h4'}
           className={classes.middleText}
           color="secondary"
         >

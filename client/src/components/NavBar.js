@@ -17,6 +17,7 @@ import {
   useMediaQuery,
   Switch,
   Link,
+  Container,
 } from '@material-ui/core';
 
 import { useNavStyles } from '../styles/muiStyles';
@@ -31,10 +32,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const [{ user }, authDispatch] = useAuthContext();
   const [{ darkMode }, entryDispatch] = useEntryContext();
-
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -132,9 +131,9 @@ const NavBar = () => {
   };
 
   return (
-    <div className={classes.main}>
-      <AppBar position="static">
-        <Toolbar>
+    <Container disableGutters className={classes.navContainer}>
+      <AppBar color="primary" elevation={1} position="static">
+        <Toolbar variant="dense">
           <div className={classes.topLeftButton}>
             {location.pathname === '/' ||
             !storageService.loadUser() ||
@@ -213,7 +212,7 @@ const NavBar = () => {
           )}
         </Toolbar>
       </AppBar>
-    </div>
+    </Container>
   );
 };
 

@@ -1,15 +1,13 @@
-const router = require('express').Router();
 const Entry = require('../models/entry');
 const User = require('../models/user');
 const validator = require('validator');
-const { auth } = require('../utils/middleware');
 
-router.get('/', auth, async (req, res) => {
+const getEntries = async (req, res) => {
   const entries = await Entry.find({ user: req.user });
   res.json(entries);
-});
+};
 
-router.post('/', auth, async (req, res) => {
+const addNewEntry = async (req, res) => {
   const { title, link, description, type, tags } = req.body;
 
   if (!link || !validator.isURL(link)) {
@@ -35,9 +33,9 @@ router.post('/', auth, async (req, res) => {
 
   const savedEntry = await entry.save();
   res.status(201).json(savedEntry);
-});
+};
 
-router.delete('/:id', auth, async (req, res) => {
+const deleteEntry = async (req, res) => {
   const { id: entryId } = req.params;
 
   const user = await User.findById(req.user);
@@ -59,9 +57,9 @@ router.delete('/:id', auth, async (req, res) => {
 
   await Entry.findByIdAndDelete(entryId);
   res.status(204).end();
-});
+};
 
-router.put('/:id', auth, async (req, res) => {
+const updateEntry = async (req, res) => {
   const { id: entryId } = req.params;
   const { title, link, description, type, tags } = req.body;
 
@@ -105,9 +103,9 @@ router.put('/:id', auth, async (req, res) => {
     new: true,
   });
   res.json(updatedEntry);
-});
+};
 
-router.patch('/:id/star', async (req, res) => {
+const starEntry = async (req, res) => {
   const { id: entryId } = req.params;
 
   const entry = await Entry.findById(entryId);
@@ -122,9 +120,9 @@ router.patch('/:id/star', async (req, res) => {
 
   await entry.save();
   res.status(202).end();
-});
+};
 
-router.patch('/:id/view', async (req, res) => {
+const markEntryAsViewed = async (req, res) => {
   const { id: entryId } = req.params;
 
   const entry = await Entry.findById(entryId);
@@ -139,6 +137,13 @@ router.patch('/:id/view', async (req, res) => {
 
   await entry.save();
   res.status(202).end();
-});
+};
 
-module.exports = router;
+module.exports = {
+  getEntries,
+  addNewEntry,
+  deleteEntry,
+  updateEntry,
+  starEntry,
+  markEntryAsViewed,
+};

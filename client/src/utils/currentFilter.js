@@ -1,5 +1,5 @@
 const currentFilter = (filterObj) => {
-  let currentFilterArray = [];
+  const currentFilterArray = [];
 
   for (const key in filterObj) {
     if (filterObj[key] === true) {

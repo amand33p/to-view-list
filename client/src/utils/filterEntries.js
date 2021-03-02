@@ -1,5 +1,5 @@
 const filterEntries = (filterObj, entriesArray) => {
-  let filteredArray = [];
+  const filteredArray = [];
 
   if (!filterObj || Object.values(filterObj).every((v) => v === false)) {
     return entriesArray;

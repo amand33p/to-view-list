@@ -1,4 +1,4 @@
-# ToViewList MERN
+# ToViewList | MERN
 
 A MERN stack app for management of videos/articles, you've watched/read or planning to do.
 
@@ -29,7 +29,7 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 
 ## Features
 
-- Authentication (login/register with email)
+- Authentication (login/register with email-password)
 - Add/update/delete entries
 - Add title, link, description, tags & type of link
 - Bookmark important stuff (by 'starring' it)
@@ -55,3 +55,36 @@ A MERN stack app for management of videos/articles, you've watched/read or plann
 #### Responsive Mobile UI Home
 
 ![Responsive Mobile UI w/ FAB](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/mobile-ui.png)
+
+## Usage
+
+#### Env variable:
+
+Create a .env file in server directory and add the following:
+
+```
+MONGODB_URI = "Your Mongo URI"
+PORT = 3005
+SECRET = "Your JWT secret"
+
+```
+
+#### Client:
+
+Open client/src/backendUrl.js & change "backend" variable to "https://localhost:3005"
+
+```
+cd client
+npm install
+npm start
+```
+
+#### Server:
+
+Note: Make sure that you have installed 'nodemon' as global package.
+
+```
+cd server
+npm install
+npm run dev
+```

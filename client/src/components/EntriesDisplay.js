@@ -86,8 +86,8 @@ const EntriesDisplay = () => {
       {isLoading ? (
         <div style={{ marginTop: 20 }}>
           {Array.from(new Array(3)).map((a) => (
-            <div key={a} style={{ marginBottom: 20 }}>
-              <Skeleton variant="h1" height="60px" />
+            <div key={Math.random()} style={{ marginBottom: 20 }}>
+              <Skeleton height="80px" />
               <Skeleton height="50px" />
               <Skeleton height="50px" />
               <Skeleton height="50px" />

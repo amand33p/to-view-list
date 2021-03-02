@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
-
 import { useFilterStyles } from '../styles/muiStyles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -32,9 +31,11 @@ const Filter = () => {
 
   const handleApplyFilter = (e) => {
     e.preventDefault();
-    if (!Object.values(filter).every((v) => v === false)) {
-      dispatch(setFilterValues(filter));
+    if (Object.values(filter).every((v) => v === false)) {
+      return dispatch(resetFilter());
     }
+
+    dispatch(setFilterValues(filter));
   };
 
   const handleUncheck = () => {

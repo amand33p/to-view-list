@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useEntryContext } from '../context/entry/entryState';
 import { sortEntries } from '../context/entry/entryReducer';
 
@@ -7,12 +7,10 @@ import { useSortStyles } from '../styles/muiStyles';
 import SortIcon from '@material-ui/icons/Sort';
 
 const SortMenu = () => {
-  const [sortBy, setSortBy] = useState('oldestfirst');
-  const [, dispatch] = useEntryContext();
+  const [{ sortBy }, dispatch] = useEntryContext();
   const classes = useSortStyles();
 
   const handleSelectChange = (e) => {
-    setSortBy(e.target.value);
     dispatch(sortEntries(e.target.value));
   };
 
@@ -30,8 +28,8 @@ const SortMenu = () => {
             onChange={handleSelectChange}
             className={classes.select}
           >
-            <MenuItem value="oldestfirst">Oldest first</MenuItem>
-            <MenuItem value="newestfirst">Newest first</MenuItem>
+            <MenuItem value="newest">Newest first</MenuItem>
+            <MenuItem value="oldest">Oldest first</MenuItem>
             <MenuItem value="a-z">Title: A - Z</MenuItem>
             <MenuItem value="z-a">Title: Z - A</MenuItem>
           </Select>

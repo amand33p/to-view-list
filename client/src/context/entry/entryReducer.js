@@ -79,25 +79,7 @@ const entryReducer = (state, action) => {
     case 'SORT_ENTRIES':
       return {
         ...state,
-        entries: state.entries.sort((a, b) => {
-          if (action.payload === 'oldestfirst') {
-            return new Date(a.createdAt) - new Date(b.createdAt);
-          }
-
-          if (action.payload === 'newestfirst') {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-          }
-
-          if (action.payload === 'a-z') {
-            return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-          }
-
-          if (action.payload === 'z-a') {
-            return a.title < b.title ? 1 : a.title > b.title ? -1 : 0;
-          }
-
-          return state.entries;
-        }),
+        sortBy: action.payload,
       };
     case 'TOGGLE_DARK_MODE':
       return {

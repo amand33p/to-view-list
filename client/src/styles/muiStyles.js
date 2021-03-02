@@ -249,9 +249,11 @@ export const useFilterStyles = makeStyles(
     },
     checkboxGroup: {
       [theme.breakpoints.down('xs')]: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, auto)',
+        gridTemplateRows: 'repeat(2, 40px)',
+        gridColumnGap: '15px',
+        margin: '0 auto',
       },
     },
     filterButton: {

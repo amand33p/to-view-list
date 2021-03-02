@@ -11,6 +11,7 @@ import getEntriesArray from '../utils/getEntriesArray';
 import filterEntries from '../utils/filterEntries';
 import currentFilter from '../utils/currentFilter';
 import showInfoText from '../utils/showInfoText';
+import sortEntries from '../utils/sortEntries';
 
 import { Typography, Button, useMediaQuery } from '@material-ui/core';
 import { useEntriesDisplayStyles } from '../styles/muiStyles';
@@ -20,7 +21,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const EntriesDisplay = () => {
   const [
-    { entries, filter, search, tag, isLoading },
+    { entries, filter, search, tag, sortBy, isLoading },
     dispatch,
   ] = useEntryContext();
   const classes = useEntriesDisplayStyles();
@@ -29,7 +30,10 @@ const EntriesDisplay = () => {
 
   let entriesArray = getEntriesArray(entries, search, tag);
 
-  const entriesToDisplay = filterEntries(filter, entriesArray);
+  const entriesToDisplay = sortEntries(
+    filterEntries(filter, entriesArray),
+    sortBy
+  );
 
   const infoText = showInfoText(filter, search, tag, currentFilter);
 

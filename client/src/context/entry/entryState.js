@@ -6,6 +6,7 @@ const initialState = {
   filter: null,
   search: null,
   tag: null,
+  sortBy: 'newest',
   editValues: null,
   darkMode: false,
   notification: null,

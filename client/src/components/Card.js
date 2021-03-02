@@ -203,6 +203,7 @@ const Card = ({ entry }) => {
           target="_blank"
           rel="noreferrer"
           variant="h6"
+          color="secondary"
           className={classes.link}
         >
           <LinkIcon style={{ marginRight: 8 }} />

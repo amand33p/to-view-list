@@ -17,7 +17,8 @@ import notify from './utils/notifyDispatcher';
 
 import { Paper } from '@material-ui/core/';
 import { useMainPaperStyles } from './styles/muiStyles';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import customTheme from './styles/customTheme';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 const App = () => {
   const [{ user }, authDispatch] = useAuthContext();
@@ -63,20 +64,8 @@ const App = () => {
     }
   }, [entryDispatch]);
 
-  const customTheme = createMuiTheme({
-    palette: {
-      type: darkMode ? 'dark' : 'light',
-      primary: {
-        main: darkMode ? '#949aaf' : '#4d577a',
-      },
-      secondary: {
-        main: darkMode ? '#d6d2e2' : '#6f6098',
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={customTheme}>
+    <ThemeProvider theme={customTheme(darkMode)}>
       <Paper className={classes.root} elevation={0}>
         <NavBar />
         <Routes />

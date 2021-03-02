@@ -124,18 +124,25 @@ export const useCardStyles = (isViewed, darkMode) => {
         },
       },
       tagsGroup: {
-        marginTop: 8,
+        marginBottom: '1.2em',
+        [theme.breakpoints.down('xs')]: {
+          marginBottom: '0.8em',
+        },
       },
       link: {
         display: 'flex',
         alignItems: 'center',
+        marginTop: '0.6em',
         [theme.breakpoints.down('xs')]: {
           fontSize: 16,
         },
       },
       description: {
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: '0.8em',
+        marginBottom: '1.2em',
+        [theme.breakpoints.down('xs')]: {
+          marginBottom: '1em',
+        },
       },
       edit: {
         color: '#536dfe',

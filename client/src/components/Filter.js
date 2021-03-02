@@ -106,7 +106,6 @@ const Filter = () => {
           Reset
         </Button>
       </FormGroup>
-
       <Button
         type="submit"
         variant="contained"

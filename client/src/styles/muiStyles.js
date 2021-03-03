@@ -243,16 +243,16 @@ export const useEntriesDisplayStyles = makeStyles(
 export const useFilterStyles = makeStyles(
   (theme) => ({
     root: {
-      paddingLeft: 20,
-      paddingRight: 20,
+      padding: '0 20px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+      margin: '18px 0',
       justifyContent: 'space-between',
       [theme.breakpoints.down('xs')]: {
         flexWrap: 'wrap',
-        paddingLeft: 10,
-        paddingRight: 10,
+        padding: '0 10px',
+        margin: '10px 0',
       },
     },
     checkboxGroup: {
@@ -268,6 +268,11 @@ export const useFilterStyles = makeStyles(
       [theme.breakpoints.down('xs')]: {
         marginTop: 10,
         width: '100%',
+      },
+    },
+    resetBtn: {
+      [theme.breakpoints.down('xs')]: {
+        maxHeight: '35px',
       },
     },
   }),

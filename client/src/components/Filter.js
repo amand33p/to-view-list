@@ -12,7 +12,7 @@ import { useFilterStyles } from '../styles/muiStyles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
-const Filter = () => {
+const Filter = ({ isMobile }) => {
   const [, dispatch] = useEntryContext();
   const [filter, setFilter] = useState({
     videos: false,
@@ -102,7 +102,13 @@ const Filter = () => {
           }
           label="Starred"
         />
-        <Button onClick={handleUncheck} startIcon={<RotateLeftIcon />}>
+        <Button
+          onClick={handleUncheck}
+          startIcon={<RotateLeftIcon />}
+          variant="outlined"
+          size="small"
+          className={classes.resetBtn}
+        >
           Reset
         </Button>
       </FormGroup>

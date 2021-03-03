@@ -35,6 +35,26 @@ const Search = () => {
     dispatch(clearSearch());
   };
 
+  const clearButton = () => {
+    if (isMobile) {
+      return (
+        <IconButton color="secondary" onClick={handleClear} size="small">
+          <HighlightOffIcon />
+        </IconButton>
+      );
+    }
+
+    return (
+      <Button
+        color="primary"
+        onClick={handleClear}
+        startIcon={<HighlightOffIcon />}
+      >
+        Clear
+      </Button>
+    );
+  };
+
   return (
     <div className={classes.root}>
       <TextField
@@ -55,23 +75,7 @@ const Search = () => {
           ),
           endAdornment: (
             <InputAdornment position="end">
-              {isMobile ? (
-                <IconButton
-                  color="secondary"
-                  onClick={handleClear}
-                  size="small"
-                >
-                  <HighlightOffIcon />
-                </IconButton>
-              ) : (
-                <Button
-                  color="primary"
-                  onClick={handleClear}
-                  startIcon={<HighlightOffIcon />}
-                >
-                  Clear
-                </Button>
-              )}
+              {query?.current?.value !== '' && clearButton()}
             </InputAdornment>
           ),
         }}

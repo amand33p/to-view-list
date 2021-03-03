@@ -200,7 +200,7 @@ export const useCardStyles = (isViewed, darkMode) => {
 
 export const useEntriesDisplayStyles = makeStyles(
   (theme) => ({
-    root: {
+    flexedBar: {
       padding: 15,
       paddingBottom: 0,
       display: 'flex',
@@ -209,8 +209,7 @@ export const useEntriesDisplayStyles = makeStyles(
     },
     textAndButton: {
       display: 'flex',
-      alignItems: 'center',
-      flexWrap: 'wrap',
+      alignItems: 'flex-start',
       [theme.breakpoints.down('xs')]: {
         justifyContent: 'space-between',
       },
@@ -227,7 +226,7 @@ export const useEntriesDisplayStyles = makeStyles(
       },
     },
     goBackButtonRound: {
-      minWidth: 0,
+      minWidth: '2.6em',
       borderRadius: '10em',
       marginRight: 15,
       padding: '0.4em',
@@ -235,6 +234,9 @@ export const useEntriesDisplayStyles = makeStyles(
     middleText: {
       textAlign: 'center',
       marginTop: 90,
+    },
+    sortMenuWrapper: {
+      marginLeft: 'auto',
     },
   }),
   { index: 1 }

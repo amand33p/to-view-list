@@ -74,7 +74,7 @@ const EntriesDisplay = () => {
 
   return (
     <div>
-      <div className={classes.root}>
+      <div className={classes.flexedBar}>
         <div className={classes.textAndButton}>
           {(tag || filter || search) && backButton()}
           <Typography
@@ -85,7 +85,9 @@ const EntriesDisplay = () => {
             {infoText}
           </Typography>
         </div>
-        <SortMenu />
+        <div className={classes.sortMenuWrapper}>
+          <SortMenu />
+        </div>
       </div>
       {isLoading ? (
         <div style={{ marginTop: 20 }}>

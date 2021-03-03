@@ -19,6 +19,8 @@ const Search = () => {
   const query = useRef();
   const classes = useSearchStyles();
   const [, dispatch] = useEntryContext();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleSearchChange = () => {
     if (query.current.value !== '') {
@@ -32,9 +34,6 @@ const Search = () => {
     query.current.value = '';
     dispatch(clearSearch());
   };
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <div className={classes.root}>
@@ -57,7 +56,11 @@ const Search = () => {
           endAdornment: (
             <InputAdornment position="end">
               {isMobile ? (
-                <IconButton color="secondary" onClick={handleClear}>
+                <IconButton
+                  color="secondary"
+                  onClick={handleClear}
+                  size="small"
+                >
                   <HighlightOffIcon />
                 </IconButton>
               ) : (

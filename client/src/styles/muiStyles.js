@@ -247,7 +247,7 @@ export const useFilterStyles = makeStyles(
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      margin: '18px 0',
+      margin: '15px 0',
       justifyContent: 'space-between',
       [theme.breakpoints.down('xs')]: {
         flexWrap: 'wrap',

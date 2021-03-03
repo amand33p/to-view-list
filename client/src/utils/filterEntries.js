@@ -6,38 +6,42 @@ const filterEntries = (filterObj, entriesArray) => {
   }
 
   if (filterObj.videos) {
-    const filtered = entriesArray.filter((e) => e.type === 'video');
-
-    filtered.forEach((f) =>
-      !filteredArray.includes(f) ? filteredArray.push(f) : null
+    filteredArray.push(
+      ...entriesArray.filter(
+        (e) => e.type === 'video' && !filteredArray.includes(e)
+      )
     );
   }
 
   if (filterObj.articles) {
-    const filtered = entriesArray.filter((e) => e.type === 'article');
-    filtered.forEach((f) =>
-      !filteredArray.includes(f) ? filteredArray.push(f) : null
+    filteredArray.push(
+      ...entriesArray.filter(
+        (e) => e.type === 'article' && !filteredArray.includes(e)
+      )
     );
   }
 
   if (filterObj.others) {
-    const filtered = entriesArray.filter((e) => e.type === 'other');
-    filtered.forEach((f) =>
-      !filteredArray.includes(f) ? filteredArray.push(f) : null
+    filteredArray.push(
+      ...entriesArray.filter(
+        (e) => e.type === 'other' && !filteredArray.includes(e)
+      )
     );
   }
 
   if (filterObj.viewed) {
-    const filtered = entriesArray.filter((e) => e.isViewed === true);
-    filtered.forEach((f) =>
-      !filteredArray.includes(f) ? filteredArray.push(f) : null
+    filteredArray.push(
+      ...entriesArray.filter(
+        (e) => e.isViewed === true && !filteredArray.includes(e)
+      )
     );
   }
 
   if (filterObj.starred) {
-    const filtered = entriesArray.filter((e) => e.isStarred === true);
-    filtered.forEach((f) =>
-      !filteredArray.includes(f) ? filteredArray.push(f) : null
+    filteredArray.push(
+      ...entriesArray.filter(
+        (e) => e.isStarred === true && !filteredArray.includes(e)
+      )
     );
   }
 

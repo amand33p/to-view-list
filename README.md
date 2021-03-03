@@ -71,7 +71,7 @@ SECRET = "Your JWT secret"
 
 #### Client:
 
-Open client/src/backendUrl.js & change "backend" variable to `"https://localhost:3005"`
+Open client/src/backendUrl.js & change "backend" variable to `"http://localhost:3005"`
 
 ```
 cd client

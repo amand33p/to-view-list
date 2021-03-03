@@ -61,12 +61,12 @@ const LoginForm = () => {
       storageService.saveUser(user);
       entryDispatch(toggleIsLoading());
 
-      history.push('/');
       setCredentials({
         email: '',
         password: '',
       });
       setError(null);
+      history.push('/');
       notify(
         entryDispatch,
         `Welcome, ${user.displayName}! You're logged in.`,

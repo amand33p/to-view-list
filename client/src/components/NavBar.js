@@ -65,6 +65,8 @@ const NavBar = () => {
     }
   };
 
+  const loggedUser = storageService.loadUser() || user;
+
   const mobileMenu = () => {
     return user ? (
       <div>
@@ -130,21 +132,30 @@ const NavBar = () => {
     );
   };
 
+  const darkModeSwitch = () => {
+    return (
+      <Switch
+        checked={darkMode}
+        onChange={handleDarkMode}
+        icon={<Brightness7Icon style={{ color: ' #f9a723' }} />}
+        checkedIcon={<Brightness4Icon style={{ color: '#2d7bbe' }} />}
+      />
+    );
+  };
+
   return (
     <Container disableGutters className={classes.navContainer}>
       <AppBar color="primary" elevation={1} position="static">
-        <Toolbar variant="dense">
+        <Toolbar variant="dense" disableGutters={isMobile}>
           <div className={classes.topLeftButton}>
-            {location.pathname === '/' ||
-            !storageService.loadUser() ||
-            !user ? (
+            {location.pathname === '/' || !loggedUser ? (
               <div className={classes.logoWrapper}>
                 <Typography variant="h6" className={classes.logo}>
                   <ListAltRoundedIcon className={classes.logoIcon} />
                   ToViewList
                 </Typography>
-                <Typography variant="caption">
-                  Made with <FavoriteIcon style={{ fontSize: 12 }} /> by{' '}
+                <Typography variant="caption" className={classes.madeBy}>
+                  Made with <FavoriteIcon style={{ fontSize: 11 }} /> by{' '}
                   <Link
                     href={'https://github.com/amand33p'}
                     color="inherit"
@@ -172,12 +183,12 @@ const NavBar = () => {
                 <MoreVertIcon />
               </IconButton>
               <Menu
+                keepMounted
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                keepMounted
                 transformOrigin={{
                   vertical: 'top',
                   horizontal: 'right',
@@ -188,26 +199,14 @@ const NavBar = () => {
                 {mobileMenu()}
                 <MenuItem>
                   Dark mode:
-                  <Switch
-                    checked={darkMode}
-                    onChange={handleDarkMode}
-                    icon={<Brightness7Icon style={{ color: '#fbec5d' }} />}
-                    checkedIcon={
-                      <Brightness4Icon style={{ color: '#b7bbc9' }} />
-                    }
-                  />
+                  <div>{darkModeSwitch()}</div>
                 </MenuItem>
               </Menu>
             </>
           ) : (
             <>
               {desktopMenu()}
-              <Switch
-                checked={darkMode}
-                onChange={handleDarkMode}
-                icon={<Brightness7Icon style={{ color: '#fbec5d' }} />}
-                checkedIcon={<Brightness4Icon style={{ color: '#605b79' }} />}
-              />
+              {darkModeSwitch()}
             </>
           )}
         </Toolbar>

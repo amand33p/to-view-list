@@ -136,7 +136,6 @@ const Card = ({ entry }) => {
           )}
           {title}
         </Typography>
-
         <div className={classes.endButtons}>
           {!isMobile ? (
             <>
@@ -170,28 +169,26 @@ const Card = ({ entry }) => {
             control={
               <Checkbox
                 checked={isStarred}
-                icon={<StarBorderIcon style={{ color: '#ff9800' }} />}
-                checkedIcon={<StarIcon style={{ color: '#ff9800' }} />}
+                icon={<StarBorderIcon className={classes.starIcon} />}
+                checkedIcon={<StarIcon className={classes.starIcon} />}
                 className={classes.star}
               />
             }
             label={isMobile ? '' : isStarred ? 'Starred!' : 'Star it'}
             onChange={handleStarToggle}
-            style={{ color: '#ff9800' }}
             className={classes.starButton}
           />
           <FormControlLabel
             control={
               <Checkbox
                 checked={isViewed}
-                icon={<VisibilityOutlinedIcon style={{ color: '#46aaa0' }} />}
-                checkedIcon={<VisibilityIcon style={{ color: '#46aaa0' }} />}
+                icon={<VisibilityOutlinedIcon className={classes.viewIcon} />}
+                checkedIcon={<VisibilityIcon className={classes.viewIcon} />}
                 className={classes.view}
               />
             }
             label={isMobile ? '' : isViewed ? 'Viewed!' : 'Mark as viewed'}
             onChange={handleViewToggle}
-            style={{ color: '#4db6ac' }}
             className={classes.viewButton}
           />
         </div>

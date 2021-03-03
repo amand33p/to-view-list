@@ -64,7 +64,6 @@ const RegisterForm = () => {
       storageService.saveUser(user);
       entryDispatch(toggleIsLoading());
 
-      history.push('/');
       setUserDetails({
         displayName: '',
         email: '',
@@ -72,6 +71,7 @@ const RegisterForm = () => {
       });
       setConfirmPassword('');
       setError(null);
+      history.push('/');
       notify(
         entryDispatch,
         `Welcome, ${user.displayName}! Your account has been registered.`,

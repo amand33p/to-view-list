@@ -145,7 +145,7 @@ export const useCardStyles = (isViewed, darkMode) => {
         },
       },
       edit: {
-        color: '#536dfe',
+        color: '#7a8efe',
         fontSize: 16,
         textTransform: 'capitalize',
         '&:hover': {
@@ -154,6 +154,7 @@ export const useCardStyles = (isViewed, darkMode) => {
         marginRight: 5,
       },
       starButton: {
+        color: '#ffa827',
         borderRadius: 4,
         marginLeft: 1,
         paddingRight: 8,
@@ -167,6 +168,7 @@ export const useCardStyles = (isViewed, darkMode) => {
         },
       },
       viewButton: {
+        color: '#46aaa0',
         paddingRight: 8,
         borderRadius: 4,
         '&:hover': {
@@ -177,6 +179,12 @@ export const useCardStyles = (isViewed, darkMode) => {
             backgroundColor: 'transparent',
           },
         },
+      },
+      starIcon: {
+        color: '#ffa827',
+      },
+      viewIcon: {
+        color: '#46aaa0',
       },
       addedTime: {
         marginTop: 8,
@@ -324,8 +332,15 @@ export const useNavStyles = makeStyles(
     },
     topLeftButton: {
       flexGrow: 1,
+      [theme.breakpoints.down('xs')]: {
+        marginLeft: 10,
+      },
     },
     logoWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '300px',
       [theme.breakpoints.down('xs')]: {
         display: 'flex',
         flexDirection: 'column',
@@ -336,6 +351,14 @@ export const useNavStyles = makeStyles(
     logo: {
       display: 'flex',
       alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 18,
+      },
+    },
+    madeBy: {
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 11,
+      },
     },
     logoIcon: {
       marginRight: 5,
@@ -379,7 +402,7 @@ export const useTopPanelStyles = makeStyles(
 export const useDeleteBtnStyles = makeStyles(
   () => ({
     deleteButton: {
-      color: '#ff6347',
+      color: '#ff846e',
       textTransform: 'capitalize',
       fontSize: 16,
       '&:hover': {

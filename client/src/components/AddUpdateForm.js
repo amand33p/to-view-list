@@ -36,14 +36,16 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 
+const initialInputValues = {
+  title: '',
+  link: '',
+  description: '',
+  type: 'article',
+  tags: [],
+};
+
 const AddUpdateForm = () => {
-  const [entry, setEntry] = useState({
-    title: '',
-    link: '',
-    description: '',
-    type: 'article',
-    tags: [],
-  });
+  const [entry, setEntry] = useState(initialInputValues);
   const [tagInput, setTagInput] = useState('');
   const [error, setError] = useState('');
   const [{ editValues, isLoading }, dispatch] = useEntryContext();
@@ -67,9 +69,33 @@ const AddUpdateForm = () => {
     });
   };
 
+  const handleTagButton = () => {
+    if (tagInput === '') return;
+    if (tags.includes(tagInput)) {
+      return setError(`Tags need to be unique. Two tags can't be same.`);
+    }
+    setEntry({ ...entry, tags: tags.concat(tagInput.toLowerCase()) });
+    setTagInput('');
+  };
+
+  const handleTagDelete = (targetTag) => {
+    setEntry({ ...entry, tags: tags.filter((t) => t !== targetTag) });
+  };
+
+  const handleClearInput = () => {
+    if (editValues) {
+      dispatch(resetEditValues());
+    }
+    setEntry(initialInputValues);
+    setTagInput('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (tags.length === 0) return setError('Atleast one tag is required.');
+    if (tags.length === 0) {
+      return setError('Atleast one tag is required.');
+    }
+
     try {
       dispatch(toggleIsLoading());
       if (editValues) {
@@ -92,15 +118,9 @@ const AddUpdateForm = () => {
       }
 
       dispatch(toggleIsLoading());
-      history.push('/');
-      setEntry({
-        title: '',
-        link: '',
-        description: '',
-        type: 'article',
-        tags: [],
-      });
+      setEntry(initialInputValues);
       setTagInput('');
+      history.push('/');
     } catch (err) {
       dispatch(toggleIsLoading());
 
@@ -122,34 +142,6 @@ const AddUpdateForm = () => {
         return setError(err.message);
       }
     }
-  };
-
-  const handleTagButton = () => {
-    if (tagInput === '') return;
-    if (tags.includes(tagInput)) {
-      return setError(`Tags need to be unique. Two tags can't be same.`);
-    }
-    setEntry({ ...entry, tags: tags.concat(tagInput.toLowerCase()) });
-    setTagInput('');
-  };
-
-  const handleTagDelete = (targetTag) => {
-    setEntry({ ...entry, tags: tags.filter((t) => t !== targetTag) });
-  };
-
-  const handleClearInput = () => {
-    if (editValues) {
-      dispatch(resetEditValues());
-    }
-
-    setEntry({
-      title: '',
-      link: '',
-      description: '',
-      type: 'article',
-      tags: [],
-    });
-    setTagInput('');
   };
 
   return (

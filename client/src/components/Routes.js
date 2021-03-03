@@ -13,11 +13,13 @@ import { Container } from '@material-ui/core';
 const Routes = () => {
   const [{ user }] = useAuthContext();
 
+  const loggedUser = storageService.loadUser() || user;
+
   return (
     <Container disableGutters>
       <Switch>
         <Route exact path="/">
-          {storageService.loadUser() || user ? (
+          {loggedUser ? (
             <>
               <TopPanel />
               <EntriesDisplay />
@@ -27,11 +29,7 @@ const Routes = () => {
           )}
         </Route>
         <Route exact path="/add_update">
-          {storageService.loadUser() || user ? (
-            <AddUpdateForm />
-          ) : (
-            <Redirect to="/login" />
-          )}
+          {loggedUser ? <AddUpdateForm /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/register">
           <RegisterForm />

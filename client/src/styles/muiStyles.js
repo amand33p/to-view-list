@@ -257,10 +257,9 @@ export const useFilterStyles = makeStyles(
     checkboxGroup: {
       [theme.breakpoints.down('xs')]: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, auto)',
+        gridTemplateColumns: 'repeat(3, 1fr)',
         gridTemplateRows: 'repeat(2, 40px)',
-        gridColumnGap: '15px',
-        margin: '0 auto',
+        width: '100%',
       },
     },
     filterButton: {

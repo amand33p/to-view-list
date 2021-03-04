@@ -7,12 +7,10 @@ import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 import { useAuthContext } from '../context/auth/authState';
 import storageService from '../utils/localStorageHelpers';
-
 import { Container } from '@material-ui/core';
 
 const Routes = () => {
   const [{ user }] = useAuthContext();
-
   const loggedUser = storageService.loadUser() || user;
 
   return (

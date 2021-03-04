@@ -22,7 +22,6 @@ const Filter = ({ isMobile }) => {
     starred: false,
   });
   const classes = useFilterStyles();
-
   const { videos, articles, others, viewed, starred } = filter;
 
   const handleCheckboxChange = (event) => {

@@ -9,7 +9,6 @@ import {
   IconButton,
   useMediaQuery,
 } from '@material-ui/core';
-
 import { useSearchStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';

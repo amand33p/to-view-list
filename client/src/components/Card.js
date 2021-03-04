@@ -26,10 +26,8 @@ import {
   Divider,
   Tooltip,
 } from '@material-ui/core';
-
 import { useCardStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
-
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -107,8 +105,8 @@ const Card = ({ entry }) => {
 
   const handleDelete = async () => {
     try {
-      await entryService.remove(id);
       dispatch(removeEntry(id));
+      await entryService.remove(id);
       notify(dispatch, `Successfully deleted "${title}"!`, 'success');
     } catch (err) {
       if (err?.response?.data?.error) {
@@ -164,7 +162,6 @@ const Card = ({ entry }) => {
               />
             </>
           )}
-
           <FormControlLabel
             control={
               <Checkbox
@@ -226,24 +223,19 @@ const Card = ({ entry }) => {
           </div>
         )}
         <Typography variant="body2" className={classes.addedTime}>
-          <Tooltip title={createdAt.split(' ').slice(0, 5).join(' ')}>
+          <Tooltip title={createdAt}>
             <span>
               Added:{' '}
-              <TimeAgo
-                datetime={createdAt}
-                locale="en"
-                className={classes.timestamp}
-              />
+              <TimeAgo datetime={createdAt} className={classes.timestamp} />
             </span>
           </Tooltip>
           {createdAt !== updatedAt ? (
-            <Tooltip title={updatedAt.split(' ').slice(0, 5).join(' ')}>
+            <Tooltip title={updatedAt}>
               <span>
                 {' '}
                 | Last modified:{' '}
                 <TimeAgo
                   datetime={updatedAt}
-                  locale="en"
                   className={classes.timestamp}
                 />{' '}
               </span>

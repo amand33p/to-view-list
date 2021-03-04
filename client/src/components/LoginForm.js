@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import AlertBox from './AlertBox';
+import DemoCredsBox from './DemoCredsBox';
 import authService from '../services/auth';
 import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
@@ -19,7 +20,6 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core/';
-
 import { useRegisterLoginForm } from '../styles/muiStyles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
@@ -32,19 +32,12 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
-  const [error, setError] = useState({
-    message: `email: 'test@test.com' & password: 'password'`,
-    severity: 'info',
-    title: 'Demo account credentials',
-  });
+  const [error, setError] = useState(null);
   const [showPass, setShowPass] = useState(false);
-
   const [, authDispatch] = useAuthContext();
   const [{ isLoading }, entryDispatch] = useEntryContext();
-
   const classes = useRegisterLoginForm();
   const history = useHistory();
-
   const { email, password } = credentials;
 
   const handleOnChange = (e) => {
@@ -142,7 +135,6 @@ const LoginForm = () => {
             Register.
           </Link>
         </Typography>
-
         {error && (
           <AlertBox
             message={error.message}
@@ -151,6 +143,7 @@ const LoginForm = () => {
             title={error.title}
           />
         )}
+        <DemoCredsBox />
       </form>
     </Paper>
   );

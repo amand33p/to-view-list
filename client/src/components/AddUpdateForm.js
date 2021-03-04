@@ -23,10 +23,8 @@ import {
   useMediaQuery,
   Paper,
 } from '@material-ui/core/';
-
 import { useFormStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
-
 import TitleIcon from '@material-ui/icons/Title';
 import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';

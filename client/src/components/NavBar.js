@@ -19,7 +19,6 @@ import {
   Link,
   Container,
 } from '@material-ui/core';
-
 import { useNavStyles } from '../styles/muiStyles';
 import { useTheme } from '@material-ui/core/styles';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
@@ -133,12 +132,16 @@ const NavBar = () => {
   };
 
   const darkModeSwitch = () => {
+    if (isMobile) {
+      return <Switch checked={darkMode} onChange={handleDarkMode} />;
+    }
+
     return (
       <Switch
         checked={darkMode}
         onChange={handleDarkMode}
         icon={<Brightness7Icon style={{ color: ' #f9a723' }} />}
-        checkedIcon={<Brightness4Icon style={{ color: '#2d7bbe' }} />}
+        checkedIcon={<Brightness4Icon style={{ color: '#6a0dad' }} />}
       />
     );
   };
@@ -199,7 +202,7 @@ const NavBar = () => {
                 {mobileMenu()}
                 <MenuItem>
                   Dark mode:
-                  <div>{darkModeSwitch()}</div>
+                  {darkModeSwitch()}
                 </MenuItem>
               </Menu>
             </>

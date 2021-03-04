@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import AlertBox from './AlertBox';
+import DemoCredsBox from './DemoCredsBox';
 import authService from '../services/auth';
 import entryService from '../services/entries';
 import { useAuthContext } from '../context/auth/authState';
@@ -19,7 +20,6 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core/';
-
 import { useRegisterLoginForm } from '../styles/muiStyles';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
@@ -39,12 +39,10 @@ const RegisterForm = () => {
   const [error, setError] = useState(null);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-
   const [, authDispatch] = useAuthContext();
   const [{ isLoading }, entryDispatch] = useEntryContext();
   const classes = useRegisterLoginForm();
   const history = useHistory();
-
   const { displayName, email, password } = userDetails;
 
   const handleOnChange = (e) => {
@@ -172,7 +170,6 @@ const RegisterForm = () => {
             }}
           />
         </div>
-
         <Button
           type="submit"
           variant="contained"
@@ -197,6 +194,7 @@ const RegisterForm = () => {
             clearError={() => setError(null)}
           />
         )}
+        <DemoCredsBox />
       </form>
     </Paper>
   );

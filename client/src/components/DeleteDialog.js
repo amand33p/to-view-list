@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const DeleteDialog = ({ handleDelete, title, isMobile }) => {
   const [open, setOpen] = useState(false);
+  const classes = useDeleteBtnStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,7 +25,10 @@ const DeleteDialog = ({ handleDelete, title, isMobile }) => {
     setOpen(false);
   };
 
-  const classes = useDeleteBtnStyles();
+  const handleActionClick = () => {
+    handleClose();
+    handleDelete();
+  };
 
   return (
     <div>
@@ -52,7 +56,7 @@ const DeleteDialog = ({ handleDelete, title, isMobile }) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleDelete} color="primary">
+          <Button onClick={handleActionClick} color="primary">
             Ok
           </Button>
         </DialogActions>

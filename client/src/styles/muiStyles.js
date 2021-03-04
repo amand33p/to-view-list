@@ -430,13 +430,10 @@ export const useRegisterLoginForm = makeStyles(
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      padding: 20,
+      padding: '25px 20px',
       [theme.breakpoints.up('md')]: {
-        padding: 240,
-        paddingTop: 10,
-        paddingBottom: 60,
+        padding: '50px 300px',
       },
-      paddingTop: 10,
     },
     formTitle: {
       textAlign: 'center',

@@ -20,7 +20,7 @@ const TopPanel = () => {
   return (
     <Paper className={classes.root}>
       <Search />
-      <Filter isMobile={isMobile} />
+      <Filter />
       {!isMobile ? (
         <Button
           className={classes.desktopButton}

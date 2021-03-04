@@ -12,7 +12,7 @@ import { useFilterStyles } from '../styles/muiStyles';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
-const Filter = ({ isMobile }) => {
+const Filter = () => {
   const [, dispatch] = useEntryContext();
   const [filter, setFilter] = useState({
     videos: false,

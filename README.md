@@ -1,6 +1,6 @@
 # ToViewList | MERN
 
-A MERN stack app for management of videos/articles, you've watched/read or planning to do.
+A MERN stack app to keep track of online stuff, which you may want to view.
 
 ## Demo
 

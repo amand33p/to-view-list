@@ -44,17 +44,15 @@ A MERN stack app to keep track of online stuff, which you may want to view later
 
 ## Screenshots
 
-#### Desktop/Tablet Home
+#### Desktop
 
-![Home](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/desktop-home.png)
+![Desktop-1](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/desktop-1.jpg)
+![Desktop-2](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/desktop-2.jpg)
 
-#### Auth & Add Entry Form
+#### Mobile
 
-![Add entry & auth forms](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/forms.png)
-
-#### Responsive Mobile UI Home
-
-![Responsive Mobile UI w/ FAB](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/mobile-ui.png)
+![Mobile-1](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/mobile-1.jpg)
+![Mobile-2](https://github.com/amand33p/to-view-list-mern/blob/master/screenshots/mobile-2.jpg)
 
 ## Usage
 
